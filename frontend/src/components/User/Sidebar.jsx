@@ -41,6 +41,21 @@ const Sidebar = ({ activeTab }) => {
             </div>
             {/* <!-- profile card --> */}
 
+            {user?.role === "admin" && (
+                <div className="bg-gradient-to-r from-amber-500 to-amber-600 p-3 rounded-sm shadow text-white flex flex-col gap-2">
+                    <div className="flex items-center justify-between">
+                        <span className="font-bold text-xs uppercase tracking-wider">⚡ Store Admin</span>
+                        <span className="bg-black/20 px-1.5 py-0.5 rounded text-[10px]">Full Access</span>
+                    </div>
+                    <Link
+                        to="/admin/dashboard"
+                        className="bg-white text-gray-900 hover:bg-gray-100 font-bold text-xs py-2 px-3 rounded text-center transition-colors shadow-xs"
+                    >
+                        ⚙️ Open Admin Control Panel
+                    </Link>
+                </div>
+            )}
+
             {/* <!-- nav tiles --> */}
             <div className="flex flex-col bg-white rounded-sm shadow">
 
