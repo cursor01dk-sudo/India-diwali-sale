@@ -11,6 +11,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
+import { fallbackProducts, fallbackBanners } from '../../data/storeFallbackData';
 
 const quickActions = [
     { name: "Credit Card", short: "Credit C...", icon: "/assets/banners/action_credit_card.png", link: "/products" },
@@ -88,10 +89,14 @@ const Home = () => {
         fetchBanners();
     }, [dispatch]);
 
-    // Filter banners by type
-    const heroBanners = banners.filter(b => b.type === 'hero_banner' && b.isActive !== false);
-    const carouselCards = banners.filter(b => b.type === 'carousel_card' && b.isActive !== false);
-    const wideBanners = banners.filter(b => b.type === 'wide_banner' && b.isActive !== false);
+    // Filter banners by type with instant embedded fallbacks matching local environment
+    const activeBanners = (banners && banners.length > 0) ? banners : fallbackBanners;
+    const heroBanners = activeBanners.filter(b => b.type === 'hero_banner' && b.isActive !== false);
+    const carouselCards = activeBanners.filter(b => b.type === 'carousel_card' && b.isActive !== false);
+    const wideBanners = activeBanners.filter(b => b.type === 'wide_banner' && b.isActive !== false);
+
+    // Active products: seamlessly use all 31 full products with 40-80+ reviews if API is still connecting
+    const activeProducts = (products && products.length > 0) ? products : fallbackProducts;
 
     // Interactive Infinite Looping Banner Track with Swipe / Touch Drag & Momentum
     const bannerTrackRef = useRef(null);
@@ -106,26 +111,26 @@ const Home = () => {
     const bannerHasMovedRef = useRef(false);
     const [isBannerGrabbing, setIsBannerGrabbing] = useState(false);
 
-    // Safe fallbacks matching latest screenshot
-    const activeHeroBanner = heroBanners.length > 0 ? heroBanners[0] : {
+    // Hero banner (Big Bang Diwali | Bank Offer Refreshed)
+    const activeHeroBanner = heroBanners.length > 0 ? heroBanners[0] : (fallbackBanners.find(b => b.type === 'hero_banner') || {
         _id: 'default-hero',
         title: "BIG BANG DIWALI | BANK OFFER REFRESHED",
         image: "/assets/banners/banner_bank_offer.jpg",
         link: "/products"
-    };
+    });
 
-    const activeCarouselCards = carouselCards.length > 0 ? carouselCards : [
+    const activeCarouselCards = carouselCards.length > 0 ? carouselCards : (fallbackBanners.filter(b => b.type === 'carousel_card') || [
         { _id: 'cc-1', title: "OPPO Find X10", image: "/assets/banners/poster_oppo.jpg", link: "/products" },
         { _id: 'cc-2', title: "vivo T5x 5G", image: "/assets/banners/poster_vivo.jpg", link: "/products" },
         { _id: 'cc-3', title: "acer Aspire 7", image: "/assets/banners/poster_acer.jpg", link: "/products" }
-    ];
+    ]);
 
-    const activeWideBanner = wideBanners.length > 0 ? wideBanners[0] : {
+    const activeWideBanner = wideBanners.length > 0 ? wideBanners[0] : (fallbackBanners.find(b => b.type === 'wide_banner') || {
         _id: 'wb-1',
         title: "Galaxy F70e 5G",
         image: "/assets/banners/banner_samsung.jpg",
         link: "/product/6aed7ddd4d7517e07d9ac6a0"
-    };
+    });
 
     // Quadruple cards array for infinite seamless loop
     const loopCarouselCards = activeCarouselCards.length > 0
@@ -395,10 +400,10 @@ const Home = () => {
 
                 {/* 7. BEST GADGETS & APPLIANCES SECTION */}
                 {(() => {
-                    const featuredGadgets = products ? products.filter(p => p.inBestGadgets) : [];
-                    const displayGadgets = featuredGadgets.length > 0 ? featuredGadgets : (products ? products.slice(0, 4) : []);
+                    const featuredGadgets = activeProducts ? activeProducts.filter(p => p.inBestGadgets) : [];
+                    const displayGadgets = featuredGadgets.length > 0 ? featuredGadgets : (activeProducts ? activeProducts.slice(0, 4) : []);
                     const displayedGadgetIds = new Set(displayGadgets.map(p => String(p._id)));
-                    const trendingProducts = products ? products.filter(p => !displayedGadgetIds.has(String(p._id))) : [];
+                    const trendingProducts = activeProducts ? activeProducts.filter(p => !displayedGadgetIds.has(String(p._id))) : [];
 
                     return (
                         <>

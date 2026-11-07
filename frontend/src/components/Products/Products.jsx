@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import { clearErrors, getProducts } from '../../actions/productAction';
 import Loader from '../Layouts/Loader';
 import MinCategory from '../Layouts/MinCategory';
+import { fallbackProducts } from '../../data/storeFallbackData';
 import Product from './Product';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -235,7 +236,7 @@ const Products = () => {
                             <div className="flex flex-col gap-2 pb-4 justify-center items-center w-full overflow-hidden bg-white">
 
                                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 p-2 w-full place-content-start overflow-hidden pb-4">
-                                    {products?.map((product) => (
+                                    {((products && products.length > 0) ? products : fallbackProducts).map((product) => (
                                         <Product {...product} key={product._id} />
                                     ))
                                     }

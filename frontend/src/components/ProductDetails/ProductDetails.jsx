@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,7 @@ import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { fallbackProducts } from '../../data/storeFallbackData';
 
 const ProductDetails = () => {
     const dispatch = useDispatch();
@@ -34,8 +35,15 @@ const ProductDetails = () => {
     const navigate = useNavigate();
 
     const productId = params.id;
-    const { product, loading, error } = useSelector((state) => state.productDetails);
-    const { products: allProducts } = useSelector((state) => state.products);
+    const { product: rawProduct, loading, error } = useSelector((state) => state.productDetails);
+    const { products: allProductsRaw } = useSelector((state) => state.products);
+    const product = useMemo(() => {
+        return (rawProduct && rawProduct.name) ? rawProduct : (fallbackProducts.find(p => String(p._id) === String(productId)) || rawProduct || {});
+    }, [rawProduct, productId]);
+
+    const allProducts = useMemo(() => {
+        return (allProductsRaw && allProductsRaw.length > 0) ? allProductsRaw : fallbackProducts;
+    }, [allProductsRaw]);
     const { isAuthenticated, user } = useSelector((state) => state.user);
     const { cartItems } = useSelector((state) => state.cart);
     const { wishlistItems } = useSelector((state) => state.wishlist);
