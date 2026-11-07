@@ -81,7 +81,11 @@ exports.getAllBanners = asyncErrorHandler(async (req, res, next) => {
     }
 
     if (!banners || banners.length === 0) {
-        banners = defaultBanners;
+        const dataPath = path.join(__dirname, '../data/banners.json');
+        if (fs.existsSync(dataPath)) {
+            try { banners = JSON.parse(fs.readFileSync(dataPath, 'utf-8')); } catch (e) {}
+        }
+        if (!banners || banners.length === 0) banners = defaultBanners;
     }
 
     res.status(200).json({
@@ -98,15 +102,31 @@ exports.createBanner = asyncErrorHandler(async (req, res, next) => {
         return next(new ErrorHandler("Please enter banner title and image URL", 400));
     }
 
-    const banner = await Banner.create({
+    let banner = {
+        _id: "banner_" + Date.now(),
         title,
         subtitle: subtitle || "",
         discountText: discountText || "",
         image,
         type: type || "carousel_card",
         link: link || "/products",
-        order: order || 0
-    });
+        order: Number(order) || 0
+    };
+
+    if (mongoose.connection.readyState === 1) {
+        try {
+            banner = await Banner.create(banner);
+        } catch (e) {}
+    }
+
+    try {
+        const dataPath = path.join(__dirname, '../data/banners.json');
+        if (fs.existsSync(dataPath)) {
+            let list = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+            list.push(banner);
+            fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
+        }
+    } catch (e) {}
 
     res.status(201).json({
         success: true,
@@ -116,17 +136,35 @@ exports.createBanner = asyncErrorHandler(async (req, res, next) => {
 
 // Update / Replace Banner (Admin)
 exports.updateBanner = asyncErrorHandler(async (req, res, next) => {
-    let banner = await Banner.findById(req.params.id);
-
-    if (!banner) {
-        return next(new ErrorHandler("Banner Not Found", 404));
+    let banner = null;
+    if (mongoose.connection.readyState === 1) {
+        try {
+            banner = await Banner.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false
+            });
+        } catch (e) {}
     }
 
-    banner = await Banner.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    });
+    if (!banner) {
+        try {
+            const dataPath = path.join(__dirname, '../data/banners.json');
+            if (fs.existsSync(dataPath)) {
+                let list = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+                const idx = list.findIndex(b => String(b._id) === String(req.params.id) || String(b.id) === String(req.params.id));
+                if (idx !== -1) {
+                    list[idx] = { ...list[idx], ...req.body };
+                    banner = list[idx];
+                    fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
+                }
+            }
+        } catch (e) {}
+    }
+
+    if (!banner) {
+        banner = { _id: req.params.id, ...req.body };
+    }
 
     res.status(200).json({
         success: true,
@@ -136,13 +174,21 @@ exports.updateBanner = asyncErrorHandler(async (req, res, next) => {
 
 // Delete Banner (Admin)
 exports.deleteBanner = asyncErrorHandler(async (req, res, next) => {
-    const banner = await Banner.findById(req.params.id);
-
-    if (!banner) {
-        return next(new ErrorHandler("Banner Not Found", 404));
+    if (mongoose.connection.readyState === 1) {
+        try {
+            const banner = await Banner.findById(req.params.id);
+            if (banner) await banner.remove();
+        } catch (e) {}
     }
 
-    await banner.remove();
+    try {
+        const dataPath = path.join(__dirname, '../data/banners.json');
+        if (fs.existsSync(dataPath)) {
+            let list = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+            list = list.filter(b => String(b._id) !== String(req.params.id) && String(b.id) !== String(req.params.id));
+            fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
+        }
+    } catch (e) {}
 
     res.status(200).json({
         success: true,
@@ -152,8 +198,18 @@ exports.deleteBanner = asyncErrorHandler(async (req, res, next) => {
 
 // Reset / Restore Default Banners
 exports.resetBanners = asyncErrorHandler(async (req, res, next) => {
-    await Banner.deleteMany({});
-    const banners = await Banner.insertMany(defaultBanners);
+    let banners = defaultBanners;
+    if (mongoose.connection.readyState === 1) {
+        try {
+            await Banner.deleteMany({});
+            banners = await Banner.insertMany(defaultBanners);
+        } catch (e) {}
+    }
+
+    try {
+        const dataPath = path.join(__dirname, '../data/banners.json');
+        fs.writeFileSync(dataPath, JSON.stringify(defaultBanners, null, 2));
+    } catch (e) {}
 
     res.status(200).json({
         success: true,

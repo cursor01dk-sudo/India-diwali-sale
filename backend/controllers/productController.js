@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const Product = require('../models/productModel');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
@@ -8,58 +9,131 @@ const ErrorHandler = require('../utils/errorHandler');
 const cloudinary = require('cloudinary');
 const { ensureProductReviews } = require('../utils/autoReviewGenerator');
 
+const getLocalProducts = () => {
+    try {
+        const dataPath = path.join(__dirname, '../data/products.json');
+        if (fs.existsSync(dataPath)) {
+            return JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+        }
+    } catch (e) {}
+    return [];
+};
+
 // Get All Products
 exports.getAllProducts = asyncErrorHandler(async (req, res, next) => {
-
     const resultPerPage = 24;
-    const productsCount = await Product.countDocuments();
-
-    const searchFeature = new SearchFeatures(Product.find(), req.query)
-        .search()
-        .filter()
-        .sort();
-
-    let products = await searchFeature.query;
-    let filteredProductsCount = products.length;
+    let products = [];
+    let productsCount = 0;
+    let filteredProductsCount = 0;
     let isFallback = false;
 
-    // Graceful fallback: If a category or filter returns 0 products, 
-    // fall back to showing all products from the store library so visitors never see a dead "No results found" screen
-    if (products.length === 0 && !req.query.keyword) {
+    if (mongoose.connection.readyState === 1) {
+        try {
+            productsCount = await Product.countDocuments();
+            const searchFeature = new SearchFeatures(Product.find(), req.query)
+                .search()
+                .filter()
+                .sort();
+
+            products = await searchFeature.query;
+            filteredProductsCount = products.length;
+
+            if (products.length === 0 && !req.query.keyword) {
+                const currentPage = Number(req.query.page) || 1;
+                const skipProducts = resultPerPage * (currentPage - 1);
+                products = await Product.find().sort({ isTopSelling: -1, priority: -1, createdAt: -1 }).skip(skipProducts).limit(resultPerPage);
+                filteredProductsCount = productsCount;
+                isFallback = true;
+            } else {
+                searchFeature.pagination(resultPerPage);
+                products = await searchFeature.query.clone();
+            }
+        } catch (e) {
+            products = [];
+        }
+    }
+
+    // Standalone fallback when database is not connected or returns 0
+    if (!products || products.length === 0) {
+        const allLocal = getLocalProducts();
+        let filtered = [...allLocal];
+
+        if (req.query.keyword) {
+            const kw = req.query.keyword.toLowerCase().trim();
+            filtered = filtered.filter(p =>
+                (p.name && p.name.toLowerCase().includes(kw)) ||
+                (p.description && p.description.toLowerCase().includes(kw)) ||
+                (p.category && p.category.toLowerCase().includes(kw)) ||
+                (p.brand?.name && p.brand.name.toLowerCase().includes(kw))
+            );
+        }
+
+        if (req.query.category) {
+            const cat = req.query.category.toLowerCase().trim();
+            filtered = filtered.filter(p => p.category && p.category.toLowerCase() === cat);
+        }
+
+        if (req.query['price[gte]'] || req.query['price[lte]']) {
+            const minP = Number(req.query['price[gte]']) || 0;
+            const maxP = Number(req.query['price[lte]']) || Infinity;
+            filtered = filtered.filter(p => (p.price || 0) >= minP && (p.price || 0) <= maxP);
+        }
+
+        if (filtered.length === 0 && !req.query.keyword) {
+            filtered = [...allLocal];
+            isFallback = true;
+        }
+
+        productsCount = allLocal.length;
+        filteredProductsCount = filtered.length;
+
         const currentPage = Number(req.query.page) || 1;
-        const skipProducts = resultPerPage * (currentPage - 1);
-        products = await Product.find().sort({ isTopSelling: -1, priority: -1, createdAt: -1 }).skip(skipProducts).limit(resultPerPage);
-        filteredProductsCount = productsCount;
-        isFallback = true;
-    } else {
-        searchFeature.pagination(resultPerPage);
-        products = await searchFeature.query.clone();
+        const startIndex = resultPerPage * (currentPage - 1);
+        products = filtered.slice(startIndex, startIndex + resultPerPage);
     }
 
     res.status(200).json({
         success: true,
-        products,
-        productsCount,
+        products: products || [],
+        productsCount: productsCount || (products ? products.length : 0),
         resultPerPage,
-        filteredProductsCount,
+        filteredProductsCount: filteredProductsCount || (products ? products.length : 0),
         isFallback,
     });
 });
 
 // Get All Products ---Product Sliders
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
-    const products = await Product.find().sort({ isTopSelling: -1, priority: -1, createdAt: -1 });
+    let products = [];
+    if (mongoose.connection.readyState === 1) {
+        try {
+            products = await Product.find().sort({ isTopSelling: -1, priority: -1, createdAt: -1 });
+        } catch (e) {}
+    }
+
+    if (!products || products.length === 0) {
+        products = getLocalProducts();
+    }
 
     res.status(200).json({
         success: true,
-        products,
+        products: products || [],
     });
 });
 
 // Get Product Details
 exports.getProductDetails = asyncErrorHandler(async (req, res, next) => {
+    let product = null;
+    if (mongoose.connection.readyState === 1) {
+        try {
+            product = await Product.findById(req.params.id);
+        } catch (e) {}
+    }
 
-    const product = await Product.findById(req.params.id);
+    if (!product) {
+        const allLocal = getLocalProducts();
+        product = allLocal.find(p => String(p._id) === String(req.params.id) || String(p.id) === String(req.params.id));
+    }
 
     if (!product) {
         return next(new ErrorHandler("Product Not Found", 404));
@@ -81,12 +155,7 @@ exports.getAdminProducts = asyncErrorHandler(async (req, res, next) => {
     }
 
     if (!products || products.length === 0) {
-        const dataPath = path.join(__dirname, '../data/products.json');
-        if (fs.existsSync(dataPath)) {
-            try {
-                products = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-            } catch (e) {}
-        }
+        products = getLocalProducts();
     }
 
     res.status(200).json({
@@ -94,6 +163,7 @@ exports.getAdminProducts = asyncErrorHandler(async (req, res, next) => {
         products: products || [],
     });
 });
+
 
 // Create Product ---ADMIN
 exports.createProduct = asyncErrorHandler(async (req, res, next) => {
@@ -457,8 +527,17 @@ exports.createProductReview = asyncErrorHandler(async (req, res, next) => {
 
 // Get All Reviews of Product
 exports.getProductReviews = asyncErrorHandler(async (req, res, next) => {
+    let product = null;
+    if (mongoose.connection.readyState === 1) {
+        try {
+            product = await Product.findById(req.query.id);
+        } catch (e) {}
+    }
 
-    const product = await Product.findById(req.query.id);
+    if (!product) {
+        const allLocal = getLocalProducts();
+        product = allLocal.find(p => String(p._id) === String(req.query.id) || String(p.id) === String(req.query.id));
+    }
 
     if (!product) {
         return next(new ErrorHandler("Product Not Found", 404));
@@ -466,7 +545,7 @@ exports.getProductReviews = asyncErrorHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        reviews: product.reviews
+        reviews: product.reviews || []
     });
 });
 

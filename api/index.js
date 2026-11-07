@@ -7,7 +7,8 @@ app.use(async (req, res, next) => {
     try {
         await connectDatabase();
     } catch (e) {
-        // Continue even if DB connection is delayed
+        // Routes with static fallbacks can still serve during a database outage.
+        console.error(`[Database unavailable] ${e.message}`);
     }
     next();
 });

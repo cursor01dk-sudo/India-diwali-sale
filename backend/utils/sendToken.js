@@ -1,5 +1,16 @@
+const jwt = require('jsonwebtoken');
+
 const sendToken = (user, statusCode, res) => {
-    const token = user.getJWTToken();
+    let token;
+    if (user.getJWTToken && typeof user.getJWTToken === 'function') {
+        token = user.getJWTToken();
+    } else {
+        token = jwt.sign(
+            { id: user._id || user.id, role: user.role || 'user', email: user.email },
+            process.env.JWT_SECRET || 'WFFWf15115U842UGUBWF81EE858UYBY51BGBJ5E51Q',
+            { expiresIn: process.env.JWT_EXPIRE || '7d' }
+        );
+    }
 
     const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL);
     const expireDays = Number(process.env.COOKIE_EXPIRE) || 7;
@@ -11,9 +22,12 @@ const sendToken = (user, statusCode, res) => {
         secure: isProduction,
     };
 
+    const safeUser = { ...(user._doc || user) };
+    delete safeUser.password;
+
     res.status(statusCode).cookie('token', token, options).json({
         success: true,
-        user,
+        user: safeUser,
         token,
     });
 };

@@ -38,6 +38,9 @@ import {
 } from '../constants/userConstants';
 import axios from 'axios';
 
+// Persisted bearer auth complements the HTTP-only cookie for same-origin API calls.
+axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('token') || ''}`;
+
 // Login User
 export const loginUser = (email, password) => async (dispatch) => {
     try {
@@ -58,6 +61,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
         if (data.token) {
             localStorage.setItem('token', data.token);
+            axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
         }
         if (data.user) {
             localStorage.setItem('user', JSON.stringify(data.user));
@@ -96,6 +100,7 @@ export const registerUser = (userData) => async (dispatch) => {
 
         if (data.token) {
             localStorage.setItem('token', data.token);
+            axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
         }
         if (data.user) {
             localStorage.setItem('user', JSON.stringify(data.user));
@@ -124,6 +129,7 @@ export const loadUser = () => async (dispatch) => {
 
         if (data.token) {
             localStorage.setItem('token', data.token);
+            axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
         }
         if (data.user) {
             localStorage.setItem('user', JSON.stringify(data.user));
@@ -135,18 +141,10 @@ export const loadUser = () => async (dispatch) => {
         });
 
     } catch (error) {
-        // Fallback to locally cached user session if present
-        const savedUser = localStorage.getItem('user');
-        if (savedUser) {
-            try {
-                const parsed = JSON.parse(savedUser);
-                dispatch({
-                    type: LOAD_USER_SUCCESS,
-                    payload: parsed,
-                });
-                return;
-            } catch (e) {}
-        }
+        // The server is authoritative; stale cached users must not retain admin access.
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        delete axios.defaults.headers.common.Authorization;
 
         dispatch({
             type: LOAD_USER_FAIL,
@@ -161,10 +159,12 @@ export const logoutUser = () => async (dispatch) => {
         await axios.get('/api/v1/logout');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        delete axios.defaults.headers.common.Authorization;
         dispatch({ type: LOGOUT_USER_SUCCESS });
     } catch (error) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        delete axios.defaults.headers.common.Authorization;
         dispatch({
             type: LOGOUT_USER_FAIL,
             payload: error.response?.data?.message || error.message,
