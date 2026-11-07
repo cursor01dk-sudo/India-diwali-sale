@@ -88,18 +88,6 @@ const Login = () => {
 
                                     {/* <!-- button container --> */}
                                     <div className="flex flex-col gap-2.5 mt-2 mb-32">
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                setEmail("admin@flipkart.com");
-                                                setPassword("admin123");
-                                                dispatch(loginUser("admin@flipkart.com", "admin123"));
-                                            }}
-                                            className="bg-amber-400 hover:bg-amber-500 text-gray-950 font-bold py-2.5 px-4 rounded-sm shadow text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                                        >
-                                            <span>⚡ One-Click Admin Quick Login</span>
-                                            <span className="text-[10px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-mono font-normal">admin@flipkart.com / admin123</span>
-                                        </button>
                                         <p className="text-xs text-primary-grey text-left">By continuing, you agree to Flipkart's <a href="https://www.flipkart.com/pages/terms" className="text-primary-blue"> Terms of Use</a> and <a href="https://www.flipkart.com/pages/privacypolicy" className="text-primary-blue"> Privacy Policy.</a></p>
                                         <button type="submit" className="text-white py-3 w-full bg-primary-orange shadow hover:shadow-lg rounded-sm font-medium">Login</button>
                                         <Link to="/password/forgot" className="hover:bg-gray-50 text-primary-blue text-center py-3 w-full shadow border rounded-sm font-medium">Forgot Password?</Link>
