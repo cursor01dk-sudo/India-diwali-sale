@@ -33,6 +33,15 @@ const searchPlaceholders = [
 const Header = () => {
     const navigate = useNavigate();
     const { isAuthenticated, user } = useSelector((state) => state.user);
+
+    const cachedUser = (() => {
+        try {
+            const s = localStorage.getItem('user');
+            return s ? JSON.parse(s) : null;
+        } catch (e) { return null; }
+    })();
+    const effectiveUser = user || cachedUser;
+    const effectiveAuth = isAuthenticated || Boolean(cachedUser && localStorage.getItem('token'));
     const { cartItems } = useSelector((state) => state.cart);
 
     const location = useLocation();
@@ -171,7 +180,7 @@ const Header = () => {
                     {/* Right Action Icons: Login, More, Cart */}
                     <div className="flex items-center gap-2 sm:gap-4.5 text-xs font-semibold text-gray-800 shrink-0">
                         {/* Admin Badge ONLY visible when logged in as Admin */}
-                        {isAuthenticated && user?.role === "admin" && (
+                        {effectiveAuth && effectiveUser?.role === "admin" && (
                             <Link
                                 to="/admin/dashboard"
                                 className="bg-amber-400 hover:bg-amber-500 text-gray-950 font-black px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] shadow-2xs flex items-center gap-0.5 transition-colors"
@@ -183,12 +192,12 @@ const Header = () => {
 
                         {/* Login */}
                         <Link
-                            to={isAuthenticated ? "/account" : "/login"}
+                            to={effectiveAuth ? "/account" : "/login"}
                             className="flex items-center gap-0.5 sm:gap-1 hover:text-[#2874f0] cursor-pointer"
                         >
                             <PersonOutlineOutlinedIcon sx={{ fontSize: { xs: 17, sm: 20 } }} />
                             <span className="text-[11px] sm:text-xs font-semibold">
-                                {isAuthenticated ? user?.name?.split(' ')[0] : 'Login'}
+                                {effectiveAuth ? effectiveUser?.name?.split(' ')[0] : 'Login'}
                             </span>
                             <KeyboardArrowDownIcon sx={{ fontSize: { xs: 12, sm: 15 }, color: '#4b5563' }} />
                         </Link>
@@ -205,7 +214,7 @@ const Header = () => {
 
                             {moreOpen && (
                                 <div className="absolute right-0 top-6 w-52 bg-white border border-gray-200 rounded-xl shadow-xl py-1 z-50 animate-fadeIn text-xs">
-                                    {isAuthenticated && user?.role === "admin" && (
+                                    {effectiveAuth && effectiveUser?.role === "admin" && (
                                         <>
                                             <Link
                                                 to="/admin/dashboard"

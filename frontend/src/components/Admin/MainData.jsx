@@ -16,6 +16,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { fallbackProducts } from '../../data/storeFallbackData';
 
 const MainData = () => {
     const dispatch = useDispatch();
@@ -30,8 +31,8 @@ const MainData = () => {
         dispatch(getAllUsers());
     }, [dispatch]);
 
-    // Defensive array guards
-    const safeProducts = Array.isArray(products) ? products : [];
+    // Defensive array guards with seamless store fallback
+    const safeProducts = (Array.isArray(products) && products.length > 0) ? products : fallbackProducts;
     const safeOrders = Array.isArray(orders) ? orders : [];
     const safeUsers = Array.isArray(users) ? users : [];
 

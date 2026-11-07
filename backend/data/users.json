@@ -15,6 +15,20 @@
   },
   {
     "avatar": {
+      "public_id": "admin_cursor_avatar",
+      "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
+    },
+    "_id": "6aed72e68942b29e450d6a49",
+    "name": "Store Owner",
+    "email": "cursor01dk@gmail.com",
+    "gender": "male",
+    "password": "$2a$10$v9CkBEjz9746Zrq9NPpoX.KutQPgwbINOK6sDPZievxpepSseAbv2",
+    "role": "admin",
+    "createdAt": "2026-11-06T06:25:42.809Z",
+    "__v": 0
+  },
+  {
+    "avatar": {
       "public_id": "user_1794064982639",
       "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
     },

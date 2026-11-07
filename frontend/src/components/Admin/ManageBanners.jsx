@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import MetaData from '../Layouts/MetaData';
+import { fallbackBanners } from '../../data/storeFallbackData';
 
 const presetAssets = [
     { label: "Hero: Bank Offer Refreshed", path: "/assets/banners/banner_bank_offer.jpg", type: "hero_banner" },
@@ -47,13 +48,16 @@ const ManageBanners = () => {
         setLoading(true);
         try {
             const { data } = await axios.get('/api/v1/banners');
-            if (data.success && data.banners) {
+            if (data.success && data.banners && data.banners.length > 0) {
                 setBanners(data.banners);
                 localStorage.setItem('fk_custom_banners', JSON.stringify(data.banners));
+            } else {
+                const saved = localStorage.getItem('fk_custom_banners');
+                setBanners(saved ? JSON.parse(saved) : fallbackBanners);
             }
         } catch (err) {
             const saved = localStorage.getItem('fk_custom_banners');
-            if (saved) setBanners(JSON.parse(saved));
+            setBanners(saved ? JSON.parse(saved) : fallbackBanners);
         } finally {
             setLoading(false);
         }

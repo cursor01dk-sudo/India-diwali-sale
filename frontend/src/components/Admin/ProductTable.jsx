@@ -13,6 +13,7 @@ import BackdropLoader from '../Layouts/BackdropLoader';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { fallbackProducts } from '../../data/storeFallbackData';
 
 const ProductTable = () => {
 
@@ -30,11 +31,10 @@ const ProductTable = () => {
     const [localProducts, setLocalProducts] = useState([]);
 
     useEffect(() => {
-        if (products) {
-            setLocalProducts(products);
-            const currentlyFeatured = products.filter(p => p.inBestGadgets).map(p => p._id);
-            setSelectedGadgetIds(currentlyFeatured);
-        }
+        const sourceProducts = (products && products.length > 0) ? products : fallbackProducts;
+        setLocalProducts(sourceProducts);
+        const currentlyFeatured = sourceProducts.filter(p => p.inBestGadgets).map(p => p._id);
+        setSelectedGadgetIds(currentlyFeatured);
     }, [products]);
 
     useEffect(() => {

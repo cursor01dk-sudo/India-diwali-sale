@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.12fd094f.css",
-    "main.js": "/static/js/main.b6132ceb.js",
+    "main.js": "/static/js/main.333b0878.js",
     "static/media/payment-methods.svg": "/static/media/payment-methods.69e7ec34d1302e6b58b2cb1abe6b2f9c.svg",
     "static/media/404-not-found.svg": "/static/media/404-not-found.f58b723c5e420e43683574327be5529a.svg",
     "index.html": "/index.html"
   },
   "entrypoints": [
     "static/css/main.12fd094f.css",
-    "static/js/main.b6132ceb.js"
+    "static/js/main.333b0878.js"
   ]
 }

@@ -56,6 +56,13 @@ export const loginUser = (email, password) => async (dispatch) => {
             config
         );
 
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+        }
+        if (data.user) {
+            localStorage.setItem('user', JSON.stringify(data.user));
+        }
+
         dispatch({
             type: LOGIN_USER_SUCCESS,
             payload: data.user,
@@ -64,7 +71,7 @@ export const loginUser = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: LOGIN_USER_FAIL,
-            payload: error.response.data.message,
+            payload: error.response?.data?.message || error.message,
         });
     }
 };
@@ -87,6 +94,13 @@ export const registerUser = (userData) => async (dispatch) => {
             config
         );
 
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+        }
+        if (data.user) {
+            localStorage.setItem('user', JSON.stringify(data.user));
+        }
+
         dispatch({
             type: REGISTER_USER_SUCCESS,
             payload: data.user,
@@ -95,7 +109,7 @@ export const registerUser = (userData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,
-            payload: error.response.data.message,
+            payload: error.response?.data?.message || error.message,
         });
     }
 };
@@ -108,15 +122,35 @@ export const loadUser = () => async (dispatch) => {
 
         const { data } = await axios.get('/api/v1/me');
 
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+        }
+        if (data.user) {
+            localStorage.setItem('user', JSON.stringify(data.user));
+        }
+
         dispatch({
             type: LOAD_USER_SUCCESS,
             payload: data.user,
         });
 
     } catch (error) {
+        // Fallback to locally cached user session if present
+        const savedUser = localStorage.getItem('user');
+        if (savedUser) {
+            try {
+                const parsed = JSON.parse(savedUser);
+                dispatch({
+                    type: LOAD_USER_SUCCESS,
+                    payload: parsed,
+                });
+                return;
+            } catch (e) {}
+        }
+
         dispatch({
             type: LOAD_USER_FAIL,
-            payload: error.response.data.message,
+            payload: error.response?.data?.message || error.message,
         });
     }
 };
@@ -125,11 +159,15 @@ export const loadUser = () => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
     try {
         await axios.get('/api/v1/logout');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         dispatch({ type: LOGOUT_USER_SUCCESS });
     } catch (error) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         dispatch({
             type: LOGOUT_USER_FAIL,
-            payload: error.response.data.message,
+            payload: error.response?.data?.message || error.message,
         });
     }
 };

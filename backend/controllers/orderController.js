@@ -95,8 +95,8 @@ exports.getAllOrders = asyncErrorHandler(async (req, res, next) => {
     }
 
     let totalAmount = 0;
-    orders.forEach((order) => {
-        totalAmount += order.totalPrice;
+    (orders || []).forEach((order) => {
+        totalAmount += (order.totalPrice || 0);
     });
 
     res.status(200).json({

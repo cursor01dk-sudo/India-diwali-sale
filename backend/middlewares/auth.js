@@ -4,7 +4,14 @@ const ErrorHandler = require('../utils/errorHandler');
 const asyncErrorHandler = require('./asyncErrorHandler');
 
 exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
-    const { token } = req.cookies;
+    let token = req.cookies?.token;
+
+    if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    if (!token && req.headers['x-auth-token']) {
+        token = req.headers['x-auth-token'];
+    }
 
     if (!token) {
         return next(new ErrorHandler("Please Login to Access", 401));
@@ -23,7 +30,14 @@ exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.optionalAuth = asyncErrorHandler(async (req, res, next) => {
-    const { token } = req.cookies;
+    let token = req.cookies?.token;
+
+    if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    if (!token && req.headers['x-auth-token']) {
+        token = req.headers['x-auth-token'];
+    }
 
     if (token) {
         try {
