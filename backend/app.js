@@ -46,10 +46,15 @@ const payment = require('./routes/paymentRoute');
 const banner = require('./routes/bannerRoute');
 
 app.use('/api/v1', user);
+app.use('/v1', user);
 app.use('/api/v1', product);
+app.use('/v1', product);
 app.use('/api/v1', order);
+app.use('/v1', order);
 app.use('/api/v1', payment);
+app.use('/v1', payment);
 app.use('/api/v1', banner);
+app.use('/v1', banner);
 
 // error middleware
 app.use(errorMiddleware);

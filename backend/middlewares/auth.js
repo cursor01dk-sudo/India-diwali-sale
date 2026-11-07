@@ -26,7 +26,7 @@ exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
                 if (mongoose.connection.readyState === 1) {
                     req.user = await User.findById(decodedData.id);
                 }
-            } catch (e) {}
+            } catch (e) { }
         }
         if (!req.user && decodedData && (decodedData.id === "6aed72e68942b29e450d6a48" || decodedData.id === "6aed72e68942b29e450d6a49" || decodedData.role === 'admin')) {
             req.user = {

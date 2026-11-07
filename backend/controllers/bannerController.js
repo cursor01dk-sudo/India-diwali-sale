@@ -77,13 +77,13 @@ exports.getAllBanners = asyncErrorHandler(async (req, res, next) => {
             if (!banners || banners.length === 0) {
                 banners = await Banner.insertMany(defaultBanners);
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     if (!banners || banners.length === 0) {
         const dataPath = path.join(__dirname, '../data/banners.json');
         if (fs.existsSync(dataPath)) {
-            try { banners = JSON.parse(fs.readFileSync(dataPath, 'utf-8')); } catch (e) {}
+            try { banners = JSON.parse(fs.readFileSync(dataPath, 'utf-8')); } catch (e) { }
         }
         if (!banners || banners.length === 0) banners = defaultBanners;
     }
@@ -116,7 +116,7 @@ exports.createBanner = asyncErrorHandler(async (req, res, next) => {
     if (mongoose.connection.readyState === 1) {
         try {
             banner = await Banner.create(banner);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     try {
@@ -126,7 +126,7 @@ exports.createBanner = asyncErrorHandler(async (req, res, next) => {
             list.push(banner);
             fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
         }
-    } catch (e) {}
+    } catch (e) { }
 
     res.status(201).json({
         success: true,
@@ -144,7 +144,7 @@ exports.updateBanner = asyncErrorHandler(async (req, res, next) => {
                 runValidators: true,
                 useFindAndModify: false
             });
-        } catch (e) {}
+        } catch (e) { }
     }
 
     if (!banner) {
@@ -159,7 +159,7 @@ exports.updateBanner = asyncErrorHandler(async (req, res, next) => {
                     fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
                 }
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     if (!banner) {
@@ -178,7 +178,7 @@ exports.deleteBanner = asyncErrorHandler(async (req, res, next) => {
         try {
             const banner = await Banner.findById(req.params.id);
             if (banner) await banner.remove();
-        } catch (e) {}
+        } catch (e) { }
     }
 
     try {
@@ -188,7 +188,7 @@ exports.deleteBanner = asyncErrorHandler(async (req, res, next) => {
             list = list.filter(b => String(b._id) !== String(req.params.id) && String(b.id) !== String(req.params.id));
             fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
         }
-    } catch (e) {}
+    } catch (e) { }
 
     res.status(200).json({
         success: true,
@@ -203,13 +203,13 @@ exports.resetBanners = asyncErrorHandler(async (req, res, next) => {
         try {
             await Banner.deleteMany({});
             banners = await Banner.insertMany(defaultBanners);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     try {
         const dataPath = path.join(__dirname, '../data/banners.json');
         fs.writeFileSync(dataPath, JSON.stringify(defaultBanners, null, 2));
-    } catch (e) {}
+    } catch (e) { }
 
     res.status(200).json({
         success: true,

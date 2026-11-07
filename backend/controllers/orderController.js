@@ -34,7 +34,7 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
                 return next(new ErrorHandler("Order Already Placed", 400));
             }
             order = await Order.create(order);
-        } catch (e) {}
+        } catch (e) { }
     }
 
     if (req.user && req.user.email) {
@@ -67,7 +67,7 @@ exports.getSingleOrderDetails = asyncErrorHandler(async (req, res, next) => {
     if (mongoose.connection.readyState === 1) {
         try {
             order = await Order.findById(req.params.id).populate("user", "name email");
-        } catch (e) {}
+        } catch (e) { }
     }
 
     if (!order) {
@@ -92,7 +92,7 @@ exports.myOrders = asyncErrorHandler(async (req, res, next) => {
     if (mongoose.connection.readyState === 1) {
         try {
             orders = await Order.find({ user: req.user._id });
-        } catch (e) {}
+        } catch (e) { }
     }
 
     res.status(200).json({
@@ -108,7 +108,7 @@ exports.getAllOrders = asyncErrorHandler(async (req, res, next) => {
     if (mongoose.connection.readyState === 1) {
         try {
             orders = await Order.find();
-        } catch (e) {}
+        } catch (e) { }
     }
 
     let totalAmount = 0;
