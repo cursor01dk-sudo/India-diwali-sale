@@ -1,0 +1,55 @@
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+   
+.sidebar::-webkit-scrollbar-track {
+    background-color: #1f2937;
+}
+   
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+}
+
+/* Flipkart Brand Yellow Pill - Guaranteed Deep Dark Contrast */
+.fk-logo-pill {
+    background-color: #ffe11b !important;
+    color: #111827 !important;
+    text-decoration: none !important;
+}
+
+.fk-logo-pill * {
+    color: #111827 !important;
+}
+
+.fk-logo-pill:hover {
+    background-color: #ffd800 !important;
+    color: #000000 !important;
+}
+
+.fk-logo-pill:hover * {
+    color: #000000 !important;
+}
+
+/* Sidebar Nav Links High Contrast & Crisp Readability */
+.sidebar a:not(.fk-logo-pill) {
+    color: #cbd5e1 !important;
+    text-decoration: none !important;
+}
+
+.sidebar a:not(.fk-logo-pill):hover {
+    color: #ffffff !important;
+    background-color: rgba(30, 41, 59, 0.85) !important;
+}
+
+.sidebar a[data-active="true"]:not(.fk-logo-pill) {
+    color: #ffffff !important;
+    background-color: #2874f0 !important;
+}
+
+.sidebar a[data-active="true"]:not(.fk-logo-pill) span {
+    color: #ffffff !important;
+}
+
+.sidebar a[data-active="false"]:not(.fk-logo-pill) span.nav-label {
+    color: #e2e8f0 !important;
+}

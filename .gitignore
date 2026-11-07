@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+*/node_modules/
+frontend/node_modules/
+
+# Local Payment Gateway Simulator
+Payment gateway/
+
+# Local sensitive env files
+backend/config/config.env
+.env
+*.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Git & Large artifacts
+*.zip
+*.mp4
+flipkart-source-code.zip
+vercel-deploy.zip
+vercel-deploy/
+.user_uploaded/
+.system_generated/
+scratch/

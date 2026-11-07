@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "buildCommand": "npm install --prefix frontend --legacy-peer-deps && npm run build --prefix frontend",
+  "outputDirectory": "frontend/build",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.js"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "/uploads/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

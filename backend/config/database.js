@@ -1,0 +1,28 @@
+const mongoose = require('mongoose');
+
+let isConnected = false;
+
+const connectDatabase = async () => {
+    if (isConnected && mongoose.connection.readyState === 1) {
+        return mongoose.connection;
+    }
+
+    const uri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/flipkart';
+
+    try {
+        mongoose.set('strictQuery', false);
+        const conn = await mongoose.connect(uri, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 8000,
+        });
+        isConnected = true;
+        console.log("Mongoose Connected to database");
+        return conn;
+    } catch (err) {
+        console.log(`Mongoose Connection Warning: ${err.message}`);
+        console.log("Tip: For local development, ensure MongoDB is running. For Vercel, set MONGO_URI (e.g. MongoDB Atlas) in your Vercel Project Settings > Environment Variables.");
+    }
+};
+
+module.exports = connectDatabase;
