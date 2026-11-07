@@ -1,0 +1,80 @@
+[
+  {
+    "_id": "6aed7e00f420223a963ead2c",
+    "title": "BIG BANG DIWALI | BANK OFFER REFRESHED",
+    "subtitle": "Sale is live • 10% Instant Discount on SBI Card & Flipkart Axis",
+    "discountText": "SALE IS LIVE",
+    "image": "/uploads/banner_1793967355694_271620.png",
+    "type": "hero_banner",
+    "link": "/products",
+    "order": 1,
+    "isActive": true,
+    "createdAt": "2026-11-06T07:13:04.683Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aed7e00f420223a963ead2d",
+    "title": "OPPO Find X10 | Sale is live",
+    "subtitle": "Dual 200 MP camera system • From ₹5,833/M*",
+    "discountText": "Sale is live",
+    "image": "/uploads/banner_1793967432302_464975.png",
+    "type": "carousel_card",
+    "link": "/products?keyword=oppo",
+    "order": 1,
+    "isActive": true,
+    "createdAt": "2026-11-06T07:13:04.683Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aed7e00f420223a963ead2e",
+    "title": "vivo T5x 5G | 7200 mAh",
+    "subtitle": "Segment's biggest battery* • 120Hz",
+    "discountText": "120Hz Display",
+    "image": "/uploads/banner_1793967446815_618512.png",
+    "type": "carousel_card",
+    "link": "/products?keyword=vivo",
+    "order": 2,
+    "isActive": true,
+    "createdAt": "2026-11-06T07:13:04.683Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aed7e00f420223a963ead2f",
+    "title": "acer Aspire 7 Gaming Laptop",
+    "subtitle": "From ₹92,990* • Upto Intel Core 7 | RTX 4050",
+    "discountText": "From ₹92,990*",
+    "image": "/uploads/banner_1793967453657_160088.png",
+    "type": "carousel_card",
+    "link": "/products?keyword=laptop",
+    "order": 3,
+    "isActive": true,
+    "createdAt": "2026-11-06T07:13:04.683Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aed7e00f420223a963ead30",
+    "title": "BIG BANG DIWALI SALE IS LIVE",
+    "subtitle": "Lowest Prices Guaranteed",
+    "discountText": "Lowest Prices",
+    "image": "/uploads/banner_1793967466720_732160.png",
+    "type": "carousel_card",
+    "link": "/products?keyword=diya",
+    "order": 4,
+    "isActive": true,
+    "createdAt": "2026-11-06T07:13:04.683Z",
+    "__v": 0
+  },
+  {
+    "_id": "6aed7e00f420223a963ead31",
+    "title": "Galaxy F70e 5G | From ₹16,999*",
+    "subtitle": "50MP Main Camera • Samsung Special Festive Offer",
+    "discountText": "From ₹16,999*",
+    "image": "/uploads/banner_1793967577908_454086.png",
+    "type": "wide_banner",
+    "link": "/product/6aed7ddd4d7517e07d9ac6a0",
+    "order": 1,
+    "isActive": true,
+    "createdAt": "2026-11-06T07:13:04.683Z",
+    "__v": 0
+  }
+]

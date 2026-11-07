@@ -1,0 +1,44 @@
+[
+  {
+    "avatar": {
+      "public_id": "admin_avatar",
+      "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
+    },
+    "_id": "6aed72e68942b29e450d6a48",
+    "name": "Flipkart Admin",
+    "email": "admin@flipkart.com",
+    "gender": "male",
+    "password": "$2a$10$LyEZyGWgFZt6R3Uvxi2zZ.PDBn9HhnGnetA4vBwrvjlFCgdPmsYri",
+    "role": "admin",
+    "createdAt": "2026-11-06T06:25:42.809Z",
+    "__v": 0
+  },
+  {
+    "avatar": {
+      "public_id": "user_1794064982639",
+      "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
+    },
+    "_id": "6aef425629b5343ce7df98f3",
+    "name": "Sdfdfsd",
+    "email": "sdfdfsd@gdsfdsf.com",
+    "gender": "male",
+    "password": "$2a$10$fU3tqcRhlocYZfxPJSQR0.tS4JlmHs.8av5Wl9dWI1B2RJfZIMoOW",
+    "role": "user",
+    "createdAt": "2026-11-07T15:23:02.643Z",
+    "__v": 0
+  },
+  {
+    "avatar": {
+      "public_id": "user_1794064982723",
+      "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
+    },
+    "_id": "6aef425629b5343ce7df98f6",
+    "name": "Xyz",
+    "email": "xyz@gmail.com",
+    "gender": "male",
+    "password": "$2a$10$uyD.4kJAPGKQsJDDSeAlluseWXis1LeS6h7BjXQwqbvcU8c8PzssW",
+    "role": "user",
+    "createdAt": "2026-11-07T15:23:02.723Z",
+    "__v": 0
+  }
+]

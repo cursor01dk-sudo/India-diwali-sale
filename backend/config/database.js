@@ -18,6 +18,15 @@ const connectDatabase = async () => {
         });
         isConnected = true;
         console.log("Mongoose Connected to database");
+
+        // Automatically import all 31 products, reviews, banners, and admin if database is empty
+        try {
+            const autoSyncData = require('../utils/autoSyncData');
+            await autoSyncData();
+        } catch (syncErr) {
+            console.warn("[AutoSync Warning]:", syncErr.message);
+        }
+
         return conn;
     } catch (err) {
         console.log(`Mongoose Connection Warning: ${err.message}`);
