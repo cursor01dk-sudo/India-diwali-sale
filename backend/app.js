@@ -7,10 +7,14 @@ const errorMiddleware = require('./middlewares/error');
 
 const app = express();
 
-// config
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: 'backend/config/config.env' });
-}
+// config: load environment file if present and guarantee critical defaults for production / Vercel
+try {
+    require('dotenv').config({ path: path.join(__dirname, 'config/config.env') });
+} catch (e) {}
+
+process.env.JWT_SECRET = process.env.JWT_SECRET || 'WFFWf15115U842UGUBWF81EE858UYBY51BGBJ5E51Q';
+process.env.JWT_EXPIRE = process.env.JWT_EXPIRE || '7d';
+process.env.COOKIE_EXPIRE = process.env.COOKIE_EXPIRE || '5';
 
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());

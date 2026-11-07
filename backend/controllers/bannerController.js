@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const Banner = require('../models/bannerModel');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const ErrorHandler = require('../utils/errorHandler');
@@ -69,10 +70,18 @@ const defaultBanners = [
 
 // Get All Banners (Auto-seeds defaults if empty or missing types)
 exports.getAllBanners = asyncErrorHandler(async (req, res, next) => {
-    let banners = await Banner.find().sort({ order: 1 });
+    let banners = [];
+    if (mongoose.connection.readyState === 1) {
+        try {
+            banners = await Banner.find().sort({ order: 1 });
+            if (!banners || banners.length === 0) {
+                banners = await Banner.insertMany(defaultBanners);
+            }
+        } catch (e) {}
+    }
 
     if (!banners || banners.length === 0) {
-        banners = await Banner.insertMany(defaultBanners);
+        banners = defaultBanners;
     }
 
     res.status(200).json({

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
@@ -87,11 +88,11 @@ exports.myOrders = asyncErrorHandler(async (req, res, next) => {
 
 // Get All Orders ---ADMIN
 exports.getAllOrders = asyncErrorHandler(async (req, res, next) => {
-
-    const orders = await Order.find();
-
-    if (!orders) {
-        return next(new ErrorHandler("Order Not Found", 404));
+    let orders = [];
+    if (mongoose.connection.readyState === 1) {
+        try {
+            orders = await Order.find();
+        } catch (e) {}
     }
 
     let totalAmount = 0;
@@ -101,7 +102,7 @@ exports.getAllOrders = asyncErrorHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        orders,
+        orders: orders || [],
         totalAmount,
     });
 });

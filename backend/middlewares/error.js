@@ -16,6 +16,12 @@ module.exports = (err, req, res, next) => {
         err = new ErrorHandler(message, 400);
     }
 
+    // mongoose validation error
+    if (err.name === "ValidationError") {
+        const message = Object.values(err.errors || {}).map((val) => val.message).join(", ") || "Validation Error";
+        err = new ErrorHandler(message, 400);
+    }
+
     // wrong jwt error
     if (err.code === "JsonWebTokenError") {
         const message = 'JWT Error';

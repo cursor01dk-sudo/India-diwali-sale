@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
 const Product = require('../models/productModel');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const SearchFeatures = require('../utils/searchFeatures');
@@ -72,11 +73,25 @@ exports.getProductDetails = asyncErrorHandler(async (req, res, next) => {
 
 // Get All Products ---ADMIN
 exports.getAdminProducts = asyncErrorHandler(async (req, res, next) => {
-    const products = await Product.find().sort({ isTopSelling: -1, priority: -1, createdAt: -1 });
+    let products = [];
+    if (mongoose.connection.readyState === 1) {
+        try {
+            products = await Product.find().sort({ isTopSelling: -1, priority: -1, createdAt: -1 });
+        } catch (e) {}
+    }
+
+    if (!products || products.length === 0) {
+        const dataPath = path.join(__dirname, '../data/products.json');
+        if (fs.existsSync(dataPath)) {
+            try {
+                products = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+            } catch (e) {}
+        }
+    }
 
     res.status(200).json({
         success: true,
-        products,
+        products: products || [],
     });
 });
 

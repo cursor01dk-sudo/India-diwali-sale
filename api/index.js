@@ -2,8 +2,15 @@ const cloudinary = require('cloudinary');
 const connectDatabase = require('../backend/config/database');
 const app = require('../backend/app');
 
-// Ensure database connection (handles serverless connection caching)
-connectDatabase();
+// Serverless database connection middleware (ensures DB is resolved per request)
+app.use(async (req, res, next) => {
+    try {
+        await connectDatabase();
+    } catch (e) {
+        // Continue even if DB connection is delayed
+    }
+    next();
+});
 
 // Configure Cloudinary if credentials are provided in Vercel env
 if (process.env.CLOUDINARY_NAME) {
