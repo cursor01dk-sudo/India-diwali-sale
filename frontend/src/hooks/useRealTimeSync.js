@@ -41,9 +41,14 @@ export const useRealTimeSync = () => {
 
         const handleUpiUpdated = (payload) => {
             console.log('[Real-Time Event]: Store Receiver UPI ID updated by Admin', payload);
-            if (payload && payload.data && payload.data.upiId) {
-                localStorage.setItem('merchantUpiId', payload.data.upiId);
-                window.dispatchEvent(new CustomEvent('sync:upi_settings_updated', { detail: payload.data }));
+            const upiData = payload?.data || payload;
+            if (upiData && upiData.upiId) {
+                try {
+                    localStorage.setItem('merchantUpiId', upiData.upiId);
+                    if (upiData.payeeName) localStorage.setItem('merchantPayeeName', upiData.payeeName);
+                    localStorage.setItem('merchantUpiEnabled', String(upiData.isEnabled !== false));
+                } catch (e) {}
+                window.dispatchEvent(new CustomEvent('sync:upi_settings_updated', { detail: upiData }));
             }
         };
 
@@ -69,7 +74,12 @@ export const useRealTimeSync = () => {
             axios.get('/api/v1/payment/upi-settings')
                 .then(({ data }) => {
                     if (data && data.success && data.upiId) {
-                        localStorage.setItem('merchantUpiId', data.upiId);
+                        try {
+                            localStorage.setItem('merchantUpiId', data.upiId);
+                            if (data.payeeName) localStorage.setItem('merchantPayeeName', data.payeeName);
+                            localStorage.setItem('merchantUpiEnabled', String(data.isEnabled !== false));
+                        } catch (e) {}
+                        window.dispatchEvent(new CustomEvent('sync:upi_settings_updated', { detail: data }));
                     }
                 })
                 .catch(() => {});

@@ -51,19 +51,27 @@ const Payment = () => {
     const [orderSessionRef] = useState(() => Math.floor(100000 + Math.random() * 900000));
     const [merchantUpiId, setMerchantUpiId] = useState(() => {
         try {
-            return localStorage.getItem('merchantUpiId') || 'deepakddoswala@fam';
+            return localStorage.getItem('merchantUpiId') || 'nexmartpay@icici';
         } catch (e) {
-            return 'deepakddoswala@fam';
+            return 'nexmartpay@icici';
         }
     });
     const [merchantPayeeName, setMerchantPayeeName] = useState(() => {
         try {
-            return localStorage.getItem('merchantPayeeName') || 'Flipkart Payments';
+            return localStorage.getItem('merchantPayeeName') || 'Ranga Store';
         } catch (e) {
-            return 'Flipkart Payments';
+            return 'Ranga Store';
+        }
+    });
+    const [isUpiEnabled, setIsUpiEnabled] = useState(() => {
+        try {
+            return localStorage.getItem('merchantUpiEnabled') !== 'false';
+        } catch (e) {
+            return true;
         }
     });
     const [qrNotePrefix, setQrNotePrefix] = useState('Order Product');
+    const [upiInstructions, setUpiInstructions] = useState('');
     const transactionNote = `${qrNotePrefix} FK${orderSessionRef}`;
 
     // Fetch authoritative live UPI ID configured in Admin Panel
@@ -72,15 +80,23 @@ const Payment = () => {
         const fetchUpiSettings = async () => {
             try {
                 const { data } = await axios.get('/api/v1/payment/upi-settings');
-                if (isMounted && data && data.success && data.upiId) {
-                    setMerchantUpiId(data.upiId);
-                    try { localStorage.setItem('merchantUpiId', data.upiId); } catch (e) {}
+                if (isMounted && data && data.success) {
+                    if (data.upiId) {
+                        setMerchantUpiId(data.upiId);
+                        try { localStorage.setItem('merchantUpiId', data.upiId); } catch (e) {}
+                    }
                     if (data.payeeName) {
                         setMerchantPayeeName(data.payeeName);
                         try { localStorage.setItem('merchantPayeeName', data.payeeName); } catch (e) {}
                     }
-                    if (data.qrNote) {
-                        setQrNotePrefix(data.qrNote);
+                    if (data.qrNote) setQrNotePrefix(data.qrNote);
+                    if (data.instructions) setUpiInstructions(data.instructions);
+                    
+                    const enabled = data.isEnabled !== false;
+                    setIsUpiEnabled(enabled);
+                    try { localStorage.setItem('merchantUpiEnabled', String(enabled)); } catch (e) {}
+                    if (!enabled) {
+                        setSelectedMethod('card');
                     }
                 }
             } catch (err) {}
@@ -88,10 +104,24 @@ const Payment = () => {
         fetchUpiSettings();
 
         const handleRealTimeUpiUpdate = (e) => {
-            if (e.detail && e.detail.upiId) {
-                setMerchantUpiId(e.detail.upiId);
-                if (e.detail.payeeName) setMerchantPayeeName(e.detail.payeeName);
+            if (e.detail) {
+                if (e.detail.upiId) {
+                    setMerchantUpiId(e.detail.upiId);
+                    try { localStorage.setItem('merchantUpiId', e.detail.upiId); } catch (err) {}
+                }
+                if (e.detail.payeeName) {
+                    setMerchantPayeeName(e.detail.payeeName);
+                    try { localStorage.setItem('merchantPayeeName', e.detail.payeeName); } catch (err) {}
+                }
                 if (e.detail.qrNote) setQrNotePrefix(e.detail.qrNote);
+                if (e.detail.instructions) setUpiInstructions(e.detail.instructions);
+                if (typeof e.detail.isEnabled === 'boolean') {
+                    setIsUpiEnabled(e.detail.isEnabled);
+                    try { localStorage.setItem('merchantUpiEnabled', String(e.detail.isEnabled)); } catch (err) {}
+                    if (!e.detail.isEnabled) {
+                        setSelectedMethod('card');
+                    }
+                }
             }
         };
         window.addEventListener('sync:upi_settings_updated', handleRealTimeUpiUpdate);
@@ -166,7 +196,10 @@ const Payment = () => {
 
     // Initialize YouPI Payment Session
     useEffect(() => {
-        if (!hasCartItems) return;
+        if (!hasCartItems || !isUpiEnabled) {
+            setGatewaySession(null);
+            return;
+        }
         let isMounted = true;
         const initGateway = async () => {
             try {
@@ -186,7 +219,7 @@ const Payment = () => {
         };
         initGateway();
         return () => { isMounted = false; };
-    }, [finalPayable, shippingInfo, hasCartItems, orderSessionRef]);
+    }, [finalPayable, shippingInfo, hasCartItems, orderSessionRef, isUpiEnabled]);
 
     // Authoritative polling for payment settlement / observer confirmation
     useEffect(() => {
@@ -249,6 +282,10 @@ const Payment = () => {
 
     const handleInitiatePayment = (e) => {
         if (e && e.preventDefault) e.preventDefault();
+        if (!isUpiEnabled) {
+            setSelectedMethod('card');
+            return;
+        }
         if (isProcessing) return;
 
         window.scrollTo({ top: 0, behavior: 'instant' });
@@ -389,28 +426,50 @@ const Payment = () => {
                         <div className={`lg:col-span-4 p-4 space-y-2.5 ${paymentStage === 'pending' ? 'hidden lg:block' : ''}`}>
 
                             {/* Option 1: UPI */}
-                            <div
-                                onClick={() => setSelectedMethod('upi')}
-                                className={`p-3 rounded-md border text-left flex items-start gap-3 cursor-pointer transition-all ${selectedMethod === 'upi'
-                                        ? 'border-gray-300 bg-gray-50/70 shadow-2xs'
-                                        : 'border-gray-200 hover:border-gray-300 bg-white'
-                                    }`}
-                            >
-                                <UpiPillBadge />
-                                <div className="min-w-0 flex-1">
-                                    <div className="flex items-center justify-between gap-1.5">
-                                        <span className="text-xs font-bold text-gray-900 leading-tight">
-                                            UPI
-                                        </span>
-                                        <span className="text-[10px] font-extrabold text-[#1b5e20] bg-[#eafaf1] border border-emerald-200 px-1.5 py-0.5 rounded leading-none tracking-wide">
-                                            Recommended
-                                        </span>
-                                    </div>
-                                    <div className="text-[11px] text-gray-500 mt-0.5">
-                                        Pay by any UPI app
+                            {isUpiEnabled ? (
+                                <div
+                                    onClick={() => setSelectedMethod('upi')}
+                                    className={`p-3 rounded-md border text-left flex items-start gap-3 cursor-pointer transition-all ${selectedMethod === 'upi'
+                                            ? 'border-gray-300 bg-gray-50/70 shadow-2xs'
+                                            : 'border-gray-200 hover:border-gray-300 bg-white'
+                                        }`}
+                                >
+                                    <UpiPillBadge />
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex items-center justify-between gap-1.5">
+                                            <span className="text-xs font-bold text-gray-900 leading-tight">
+                                                UPI
+                                            </span>
+                                            <span className="text-[10px] font-extrabold text-[#1b5e20] bg-[#eafaf1] border border-emerald-200 px-1.5 py-0.5 rounded leading-none tracking-wide">
+                                                Recommended
+                                            </span>
+                                        </div>
+                                        <div className="text-[11px] text-gray-500 mt-0.5">
+                                            Pay by any UPI app
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div
+                                    title="UPI payments are currently disabled by store administrator"
+                                    className="p-3 rounded-md border border-gray-200/70 bg-gray-100/70 text-left flex items-start gap-3 cursor-not-allowed opacity-60 select-none"
+                                >
+                                    <UpiPillBadge />
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex items-center justify-between gap-1.5">
+                                            <span className="text-xs font-bold text-gray-400 leading-tight">
+                                                UPI
+                                            </span>
+                                            <span className="text-[10px] font-bold text-gray-500 bg-gray-200 px-1.5 py-0.5 rounded leading-none">
+                                                Unavailable
+                                            </span>
+                                        </div>
+                                        <div className="text-[11px] text-gray-400 mt-0.5">
+                                            Temporarily disabled by store
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             {/* Option 2: Credit / Debit / ATM Card */}
                             <div
@@ -488,7 +547,30 @@ const Payment = () => {
                         {/* COLUMN 2: QR CODE & PAYMENT SCAN INTERACTION (CENTER) */}
                         <div className="lg:col-span-5 bg-[#f8fafc] border-t lg:border-t-0 lg:border-x border-gray-200/80 p-4 sm:p-5 flex flex-col items-center justify-between min-h-[460px]">
 
-                            {paymentStage === 'ready' && (
+                            {paymentStage === 'ready' && !isUpiEnabled && (
+                                <div className="w-full flex flex-col items-center justify-center py-6 px-3 my-auto text-center">
+                                    <div className="bg-white rounded-xl border border-amber-200/90 shadow-2xs p-6 flex flex-col items-center max-w-[320px]">
+                                        <div className="w-12 h-12 rounded-full bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mb-3">
+                                            <MoneyOffOutlinedIcon sx={{ fontSize: 24 }} />
+                                        </div>
+                                        <h3 className="text-sm font-bold text-gray-900 mb-1">
+                                            UPI Payments Currently Paused
+                                        </h3>
+                                        <p className="text-xs text-gray-600 mb-4 leading-relaxed">
+                                            The store administrator has temporarily paused UPI QR payments. Please select <strong>Credit / Debit Card</strong> or <strong>Net Banking</strong> to place your order.
+                                        </p>
+                                        <button
+                                            type="button"
+                                            onClick={() => setSelectedMethod('card')}
+                                            className="w-full py-2.5 px-4 bg-[#2874f0] hover:bg-blue-600 text-white font-bold text-xs rounded-lg shadow-xs transition-colors cursor-pointer"
+                                        >
+                                            Pay with Card Instead
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            {paymentStage === 'ready' && isUpiEnabled && (
                                 <div className="w-full flex flex-col items-center">
                                     <div className="flex items-center justify-center mb-3">
                                         <h2 className="text-sm font-bold text-gray-900 tracking-tight">
@@ -564,10 +646,17 @@ const Payment = () => {
                                             <span>Tap to Pay via UPI App</span>
                                         </button>
 
-                                        {/* Order Note */}
-                                        <div className="w-full mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-center gap-1 text-[10px] text-gray-500">
-                                            <span className="text-gray-400">Note:</span>
-                                            <span className="font-semibold text-gray-700">{transactionNote}</span>
+                                        {/* Order Note & Optional Merchant Instructions */}
+                                        <div className="w-full mt-2.5 pt-2 border-t border-gray-100 flex flex-col items-center gap-0.5 text-[10px] text-gray-500">
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-gray-400">Note:</span>
+                                                <span className="font-semibold text-gray-700">{transactionNote}</span>
+                                            </div>
+                                            {upiInstructions && (
+                                                <p className="text-[10px] text-blue-600 mt-1 text-center font-medium leading-tight">
+                                                    {upiInstructions}
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                 </div>

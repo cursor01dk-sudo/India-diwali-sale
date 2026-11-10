@@ -9,13 +9,17 @@ const ErrorHandler = require('../utils/errorHandler');
 const { v4: uuidv4 } = require('uuid');
 const { broadcastSync, EVENTS } = require('../sockets/socketServer');
 const { recordActivity } = require('../utils/activityLogger');
+const UpiConfig = require('../models/upiConfigModel');
+const mongoose = require('mongoose');
 
 const paymentConfigFile = path.join(__dirname, '../data/paymentConfig.json');
 
 let inMemoryPaymentConfig = {
-    upiId: process.env.MERCHANT_UPI_ID || 'deepakddoswala@fam',
-    payeeName: process.env.MERCHANT_PAYEE_NAME || 'Flipkart Payments',
+    upiId: process.env.MERCHANT_UPI_ID || 'nexmartpay@icici',
+    payeeName: process.env.MERCHANT_PAYEE_NAME || 'Ranga Store',
+    isEnabled: true,
     qrNote: 'Order Product',
+    instructions: 'Scan this QR code using any UPI app (GPay, PhonePe, Paytm, BHIM) to complete your payment.',
     updatedAt: new Date().toISOString()
 };
 
@@ -35,6 +39,45 @@ function getPaymentConfig() {
         }
     } catch (e) {}
     return inMemoryPaymentConfig;
+}
+
+// Fetch authoritative UPI configuration from MongoDB Atlas with memory/file fallback
+async function fetchAuthoritativeUpiConfig() {
+    if (mongoose.connection.readyState === 1) {
+        try {
+            let doc = await UpiConfig.findOne();
+            if (!doc) {
+                doc = await UpiConfig.create({
+                    upiId: inMemoryPaymentConfig.upiId,
+                    payeeName: inMemoryPaymentConfig.payeeName,
+                    isEnabled: inMemoryPaymentConfig.isEnabled !== false,
+                    qrNote: inMemoryPaymentConfig.qrNote,
+                    instructions: inMemoryPaymentConfig.instructions
+                });
+            }
+            if (doc) {
+                inMemoryPaymentConfig = {
+                    upiId: doc.upiId,
+                    payeeName: doc.payeeName,
+                    isEnabled: doc.isEnabled !== false,
+                    qrNote: doc.qrNote || 'Order Product',
+                    instructions: doc.instructions || 'Scan this QR code using any UPI app (GPay, PhonePe, Paytm, BHIM) to complete your payment.',
+                    updatedAt: doc.updatedAt ? doc.updatedAt.toISOString() : new Date().toISOString()
+                };
+                return inMemoryPaymentConfig;
+            }
+        } catch (err) {
+            console.warn('[UpiConfig]: MongoDB fetch warning, using cache/file:', err.message);
+        }
+    }
+    return getPaymentConfig();
+}
+
+// Helper to generate a valid NPCI UPI payment intent URI
+function buildUpiPaymentUri(upiId, payeeName, amount, orderRef, qrNote) {
+    const cleanAmount = Number(amount || 1).toFixed(2);
+    const note = `${qrNote || 'Order Product'} ${orderRef ? `FK${orderRef}` : ''}`.trim();
+    return `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${cleanAmount}&cu=INR&tn=${encodeURIComponent(note)}`;
 }
 
 // exports.processPayment = asyncErrorHandler(async (req, res, next) => {
@@ -207,9 +250,19 @@ exports.createYoupiSession = asyncErrorHandler(async (req, res, next) => {
     const merchantKey = process.env.YOUPI_MERCHANT_KEY || 'mk_live_26f4b793d576a9ebd1837e533ad46599e63ad7be10f20748';
     const returnUrl = process.env.YOUPI_RETURN_URL || `${origin}/orders/success`;
 
-    const paymentConfig = getPaymentConfig();
-    const merchantUpiId = paymentConfig.upiId || 'deepakddoswala@fam';
-    const merchantPayeeName = paymentConfig.payeeName || 'Flipkart Payments';
+    const paymentConfig = await fetchAuthoritativeUpiConfig();
+
+    // Enforce Global UPI enable/disable check on backend
+    if (paymentConfig.isEnabled === false) {
+        return res.status(403).json({
+            success: false,
+            isUpiDisabled: true,
+            message: "UPI payments are currently disabled by the store. Please choose an alternative payment method (Cards or Net Banking)."
+        });
+    }
+
+    const merchantUpiId = paymentConfig.upiId || 'nexmartpay@icici';
+    const merchantPayeeName = paymentConfig.payeeName || 'Ranga Store';
 
     const randomRef = Math.floor(100000 + Math.random() * 900000);
     const cleanOrderId = orderId || `FK_${Date.now()}_${randomRef}`;
@@ -217,7 +270,7 @@ exports.createYoupiSession = asyncErrorHandler(async (req, res, next) => {
 
     // Build authoritative UPI URI using merchant credentials and dynamic amount + order notes
     const transactionNote = `${paymentConfig.qrNote || 'Order Product'} FK${randomRef}`;
-    const upiString = `upi://pay?pa=${encodeURIComponent(merchantUpiId)}&pn=${encodeURIComponent(merchantPayeeName)}&am=${cleanAmount}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
+    const upiString = buildUpiPaymentUri(merchantUpiId, merchantPayeeName, cleanAmount, randomRef, paymentConfig.qrNote);
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(upiString)}&margin=4`;
 
     try {
@@ -336,46 +389,76 @@ exports.youpiWebhook = asyncErrorHandler(async (req, res, next) => {
 
 // Get Active UPI Settings (Used by Checkout & Admin Panel)
 exports.getUpiSettings = asyncErrorHandler(async (req, res, next) => {
-    const config = getPaymentConfig();
+    const config = await fetchAuthoritativeUpiConfig();
     res.status(200).json({
         success: true,
         upiId: config.upiId,
         payeeName: config.payeeName,
+        isEnabled: config.isEnabled !== false,
         qrNote: config.qrNote || 'Order Product',
-        updatedAt: config.updatedAt
+        instructions: config.instructions || 'Scan this QR code using any UPI app (GPay, PhonePe, Paytm, BHIM) to complete your payment.',
+        updatedAt: config.updatedAt,
+        updatedBy: config.updatedBy || 'admin'
     });
 });
 
 // Update UPI Settings (Admin Only)
 exports.updateUpiSettings = asyncErrorHandler(async (req, res, next) => {
-    const { upiId, payeeName, qrNote } = req.body;
+    const { upiId, payeeName, isEnabled, qrNote, instructions } = req.body;
 
     if (!upiId || typeof upiId !== 'string' || !upiId.includes('@')) {
         return next(new ErrorHandler("Please provide a valid UPI ID (e.g. yourname@upi or mobile@ybl)", 400));
     }
 
     const cleanUpiId = upiId.trim();
-    const cleanPayeeName = (payeeName && payeeName.trim()) ? payeeName.trim() : 'Flipkart Payments';
+    const cleanPayeeName = (payeeName && payeeName.trim()) ? payeeName.trim() : 'Ranga Store';
+    const targetEnabled = (typeof isEnabled === 'boolean') ? isEnabled : (String(isEnabled) !== 'false');
     const cleanQrNote = (qrNote && qrNote.trim()) ? qrNote.trim() : 'Order Product';
+    const cleanInstructions = (instructions && instructions.trim()) ? instructions.trim() : 'Scan this QR code using any UPI app (GPay, PhonePe, Paytm, BHIM) to complete your payment.';
+    const now = new Date();
 
     inMemoryPaymentConfig = {
         upiId: cleanUpiId,
         payeeName: cleanPayeeName,
+        isEnabled: targetEnabled,
         qrNote: cleanQrNote,
-        updatedAt: new Date().toISOString()
+        instructions: cleanInstructions,
+        updatedAt: now.toISOString(),
+        updatedBy: req.user?.email || 'admin'
     };
 
     process.env.MERCHANT_UPI_ID = cleanUpiId;
     process.env.MERCHANT_PAYEE_NAME = cleanPayeeName;
 
-    // Persist to backend/data/paymentConfig.json
+    // 1. Persist to MongoDB Atlas
+    if (mongoose.connection.readyState === 1) {
+        try {
+            await UpiConfig.findOneAndUpdate(
+                {},
+                {
+                    upiId: cleanUpiId,
+                    payeeName: cleanPayeeName,
+                    isEnabled: targetEnabled,
+                    qrNote: cleanQrNote,
+                    instructions: cleanInstructions,
+                    updatedAt: now,
+                    updatedBy: req.user?.email || 'admin'
+                },
+                { upsert: true, new: true, runValidators: true }
+            );
+        } catch (dbErr) {
+            console.warn("[UpiConfig]: MongoDB Atlas update skipped, using disk/cache:", dbErr.message);
+        }
+    }
+
+    // 2. Persist to backend/data/paymentConfig.json
     try {
         fs.writeFileSync(paymentConfigFile, JSON.stringify(inMemoryPaymentConfig, null, 2), 'utf8');
     } catch (e) {
         console.warn("[PaymentConfig]: Disk write skipped, preserved in memory:", e.message);
     }
 
-    // Update backend/config/config.env if present
+    // 3. Update backend/config/config.env if present
     try {
         const envPath = path.join(__dirname, '../config/config.env');
         if (fs.existsSync(envPath)) {
@@ -394,7 +477,7 @@ exports.updateUpiSettings = asyncErrorHandler(async (req, res, next) => {
         }
     } catch (e) {}
 
-    // Update YouPI SQLite database if present
+    // 4. Update YouPI SQLite database if present
     try {
         const sqliteDbPath = path.join(__dirname, '../../Payment gateway/YouPI-PG-main/data/youpi_pg.sqlite');
         if (fs.existsSync(sqliteDbPath)) {
@@ -405,26 +488,35 @@ exports.updateUpiSettings = asyncErrorHandler(async (req, res, next) => {
         }
     } catch (e) {}
 
-    // Broadcast real-time update and record activity
+    // 5. Broadcast real-time update to all connected customers and admins
     broadcastSync(EVENTS.UPI_SETTINGS_UPDATED, {
         upiId: cleanUpiId,
         payeeName: cleanPayeeName,
+        isEnabled: targetEnabled,
         qrNote: cleanQrNote,
+        instructions: cleanInstructions,
         updatedAt: inMemoryPaymentConfig.updatedAt
     });
+
     await recordActivity(req, {
-        action: 'UPDATE_UPI_GATEWAY',
+        action: targetEnabled ? 'UPDATE_UPI_GATEWAY' : 'DISABLE_UPI_GATEWAY',
         entityType: 'upi',
         entityId: cleanUpiId,
-        details: `Updated Store Receiver UPI ID to "${cleanUpiId}" (${cleanPayeeName})`,
+        details: targetEnabled 
+            ? `Updated Store Receiver UPI ID to "${cleanUpiId}" (${cleanPayeeName})`
+            : `Disabled UPI payments store-wide (Previously: "${cleanUpiId}")`,
     });
 
     res.status(200).json({
         success: true,
-        message: "UPI ID updated successfully! All store payments are now routed to this UPI ID.",
+        message: targetEnabled
+            ? `Global UPI configuration updated successfully! All store payments are routed to "${cleanUpiId}".`
+            : `UPI payments have been DISABLED across the entire store.`,
         upiId: cleanUpiId,
         payeeName: cleanPayeeName,
+        isEnabled: targetEnabled,
         qrNote: cleanQrNote,
+        instructions: cleanInstructions,
         updatedAt: inMemoryPaymentConfig.updatedAt
     });
 });
