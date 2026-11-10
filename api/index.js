@@ -22,6 +22,20 @@ if (process.env.CLOUDINARY_NAME) {
     });
 }
 
-// Export the Express app as the Vercel Serverless Function entrypoint
-module.exports = app;
+// Export resilient handler that normalizes Vercel rewritten paths
+module.exports = (req, res) => {
+    // If Vercel rewrote the path to /api or /, recover original requested path
+    const original = req.headers['x-matched-path'] || req.headers['x-now-route-matches'] || req.headers['x-forwarded-uri'];
+    if (original && (req.url === '/api' || req.url === '/' || req.url === '/api/')) {
+        req.url = original;
+    }
+
+    if (typeof req.body === 'string' && req.body.trim().startsWith('{')) {
+        try {
+            req.body = JSON.parse(req.body);
+        } catch (e) {}
+    }
+
+    return app(req, res);
+};
 

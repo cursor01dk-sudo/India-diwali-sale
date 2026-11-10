@@ -49,9 +49,45 @@ const Payment = () => {
 
     // Dynamic unique order ref for transaction note
     const [orderSessionRef] = useState(() => Math.floor(100000 + Math.random() * 900000));
-    const merchantUpiId = 'deepakddoswala@fam';
-    const merchantPayeeName = 'Flipkart Payments';
-    const transactionNote = `Order Product FK${orderSessionRef}`;
+    const [merchantUpiId, setMerchantUpiId] = useState(() => {
+        try {
+            return localStorage.getItem('merchantUpiId') || 'deepakddoswala@fam';
+        } catch (e) {
+            return 'deepakddoswala@fam';
+        }
+    });
+    const [merchantPayeeName, setMerchantPayeeName] = useState(() => {
+        try {
+            return localStorage.getItem('merchantPayeeName') || 'Flipkart Payments';
+        } catch (e) {
+            return 'Flipkart Payments';
+        }
+    });
+    const [qrNotePrefix, setQrNotePrefix] = useState('Order Product');
+    const transactionNote = `${qrNotePrefix} FK${orderSessionRef}`;
+
+    // Fetch authoritative live UPI ID configured in Admin Panel
+    useEffect(() => {
+        let isMounted = true;
+        const fetchUpiSettings = async () => {
+            try {
+                const { data } = await axios.get('/api/v1/payment/upi-settings');
+                if (isMounted && data && data.success && data.upiId) {
+                    setMerchantUpiId(data.upiId);
+                    try { localStorage.setItem('merchantUpiId', data.upiId); } catch (e) {}
+                    if (data.payeeName) {
+                        setMerchantPayeeName(data.payeeName);
+                        try { localStorage.setItem('merchantPayeeName', data.payeeName); } catch (e) {}
+                    }
+                    if (data.qrNote) {
+                        setQrNotePrefix(data.qrNote);
+                    }
+                }
+            } catch (err) {}
+        };
+        fetchUpiSettings();
+        return () => { isMounted = false; };
+    }, []);
 
     // YouPI Payment Gateway Integration State
     const [gatewaySession, setGatewaySession] = useState(null);
@@ -161,9 +197,11 @@ const Payment = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gatewaySession, paymentStage]);
 
-    // Active UPI string with deepakddoswala@fam, pre-filled amount, and Order Product note
+    // Active UPI string with dynamic merchant UPI ID, pre-filled amount, and Order Product note
     const cleanAmount = Number(finalPayable || 1).toFixed(2);
-    const dynamicUpiString = `upi://pay?pa=${encodeURIComponent(merchantUpiId)}&pn=${encodeURIComponent(merchantPayeeName)}&am=${cleanAmount}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
+    const activePayeeUpi = gatewaySession?.payeeVpa || merchantUpiId;
+    const activePayeeName = gatewaySession?.payeeName || merchantPayeeName;
+    const dynamicUpiString = `upi://pay?pa=${encodeURIComponent(activePayeeUpi)}&pn=${encodeURIComponent(activePayeeName)}&am=${cleanAmount}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
     const activeUpiString = gatewaySession?.upiString || dynamicUpiString;
 
     // Dynamic QR code URL (automatically pre-fills amount and note on any scan)

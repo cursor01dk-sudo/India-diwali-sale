@@ -6,9 +6,11 @@ const {
     createYoupiSession,
     getYoupiPaymentStatus,
     submitYoupiUtr,
-    youpiWebhook
+    youpiWebhook,
+    getUpiSettings,
+    updateUpiSettings
 } = require('../controllers/paymentController');
-const { isAuthenticatedUser } = require('../middlewares/auth');
+const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
 
 const router = express.Router();
 
@@ -18,6 +20,10 @@ router.route('/payment/process').post(processPayment);
 router.route('/callback').post(paytmResponse);
 
 router.route('/payment/status/:id').get(isAuthenticatedUser, getPaymentStatus);
+
+// Dynamic UPI Payment Settings
+router.route('/payment/upi-settings').get(getUpiSettings);
+router.route('/admin/payment/upi-settings').post(isAuthenticatedUser, authorizeRoles("admin"), updateUpiSettings);
 
 // YouPI PG Routes
 router.route('/payment/youpi/create').post(createYoupiSession);

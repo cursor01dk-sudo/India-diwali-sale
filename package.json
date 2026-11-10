@@ -4,7 +4,7 @@
   "description": "Full Stack Flipkart Ecommerce",
   "main": "server.js",
   "scripts": {
-    "build": "npm install --prefix frontend --legacy-peer-deps && CI=false npm run build --prefix frontend",
+    "build": "npm install --prefix frontend --legacy-peer-deps && npm run build --prefix frontend",
     "start": "node server.js",
     "server": "node server.js",
     "frontend": "npm start --prefix frontend",

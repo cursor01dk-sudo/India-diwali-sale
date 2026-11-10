@@ -239,6 +239,13 @@ const Header = () => {
                                                 <span>Manage Posters</span>
                                             </Link>
                                             <Link
+                                                to="/admin/upi-settings"
+                                                onClick={() => setMoreOpen(false)}
+                                                className="flex items-center gap-2 px-3 py-2 hover:bg-emerald-50 text-emerald-800 font-bold"
+                                            >
+                                                <span>💰 UPI & Gateway Settings</span>
+                                            </Link>
+                                            <Link
                                                 to="/admin/products"
                                                 onClick={() => setMoreOpen(false)}
                                                 className="block px-3 py-2 hover:bg-gray-100 text-gray-700 border-b border-gray-100"

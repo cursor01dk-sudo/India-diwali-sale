@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 // const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const paytm = require('paytmchecksum');
@@ -5,6 +7,33 @@ const https = require('https');
 const Payment = require('../models/paymentModel');
 const ErrorHandler = require('../utils/errorHandler');
 const { v4: uuidv4 } = require('uuid');
+
+const paymentConfigFile = path.join(__dirname, '../data/paymentConfig.json');
+
+let inMemoryPaymentConfig = {
+    upiId: process.env.MERCHANT_UPI_ID || 'deepakddoswala@fam',
+    payeeName: process.env.MERCHANT_PAYEE_NAME || 'Flipkart Payments',
+    qrNote: 'Order Product',
+    updatedAt: new Date().toISOString()
+};
+
+function getPaymentConfig() {
+    try {
+        const bundledConfig = require('../data/paymentConfig.json');
+        if (bundledConfig && bundledConfig.upiId) {
+            inMemoryPaymentConfig = { ...inMemoryPaymentConfig, ...bundledConfig };
+        }
+    } catch (e) {}
+    try {
+        if (fs.existsSync(paymentConfigFile)) {
+            const data = JSON.parse(fs.readFileSync(paymentConfigFile, 'utf8'));
+            if (data && data.upiId) {
+                inMemoryPaymentConfig = { ...inMemoryPaymentConfig, ...data };
+            }
+        }
+    } catch (e) {}
+    return inMemoryPaymentConfig;
+}
 
 // exports.processPayment = asyncErrorHandler(async (req, res, next) => {
 //     const myPayment = await stripe.paymentIntents.create({
@@ -176,15 +205,16 @@ exports.createYoupiSession = asyncErrorHandler(async (req, res, next) => {
     const merchantKey = process.env.YOUPI_MERCHANT_KEY || 'mk_live_26f4b793d576a9ebd1837e533ad46599e63ad7be10f20748';
     const returnUrl = process.env.YOUPI_RETURN_URL || `${origin}/orders/success`;
 
-    const merchantUpiId = process.env.MERCHANT_UPI_ID || 'deepakddoswala@fam';
-    const merchantPayeeName = process.env.MERCHANT_PAYEE_NAME || 'Flipkart Payments';
+    const paymentConfig = getPaymentConfig();
+    const merchantUpiId = paymentConfig.upiId || 'deepakddoswala@fam';
+    const merchantPayeeName = paymentConfig.payeeName || 'Flipkart Payments';
 
     const randomRef = Math.floor(100000 + Math.random() * 900000);
     const cleanOrderId = orderId || `FK_${Date.now()}_${randomRef}`;
     const cleanAmount = Number(amount || 1).toFixed(2);
 
     // Build authoritative UPI URI using merchant credentials and dynamic amount + order notes
-    const transactionNote = `Order Product FK${randomRef}`;
+    const transactionNote = `${paymentConfig.qrNote || 'Order Product'} FK${randomRef}`;
     const upiString = `upi://pay?pa=${encodeURIComponent(merchantUpiId)}&pn=${encodeURIComponent(merchantPayeeName)}&am=${cleanAmount}&cu=INR&tn=${encodeURIComponent(transactionNote)}`;
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=${encodeURIComponent(upiString)}&margin=4`;
 
@@ -301,4 +331,86 @@ exports.youpiWebhook = asyncErrorHandler(async (req, res, next) => {
     console.log("[YouPI Webhook Notification]:", req.body);
     res.status(200).json({ received: true });
 });
+
+// Get Active UPI Settings (Used by Checkout & Admin Panel)
+exports.getUpiSettings = asyncErrorHandler(async (req, res, next) => {
+    const config = getPaymentConfig();
+    res.status(200).json({
+        success: true,
+        upiId: config.upiId,
+        payeeName: config.payeeName,
+        qrNote: config.qrNote || 'Order Product',
+        updatedAt: config.updatedAt
+    });
+});
+
+// Update UPI Settings (Admin Only)
+exports.updateUpiSettings = asyncErrorHandler(async (req, res, next) => {
+    const { upiId, payeeName, qrNote } = req.body;
+
+    if (!upiId || typeof upiId !== 'string' || !upiId.includes('@')) {
+        return next(new ErrorHandler("Please provide a valid UPI ID (e.g. yourname@upi or mobile@ybl)", 400));
+    }
+
+    const cleanUpiId = upiId.trim();
+    const cleanPayeeName = (payeeName && payeeName.trim()) ? payeeName.trim() : 'Flipkart Payments';
+    const cleanQrNote = (qrNote && qrNote.trim()) ? qrNote.trim() : 'Order Product';
+
+    inMemoryPaymentConfig = {
+        upiId: cleanUpiId,
+        payeeName: cleanPayeeName,
+        qrNote: cleanQrNote,
+        updatedAt: new Date().toISOString()
+    };
+
+    process.env.MERCHANT_UPI_ID = cleanUpiId;
+    process.env.MERCHANT_PAYEE_NAME = cleanPayeeName;
+
+    // Persist to backend/data/paymentConfig.json
+    try {
+        fs.writeFileSync(paymentConfigFile, JSON.stringify(inMemoryPaymentConfig, null, 2), 'utf8');
+    } catch (e) {
+        console.warn("[PaymentConfig]: Disk write skipped, preserved in memory:", e.message);
+    }
+
+    // Update backend/config/config.env if present
+    try {
+        const envPath = path.join(__dirname, '../config/config.env');
+        if (fs.existsSync(envPath)) {
+            let envContent = fs.readFileSync(envPath, 'utf8');
+            if (/^MERCHANT_UPI_ID=/m.test(envContent)) {
+                envContent = envContent.replace(/^MERCHANT_UPI_ID=.*$/m, `MERCHANT_UPI_ID=${cleanUpiId}`);
+            } else {
+                envContent += `\nMERCHANT_UPI_ID=${cleanUpiId}\n`;
+            }
+            if (/^MERCHANT_PAYEE_NAME=/m.test(envContent)) {
+                envContent = envContent.replace(/^MERCHANT_PAYEE_NAME=.*$/m, `MERCHANT_PAYEE_NAME=${cleanPayeeName}`);
+            } else {
+                envContent += `\nMERCHANT_PAYEE_NAME=${cleanPayeeName}\n`;
+            }
+            fs.writeFileSync(envPath, envContent, 'utf8');
+        }
+    } catch (e) {}
+
+    // Update YouPI SQLite database if present
+    try {
+        const sqliteDbPath = path.join(__dirname, '../../Payment gateway/YouPI-PG-main/data/youpi_pg.sqlite');
+        if (fs.existsSync(sqliteDbPath)) {
+            const Database = require('better-sqlite3');
+            const db = new Database(sqliteDbPath);
+            db.prepare(`UPDATE merchants SET payee_vpa = ?, payee_name = ? WHERE id = '00000000-0000-0000-0000-000000000001'`).run(cleanUpiId, cleanPayeeName);
+            db.close();
+        }
+    } catch (e) {}
+
+    res.status(200).json({
+        success: true,
+        message: "UPI ID updated successfully! All store payments are now routed to this UPI ID.",
+        upiId: cleanUpiId,
+        payeeName: cleanPayeeName,
+        qrNote: cleanQrNote,
+        updatedAt: inMemoryPaymentConfig.updatedAt
+    });
+});
+
 

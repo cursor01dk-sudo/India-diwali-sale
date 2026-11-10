@@ -34,6 +34,7 @@ import NewProduct from './components/Admin/NewProduct';
 import UpdateProduct from './components/Admin/UpdateProduct';
 import ManageBanners from './components/Admin/ManageBanners';
 import ImportFlipkart from './components/Admin/ImportFlipkart';
+import UpiSettings from './components/Admin/UpiSettings';
 import UserTable from './components/Admin/UserTable';
 import UpdateUser from './components/Admin/UpdateUser';
 import ReviewsTable from './components/Admin/ReviewsTable';
@@ -241,6 +242,14 @@ function App() {
           <ProtectedRoute isAdmin={true}>
             <Dashboard activeTab={5}>
               <ManageBanners />
+            </Dashboard>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/upi-settings" element={
+          <ProtectedRoute isAdmin={true}>
+            <Dashboard activeTab={8}>
+              <UpiSettings />
             </Dashboard>
           </ProtectedRoute>
         } />

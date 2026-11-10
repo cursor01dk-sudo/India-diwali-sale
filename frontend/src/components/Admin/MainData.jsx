@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import 'chart.js/auto'; // Required for react-chartjs-2 registration
 import { Doughnut, Line, Pie, Bar } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
@@ -24,11 +25,21 @@ const MainData = () => {
     const { products } = useSelector((state) => state.products);
     const { orders } = useSelector((state) => state.allOrders);
     const { users } = useSelector((state) => state.users);
+    const [liveUpiId, setLiveUpiId] = useState(() => localStorage.getItem('merchantUpiId') || 'deepakddoswala@fam');
 
     useEffect(() => {
         dispatch(getAdminProducts());
         dispatch(getAllOrders());
         dispatch(getAllUsers());
+
+        axios.get('/api/v1/payment/upi-settings')
+            .then(({ data }) => {
+                if (data && data.success && data.upiId) {
+                    setLiveUpiId(data.upiId);
+                    localStorage.setItem('merchantUpiId', data.upiId);
+                }
+            })
+            .catch(() => {});
     }, [dispatch]);
 
     // Defensive array guards with seamless store fallback
@@ -242,6 +253,38 @@ const MainData = () => {
                         </div>
                     </Link>
                 </div>
+            </div>
+
+            {/* Live UPI Payment Destination Status */}
+            <div className="bg-[#111827] border border-amber-500/30 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg">
+                <div className="flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-400 border border-amber-400/30 flex items-center justify-center font-black text-lg">
+                        ₹
+                    </div>
+                    <div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400">
+                                Active Store UPI Receiver
+                            </span>
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span className="text-[10px] text-emerald-400 font-semibold hidden sm:inline">All Customer Payments Live</span>
+                        </div>
+                        <div className="text-sm sm:text-base font-extrabold text-white font-mono tracking-tight break-all">
+                            {liveUpiId || 'deepakddoswala@fam'}
+                        </div>
+                        <div className="text-[11px] text-slate-400">
+                            All checkout orders, QR codes & UPI app deep-links receive funds directly here.
+                        </div>
+                    </div>
+                </div>
+
+                <Link
+                    to="/admin/upi-settings"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-gray-950 font-black text-xs transition-transform active:scale-95 shadow-md shadow-amber-400/20 shrink-0"
+                >
+                    <span>Change UPI ID</span>
+                    <span>→</span>
+                </Link>
             </div>
 
             {/* Core Metric Cards */}

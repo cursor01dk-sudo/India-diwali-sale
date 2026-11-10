@@ -9,11 +9,22 @@ const ErrorHandler = require('../utils/errorHandler');
 const cloudinary = require('cloudinary');
 const { ensureProductReviews } = require('../utils/autoReviewGenerator');
 
+let localProductsCache = null;
 const getLocalProducts = () => {
+    if (localProductsCache && localProductsCache.length > 0) {
+        return localProductsCache;
+    }
+    try {
+        localProductsCache = require('../data/products.json');
+        if (Array.isArray(localProductsCache) && localProductsCache.length > 0) {
+            return localProductsCache;
+        }
+    } catch (e) {}
     try {
         const dataPath = path.join(__dirname, '../data/products.json');
         if (fs.existsSync(dataPath)) {
-            return JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+            localProductsCache = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+            return localProductsCache;
         }
     } catch (e) {}
     return [];

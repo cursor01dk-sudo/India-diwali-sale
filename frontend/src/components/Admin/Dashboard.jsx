@@ -13,6 +13,7 @@ const tabTitles = {
     5: "Banner & Poster Studio",
     6: "User Accounts",
     7: "Customer Reviews",
+    8: "UPI & Payment Gateway Settings",
 };
 
 const Dashboard = ({ activeTab = 0, children }) => {

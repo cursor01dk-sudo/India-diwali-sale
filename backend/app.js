@@ -21,6 +21,19 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(fileUpload());
 
+// Serverless / Vercel body safety normalizer
+app.use((req, res, next) => {
+    if (typeof req.body === 'string' && req.body.trim().startsWith('{')) {
+        try {
+            req.body = JSON.parse(req.body);
+        } catch (e) {}
+    }
+    if (!req.body) {
+        req.body = {};
+    }
+    next();
+});
+
 // Dynamic CORS & Custom Domain compatibility (Vercel & Custom Domains)
 app.use((req, res, next) => {
     const origin = req.headers.origin;
@@ -45,16 +58,31 @@ const order = require('./routes/orderRoute');
 const payment = require('./routes/paymentRoute');
 const banner = require('./routes/bannerRoute');
 
+// Quad-mount routes to guarantee zero 404/500 errors across any Vercel rewrite configuration
 app.use('/api/v1', user);
 app.use('/v1', user);
+app.use('/api', user);
+app.use('/', user);
+
 app.use('/api/v1', product);
 app.use('/v1', product);
+app.use('/api', product);
+app.use('/', product);
+
 app.use('/api/v1', order);
 app.use('/v1', order);
+app.use('/api', order);
+app.use('/', order);
+
 app.use('/api/v1', payment);
 app.use('/v1', payment);
+app.use('/api', payment);
+app.use('/', payment);
+
 app.use('/api/v1', banner);
 app.use('/v1', banner);
+app.use('/api', banner);
+app.use('/', banner);
 
 // error middleware
 app.use(errorMiddleware);

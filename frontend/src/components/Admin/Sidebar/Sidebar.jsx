@@ -9,6 +9,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import CloseIcon from '@mui/icons-material/Close';
 import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
@@ -28,6 +29,7 @@ const navSections = [
     {
         title: "FAST ACTIONS",
         items: [
+            { id: 8, label: "UPI & Payment Gateway", ref: "/admin/upi-settings", icon: <AccountBalanceWalletIcon sx={{ fontSize: 20 }} />, badge: "Gateway" },
             { id: 4, label: "Import Flipkart Link", ref: "/admin/import-flipkart", icon: <CloudDownloadIcon sx={{ fontSize: 20 }} />, badge: "Scraper" },
             { id: 5, label: "Posters & Banners", ref: "/admin/banners", icon: <ViewCarouselIcon sx={{ fontSize: 20 }} />, badge: "Posters" },
         ]
