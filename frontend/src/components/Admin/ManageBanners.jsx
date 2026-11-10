@@ -249,20 +249,20 @@ const ManageBanners = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <MetaData title="Admin Panel | Manage Front Page Posters & Banners" />
+        <div className="space-y-5">
+            <MetaData title="Poster & Banner Studio | Nexmart" />
 
             {/* Header Banner */}
-            <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 rounded-2xl p-4 sm:p-6 text-white shadow-md">
+            <div className="bg-[#171825] border border-[#232538] rounded-2xl p-4 sm:p-6 text-white shadow-xl">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
-                        <div className="text-[11px] text-blue-200 font-bold uppercase tracking-wider">
+                        <div className="text-[11px] text-[#5B5CE5] font-bold uppercase tracking-wider">
                             Visual Merchandising Studio
                         </div>
                         <h2 className="text-lg sm:text-xl font-black tracking-tight text-white">
                             Front Page Posters, Brands & Banners
                         </h2>
-                        <p className="text-xs text-blue-100 mt-0.5">
+                        <p className="text-xs text-[#8E92BC] mt-0.5">
                             Any changes you make here (Add, Replace, or Remove) are reflected live on your storefront instantly.
                         </p>
                     </div>
@@ -270,7 +270,7 @@ const ManageBanners = () => {
                     <div className="flex items-center gap-2 shrink-0">
                         <button
                             onClick={handleResetDefaults}
-                            className="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors border border-white/20 cursor-pointer"
+                            className="bg-[#202234] hover:bg-[#282B42] text-slate-200 text-xs font-semibold px-3 py-1.5 rounded-xl flex items-center gap-1 transition-colors border border-[#2E314A] cursor-pointer"
                             title="Restore default festival banners"
                         >
                             <RestartAltIcon sx={{ fontSize: 16 }} />
@@ -279,7 +279,7 @@ const ManageBanners = () => {
 
                         <button
                             onClick={() => openAddModal(activeTab === 'all' ? 'hero_banner' : activeTab)}
-                            className="bg-amber-400 hover:bg-amber-500 text-gray-950 text-xs font-black px-3.5 py-1.5 rounded-lg flex items-center gap-1 shadow-md transition-colors cursor-pointer"
+                            className="bg-[#5B5CE5] hover:bg-[#4E4FD9] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl flex items-center gap-1 shadow-md shadow-[#5B5CE5]/25 transition-colors cursor-pointer"
                         >
                             <AddCircleOutlineIcon sx={{ fontSize: 16 }} />
                             <span>Add New Poster</span>
@@ -288,20 +288,20 @@ const ManageBanners = () => {
                 </div>
             </div>
 
-            <div className="space-y-5">
+            <div className="space-y-4">
 
                 {/* Info Card */}
-                <div className="bg-[#131c31] rounded-2xl p-4 shadow-md border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="bg-[#171825] rounded-2xl p-4 shadow-md border border-[#232538] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
                         <h2 className="text-sm font-bold text-white">
                             Dynamic Poster Management
                         </h2>
-                        <p className="text-xs text-slate-400 mt-0.5">
-                            Any changes you make here (Add, Replace, or Remove) update the front page immediately.
+                        <p className="text-xs text-[#8E92BC] mt-0.5">
+                            Live updates to hero banners, promo carousel cards, and feature strips.
                         </p>
                     </div>
-                    <div className="text-xs font-bold text-slate-300 bg-[#0f172a] px-3 py-1.5 rounded-lg border border-slate-800">
-                        Total Posters: <span className="text-blue-400 font-black">{banners.length}</span>
+                    <div className="text-xs font-bold text-slate-300 bg-[#10111A] px-3 py-1.5 rounded-xl border border-[#26283D]">
+                        Total Posters: <span className="text-[#38BDF8] font-black">{banners.length}</span>
                     </div>
                 </div>
 
@@ -317,12 +317,12 @@ const ManageBanners = () => {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${activeTab === tab.id
-                                    ? 'bg-[#2874f0] text-white shadow-md font-extrabold'
-                                    : 'bg-[#131c31] text-slate-300 hover:bg-slate-800 border border-slate-800'
+                                    ? 'bg-[#5B5CE5] text-white shadow-md shadow-[#5B5CE5]/25 font-extrabold'
+                                    : 'bg-[#171825] text-[#8E92BC] hover:text-white hover:bg-[#202234] border border-[#232538]'
                                 }`}
                         >
                             <span>{tab.label}</span>
-                            <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${activeTab === tab.id ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-400'
+                            <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-black ${activeTab === tab.id ? 'bg-white/20 text-white' : 'bg-[#202234] text-[#8E92BC]'
                                 }`}>
                                 {tab.count}
                             </span>
@@ -332,17 +332,17 @@ const ManageBanners = () => {
 
                 {/* Posters Grid */}
                 {loading ? (
-                    <div className="bg-[#131c31] rounded-2xl p-12 text-center text-slate-400 text-sm border border-slate-800">
+                    <div className="bg-[#171825] rounded-2xl p-12 text-center text-[#8E92BC] text-sm border border-[#232538]">
                         Loading posters...
                     </div>
                 ) : filteredBanners.length === 0 ? (
-                    <div className="bg-[#131c31] rounded-2xl p-12 text-center space-y-3 border border-slate-800">
+                    <div className="bg-[#171825] rounded-2xl p-12 text-center space-y-3 border border-[#232538]">
                         <div className="text-3xl">🖼️</div>
                         <h3 className="text-sm font-bold text-white">No posters found in this section</h3>
-                        <p className="text-xs text-slate-400">Click "Add New Poster" to add one now.</p>
+                        <p className="text-xs text-[#8E92BC]">Click "Add New Poster" to add one now.</p>
                         <button
                             onClick={() => openAddModal(activeTab === 'all' ? 'hero_banner' : activeTab)}
-                            className="bg-[#2874f0] hover:bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-lg cursor-pointer"
+                            className="bg-[#5B5CE5] hover:bg-[#4E4FD9] text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer"
                         >
                             Add Poster
                         </button>
@@ -352,7 +352,7 @@ const ManageBanners = () => {
                         {filteredBanners.map((b) => (
                             <div
                                 key={b._id}
-                                className="bg-[#131c31] rounded-2xl p-3.5 border border-slate-800 shadow-md hover:border-slate-700 transition-all flex flex-col justify-between group"
+                                className="bg-[#171825] rounded-2xl p-3.5 border border-[#232538] shadow-md hover:border-[#3A3D59] transition-all flex flex-col justify-between group"
                             >
                                 <div>
                                     {/* Type Badge & Order */}
@@ -368,7 +368,7 @@ const ManageBanners = () => {
                                     </div>
 
                                     {/* Poster Image Preview */}
-                                    <div className="w-full aspect-[16/9] bg-[#0f172a] rounded-xl overflow-hidden border border-slate-800 relative mb-3">
+                                    <div className="w-full aspect-[16/9] bg-[#10111A] rounded-xl overflow-hidden border border-[#232538] relative mb-3">
                                         <img
                                             src={b.image}
                                             alt={b.title}

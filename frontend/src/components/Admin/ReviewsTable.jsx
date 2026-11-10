@@ -98,24 +98,24 @@ const ReviewsTable = () => {
     });
 
     return (
-        <>
-            <MetaData title="Admin Reviews | Flipkart" />
+        <div className="space-y-4">
+            <MetaData title="Customer Reviews | Nexmart" />
 
             {loading && <BackdropLoader />}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div>
                     <h1 className="text-xl font-black text-white tracking-tight uppercase">Customer Reviews</h1>
-                    <p className="text-xs text-slate-400 mt-0.5">Filter and moderate verified customer feedback</p>
+                    <p className="text-xs text-[#8E92BC] mt-0.5">Filter and moderate verified customer feedback</p>
                 </div>
                 <input 
                     type="text" 
                     placeholder="Enter Product ID to inspect reviews..." 
                     value={productId} 
                     onChange={(e) => setProductId(e.target.value)} 
-                    className="outline-none bg-[#0f172a] border border-slate-700 text-white placeholder-slate-500 rounded-xl px-4 py-2 text-xs w-full sm:w-72 shadow-inner focus:border-blue-500 transition-colors" 
+                    className="outline-none bg-[#10111A] border border-[#26283D] text-white placeholder-[#63688E] rounded-xl px-4 py-2 text-xs w-full sm:w-72 focus:border-[#5B5CE5] transition-colors" 
                 />
             </div>
-            <div className="bg-[#131c31] rounded-2xl shadow-xl border border-slate-800 p-2 w-full overflow-hidden" style={{ height: 500 }}>
+            <div className="bg-[#171825] rounded-2xl shadow-xl border border-[#232538] p-2 w-full overflow-hidden" style={{ height: 540 }}>
 
                 <DataGrid
                     rows={rows}
@@ -127,31 +127,31 @@ const ReviewsTable = () => {
                         border: 0,
                         color: '#f1f5f9',
                         '& .MuiDataGrid-cell': {
-                            borderColor: '#1e293b',
+                            borderColor: '#232538',
                             color: '#f1f5f9',
                             fontSize: '12px'
                         },
                         '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: '#0f172a',
-                            borderColor: '#1e293b',
-                            color: '#cbd5e1',
+                            backgroundColor: '#1E2033',
+                            borderColor: '#232538',
+                            color: '#8E92BC',
                             fontWeight: 'bold',
                         },
                         '& .MuiDataGrid-footerContainer': {
-                            borderColor: '#1e293b',
-                            color: '#94a3b8',
-                            backgroundColor: '#0f172a',
+                            borderColor: '#232538',
+                            color: '#8E92BC',
+                            backgroundColor: '#1E2033',
                         },
                         '& .MuiTablePagination-root': {
-                            color: '#94a3b8',
+                            color: '#8E92BC',
                         },
                         '& .MuiIconButton-root': {
-                            color: '#94a3b8',
+                            color: '#8E92BC',
                         },
                     }}
                 />
             </div>
-        </>
+        </div>
     );
 };
 

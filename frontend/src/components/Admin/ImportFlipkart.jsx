@@ -107,37 +107,37 @@ const ImportFlipkart = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <MetaData title="Import Flipkart Product | Admin Panel" />
+        <div className="space-y-5">
+            <MetaData title="Flipkart URL 1-Click Importer | Nexmart" />
 
             {/* Header Banner */}
-            <div className="bg-gradient-to-r from-blue-700 to-indigo-800 rounded-2xl p-4 sm:p-6 text-white shadow-md">
+            <div className="bg-[#171825] border border-[#232538] rounded-2xl p-4 sm:p-6 text-white shadow-xl">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
-                        <div className="text-[11px] text-blue-200 font-bold uppercase tracking-wider">
+                        <div className="text-[11px] text-[#5B5CE5] font-bold uppercase tracking-wider">
                             Direct 1-Click Importer
                         </div>
                         <h2 className="text-lg sm:text-xl font-black tracking-tight text-white">
                             Import Product from any Flipkart URL
                         </h2>
-                        <p className="text-xs text-blue-100 mt-0.5">
+                        <p className="text-xs text-[#8E92BC] mt-0.5">
                             Extracts 1500x1500px HD images, specifications, features, and certified user reviews automatically.
                         </p>
                     </div>
 
                     <Link
                         to="/admin/products"
-                        className="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition-colors shrink-0"
+                        className="bg-[#202234] hover:bg-[#282B42] text-slate-200 text-xs font-semibold px-3.5 py-2 rounded-xl border border-[#2E314A] transition-colors shrink-0 no-underline"
                     >
                         View Catalog ➔
                     </Link>
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-4xl mx-auto space-y-5">
 
                 {/* 1. URL Input Card */}
-                <div className="bg-[#131c31] rounded-2xl p-5 shadow-lg border border-slate-800">
+                <div className="bg-[#171825] rounded-2xl p-5 shadow-lg border border-[#232538]">
                     <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center border border-blue-500/30">
                             <LinkIcon sx={{ fontSize: 18 }} />

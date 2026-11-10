@@ -121,18 +121,19 @@ const UserTable = () => {
     });
 
     return (
-        <>
-            <MetaData title="Admin Users | Flipkart" />
+        <div className="space-y-4">
+            <MetaData title="Customer Accounts | Nexmart" />
 
             {loading && <BackdropLoader />}
 
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-xl font-black text-white tracking-tight uppercase">User Accounts</h1>
-                    <p className="text-xs text-slate-400 mt-0.5">Manage registered customer accounts and role permissions</p>
+                    <h1 className="text-xl font-black text-white tracking-tight uppercase">Customer Accounts</h1>
+                    <p className="text-xs text-[#8E92BC] mt-0.5">Manage registered customer accounts and administrator roles</p>
                 </div>
             </div>
-            <div className="bg-[#131c31] rounded-2xl shadow-xl border border-slate-800 p-2 w-full overflow-hidden" style={{ height: 520 }}>
+
+            <div className="bg-[#171825] rounded-2xl shadow-xl border border-[#232538] p-2 w-full overflow-hidden" style={{ height: 560 }}>
 
                 <DataGrid
                     rows={rows}
@@ -144,31 +145,31 @@ const UserTable = () => {
                         border: 0,
                         color: '#f1f5f9',
                         '& .MuiDataGrid-cell': {
-                            borderColor: '#1e293b',
+                            borderColor: '#232538',
                             color: '#f1f5f9',
                             fontSize: '12px'
                         },
                         '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: '#0f172a',
-                            borderColor: '#1e293b',
-                            color: '#cbd5e1',
+                            backgroundColor: '#1E2033',
+                            borderColor: '#232538',
+                            color: '#8E92BC',
                             fontWeight: 'bold',
                         },
                         '& .MuiDataGrid-footerContainer': {
-                            borderColor: '#1e293b',
-                            color: '#94a3b8',
-                            backgroundColor: '#0f172a',
+                            borderColor: '#232538',
+                            color: '#8E92BC',
+                            backgroundColor: '#1E2033',
                         },
                         '& .MuiTablePagination-root': {
-                            color: '#94a3b8',
+                            color: '#8E92BC',
                         },
                         '& .MuiIconButton-root': {
-                            color: '#94a3b8',
+                            color: '#8E92BC',
                         },
                     }}
                 />
             </div>
-        </>
+        </div>
     );
 };
 

@@ -339,85 +339,87 @@ const ProductTable = () => {
 
     return (
         <>
-            <MetaData title="Admin Products | Flipkart" />
+            <MetaData title="Admin Products | Nexmart" />
 
             {loading && <BackdropLoader />}
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-                <div>
-                    <h1 className="text-xl font-black text-white tracking-tight uppercase">Products Catalog</h1>
-                    <p className="text-xs text-slate-400 mt-0.5">Manage live store inventory, featured homepage showcases, and prices</p>
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                    {/* Featured Gadgets Selector Button */}
-                    <button
-                        type="button"
-                        onClick={() => setShowGadgetsModal(true)}
-                        className="py-2 px-3.5 rounded-xl shadow font-black text-xs bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white flex items-center gap-1.5 transition-all shadow-indigo-600/30 cursor-pointer"
-                    >
-                        <span>✨ Select "Best Gadgets" ({localProducts.filter(p => p.inBestGadgets).length} Featured)</span>
-                    </button>
+            <div className="space-y-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                    <div>
+                        <h1 className="text-xl font-black text-white tracking-tight uppercase">Products Catalog</h1>
+                        <p className="text-xs text-[#8E92BC] mt-0.5">Manage live store inventory, featured homepage showcases, and prices</p>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2">
+                        {/* Featured Gadgets Selector Button */}
+                        <button
+                            type="button"
+                            onClick={() => setShowGadgetsModal(true)}
+                            className="py-2 px-3.5 rounded-xl shadow-md font-bold text-xs bg-[#5B5CE5] hover:bg-[#4E4FD9] text-white flex items-center gap-1.5 transition-all shadow-[#5B5CE5]/25 cursor-pointer"
+                        >
+                            <span>✨ "Best Gadgets" ({localProducts.filter(p => p.inBestGadgets).length} Featured)</span>
+                        </button>
 
-                    <Link to="/admin/import-flipkart" className="py-2 px-3 sm:px-4 rounded-xl shadow font-black text-xs bg-amber-400 text-gray-950 hover:bg-amber-500 flex items-center gap-1 transition-all shadow-amber-400/20">
-                        <span>⚡ Import Flipkart URL</span>
-                    </Link>
-                    <Link to="/admin/new_product" className="py-2 px-4 rounded-xl shadow font-bold text-xs text-white bg-blue-600 hover:bg-blue-500 transition-all shadow-blue-500/20">
-                        + New Product
-                    </Link>
+                        <Link to="/admin/import-flipkart" className="py-2 px-3 sm:px-4 rounded-xl shadow-md font-bold text-xs bg-[#1F2133] hover:bg-[#282B42] text-amber-300 border border-[#343750] flex items-center gap-1 transition-all no-underline">
+                            <span>⚡ Import Flipkart URL</span>
+                        </Link>
+                        <Link to="/admin/new_product" className="py-2 px-4 rounded-xl shadow-md font-bold text-xs text-white bg-[#5B5CE5] hover:bg-[#4E4FD9] transition-all shadow-[#5B5CE5]/25 no-underline">
+                            + New Product
+                        </Link>
+                    </div>
                 </div>
-            </div>
 
-            {/* Quick Status Bar - Confirming 1 Single Page With No Next Pages */}
-            <div className="flex flex-wrap items-center justify-between gap-2 mt-3 px-1 py-1.5 bg-[#0f172a] rounded-xl border border-slate-800">
-                <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-bold text-slate-300">
-                        Total: <span className="text-white font-extrabold">{rows.length} Products</span> (Single Page - No Next Pages)
-                    </span>
-                    <span className="text-slate-600">•</span>
-                    <span className="text-xs bg-amber-400/20 text-amber-300 font-extrabold px-2.5 py-0.5 rounded-full border border-amber-400/30">
-                        ★ {localProducts.filter(p => p.isTopSelling).length} Top Selling Selected
-                    </span>
-                    <span className="text-slate-600">•</span>
-                    <span className="text-xs bg-indigo-500/20 text-indigo-300 font-extrabold px-2.5 py-0.5 rounded-full border border-indigo-500/30">
-                        ✨ {localProducts.filter(p => p.inBestGadgets).length} Best Gadgets Selected
-                    </span>
+                {/* Quick Status Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 bg-[#171825] rounded-xl border border-[#232538]">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xs font-bold text-slate-300">
+                            Total: <span className="text-white font-extrabold">{rows.length} Products</span> (Single Page View)
+                        </span>
+                        <span className="text-slate-600">•</span>
+                        <span className="text-xs bg-amber-400/15 text-amber-300 font-extrabold px-2.5 py-0.5 rounded-full border border-amber-400/30">
+                            ★ {localProducts.filter(p => p.isTopSelling).length} Top Selling
+                        </span>
+                        <span className="text-slate-600">•</span>
+                        <span className="text-xs bg-[#5B5CE5]/20 text-[#A5B4FC] font-extrabold px-2.5 py-0.5 rounded-full border border-[#5B5CE5]/30">
+                            ✨ {localProducts.filter(p => p.inBestGadgets).length} Best Gadgets
+                        </span>
+                    </div>
+                    <div className="text-[11px] text-[#8E92BC] italic">
+                        💡 Click any button to instantly toggle. All products scroll on 1 single page.
+                    </div>
                 </div>
-                <div className="text-[11px] text-slate-400 italic">
-                    💡 Click any button to instantly select / unselect. All products scroll on 1 single page.
-                </div>
-            </div>
 
-            {/* DataGrid - All Products on ONE Page (Zero Next Pages) */}
-            <div className="bg-[#131c31] rounded-2xl shadow-xl border border-slate-800 p-2 w-full overflow-hidden mt-3" style={{ height: 'calc(100vh - 220px)', minHeight: 650 }}>
+                {/* DataGrid in Dark Nexmart Container */}
+                <div className="bg-[#171825] rounded-2xl shadow-xl border border-[#232538] p-2 w-full overflow-hidden" style={{ height: 'calc(100vh - 220px)', minHeight: 650 }}>
 
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={rows.length || 100}
-                    rowsPerPageOptions={[rows.length || 100]}
-                    hideFooter={true}
-                    hideFooterPagination={true}
-                    disableSelectIconOnClick
-                    sx={{
-                        boxShadow: 0,
-                        border: 0,
-                        color: '#f1f5f9',
-                        '& .MuiDataGrid-cell': {
-                            borderColor: '#1e293b',
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={rows.length || 100}
+                        rowsPerPageOptions={[rows.length || 100]}
+                        hideFooter={true}
+                        hideFooterPagination={true}
+                        disableSelectIconOnClick
+                        sx={{
+                            boxShadow: 0,
+                            border: 0,
                             color: '#f1f5f9',
-                            fontSize: '12px'
-                        },
-                        '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: '#0f172a',
-                            borderColor: '#1e293b',
-                            color: '#cbd5e1',
-                            fontWeight: 'bold',
-                        },
-                        '& .MuiDataGrid-footerContainer': {
-                            display: 'none', // completely removed pagination bar
-                        },
-                    }}
-                />
+                            '& .MuiDataGrid-cell': {
+                                borderColor: '#232538',
+                                color: '#f1f5f9',
+                                fontSize: '12px'
+                            },
+                            '& .MuiDataGrid-columnHeaders': {
+                                backgroundColor: '#1E2033',
+                                borderColor: '#232538',
+                                color: '#8E92BC',
+                                fontWeight: 'bold',
+                            },
+                            '& .MuiDataGrid-footerContainer': {
+                                display: 'none',
+                            },
+                        }}
+                    />
+                </div>
             </div>
 
             {/* MODAL: Select Products for "Best Gadgets & Appliances" */}

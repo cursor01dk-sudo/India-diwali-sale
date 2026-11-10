@@ -1,62 +1,43 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import EqualizerIcon from '@mui/icons-material/Equalizer';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import GroupIcon from '@mui/icons-material/Group';
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import LogoutIcon from '@mui/icons-material/Logout';
-import ViewCarouselIcon from '@mui/icons-material/ViewCarousel';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import CloseIcon from '@mui/icons-material/Close';
-import ShieldOutlinedIcon from '@mui/icons-material/ShieldOutlined';
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined';
-import Avatar from '@mui/material/Avatar';
-import { useDispatch, useSelector } from 'react-redux';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+import ShowChartRoundedIcon from '@mui/icons-material/ShowChartRounded';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
+import CreditCardOutlinedIcon from '@mui/icons-material/CreditCardOutlined';
+import ViewCarouselOutlinedIcon from '@mui/icons-material/ViewCarouselOutlined';
+import CloudDownloadOutlinedIcon from '@mui/icons-material/CloudDownloadOutlined';
+import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded';
+import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { logoutUser } from '../../../actions/userAction';
 import './Sidebar.css';
 
-const navSections = [
-    {
-        title: "OVERVIEW",
-        items: [
-            { id: 0, label: "Dashboard", ref: "/admin/dashboard", icon: <EqualizerIcon sx={{ fontSize: 20 }} /> },
-        ]
-    },
-    {
-        title: "FAST ACTIONS",
-        items: [
-            { id: 8, label: "UPI & Payment Gateway", ref: "/admin/upi-settings", icon: <AccountBalanceWalletIcon sx={{ fontSize: 20 }} />, badge: "Gateway" },
-            { id: 4, label: "Import Flipkart Link", ref: "/admin/import-flipkart", icon: <CloudDownloadIcon sx={{ fontSize: 20 }} />, badge: "Scraper" },
-            { id: 5, label: "Posters & Banners", ref: "/admin/banners", icon: <ViewCarouselIcon sx={{ fontSize: 20 }} />, badge: "Posters" },
-        ]
-    },
-    {
-        title: "STORE INVENTORY",
-        items: [
-            { id: 2, label: "Products Catalog", ref: "/admin/products", icon: <InventoryIcon sx={{ fontSize: 20 }} /> },
-            { id: 3, label: "Add New Product", ref: "/admin/new_product", icon: <AddBoxIcon sx={{ fontSize: 20 }} /> },
-            { id: 1, label: "Orders & Shipping", ref: "/admin/orders", icon: <ShoppingBagIcon sx={{ fontSize: 20 }} /> },
-        ]
-    },
-    {
-        title: "COMMUNITY & CONTROL",
-        items: [
-            { id: 6, label: "Users & Customers", ref: "/admin/users", icon: <GroupIcon sx={{ fontSize: 20 }} /> },
-            { id: 7, label: "Product Reviews", ref: "/admin/reviews", icon: <ReviewsIcon sx={{ fontSize: 20 }} /> },
-        ]
-    }
+const navItems = [
+    { id: 0, label: "Dashboard", ref: "/admin/dashboard", icon: <GridViewRoundedIcon sx={{ fontSize: 20 }} /> },
+    { id: 10, label: "Statistics", ref: "/admin/dashboard", icon: <ShowChartRoundedIcon sx={{ fontSize: 20 }} />, hash: "#stats" },
+    { id: 2, label: "Products", ref: "/admin/products", icon: <Inventory2OutlinedIcon sx={{ fontSize: 20 }} /> },
+    { id: 11, label: "Transactions", ref: "/admin/orders", icon: <ReceiptLongOutlinedIcon sx={{ fontSize: 20 }} /> },
+    { id: 1, label: "Order", ref: "/admin/orders", icon: <ShoppingCartOutlinedIcon sx={{ fontSize: 20 }} /> },
+    { id: 6, label: "Customer", ref: "/admin/users", icon: <PeopleAltOutlinedIcon sx={{ fontSize: 20 }} /> },
+    { id: 8, label: "Payment", ref: "/admin/upi-settings", icon: <CreditCardOutlinedIcon sx={{ fontSize: 20 }} />, badge: "UPI" },
+    { id: 5, label: "Posters & Banners", ref: "/admin/banners", icon: <ViewCarouselOutlinedIcon sx={{ fontSize: 20 }} /> },
+    { id: 4, label: "Flipkart Importer", ref: "/admin/import-flipkart", icon: <CloudDownloadOutlinedIcon sx={{ fontSize: 20 }} />, badge: "1-Click" },
+    { id: 7, label: "Reviews", ref: "/admin/reviews", icon: <RateReviewOutlinedIcon sx={{ fontSize: 20 }} /> },
 ];
 
-const Sidebar = ({ activeTab, setToggleSidebar }) => {
+const Sidebar = ({ activeTab = 0, setToggleSidebar }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const { enqueueSnackbar } = useSnackbar();
-    const { user } = useSelector((state) => state.user);
 
     const handleLogout = () => {
         dispatch(logoutUser());
@@ -65,144 +46,111 @@ const Sidebar = ({ activeTab, setToggleSidebar }) => {
     };
 
     return (
-        <aside className="w-64 shrink-0 bg-[#090d16] text-slate-100 flex flex-col h-full min-h-screen border-r border-slate-800 shadow-2xl select-none">
-            {/* Header / Brand */}
-            <div className="p-4 border-b border-slate-800 flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                    {/* Official Flipkart Brand Pill */}
-                    <Link
-                        to="/"
-                        target="_blank"
-                        title="Open Live Store"
-                        className="fk-logo-pill flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#ffe11b] hover:bg-[#ffd800] shadow-md shadow-yellow-500/20 shrink-0 transition-transform active:scale-95 cursor-pointer no-underline"
-                        style={{ backgroundColor: '#ffe11b', color: '#111827', textDecoration: 'none' }}
-                    >
-                        <img
-                            src="/assets/banners/fk_speed_logo.png"
-                            alt="Flipkart"
-                            className="w-4 h-4 object-contain shrink-0"
-                            onError={(e) => {
-                                e.target.style.display = 'none';
-                            }}
-                        />
-                        <span
-                            className="italic font-black text-xs sm:text-[13px] tracking-tight leading-none select-none"
-                            style={{ color: '#111827', fontWeight: 900, textDecoration: 'none' }}
-                        >
-                            Flipkart
-                        </span>
-                    </Link>
+        <aside className="w-64 shrink-0 bg-[#0F1017] text-[#8E92BC] flex flex-col h-full min-h-screen border-r border-[#1C1E2B] select-none font-sans">
+            {/* Nexmart Logo Brand Header */}
+            <div className="p-5 flex items-center justify-between border-b border-[#1C1E2B]/80">
+                <Link to="/admin/dashboard" className="flex items-center gap-3 no-underline group">
+                    {/* Nexmart Geometric Isometric Icon */}
+                    <div className="relative w-8 h-8 flex items-center justify-center">
+                        <div className="w-4 h-4 rounded-sm bg-[#5B5CE5] absolute top-1 left-1 transform -rotate-12 group-hover:rotate-0 transition-transform shadow-md shadow-[#5B5CE5]/50"></div>
+                        <div className="w-4 h-4 rounded-sm bg-[#38BDF8] absolute bottom-1 right-1 transform -rotate-12 group-hover:rotate-0 transition-transform opacity-90"></div>
+                    </div>
                     <div className="flex flex-col">
-                        <span className="font-extrabold text-white text-xs tracking-wider uppercase leading-none">
+                        <span className="text-white font-extrabold text-lg tracking-tight leading-none">
+                            Nexmart
+                        </span>
+                        <span className="text-[10px] text-[#63688E] font-medium tracking-wider uppercase mt-1">
                             Admin Suite
                         </span>
-                        <span className="text-[9px] font-semibold tracking-wider uppercase mt-1 text-slate-400" style={{ color: '#94a3b8' }}>
-                            Store Control
-                        </span>
                     </div>
-                </div>
+                </Link>
 
+                {/* Close Button on Mobile Drawer */}
                 {setToggleSidebar && (
                     <button
                         onClick={() => setToggleSidebar(false)}
-                        className="md:hidden text-slate-300 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
+                        className="md:hidden p-1.5 rounded-lg text-[#8E92BC] hover:text-white hover:bg-[#1A1C29] transition-colors"
                     >
-                        <CloseIcon fontSize="small" />
+                        <CloseRoundedIcon sx={{ fontSize: 20 }} />
                     </button>
                 )}
             </div>
 
-            {/* Admin Profile Chip */}
-            <div className="mx-3 mt-3 p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-2.5">
-                <Avatar
-                    sx={{ width: 36, height: 36, bgcolor: '#2874f0', fontSize: 14, fontWeight: 'bold' }}
-                    src={user?.avatar?.url}
-                >
-                    {user?.name ? user.name[0].toUpperCase() : 'A'}
-                </Avatar>
-                <div className="flex flex-col min-w-0 flex-1">
-                    <span className="text-xs font-bold text-white truncate">
-                        {user?.name || "Administrator"}
-                    </span>
-                    <span className="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                        Admin Active
-                    </span>
-                </div>
-            </div>
+            {/* Navigation Menu List */}
+            <nav className="flex-1 py-5 px-3 space-y-1 overflow-y-auto nexmart-sidebar-scroll">
+                {navItems.map((item) => {
+                    const isActive = activeTab === item.id || location.pathname === item.ref;
+                    return (
+                        <Link
+                            key={item.label}
+                            to={item.ref}
+                            onClick={() => setToggleSidebar && setToggleSidebar(false)}
+                            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all duration-150 no-underline ${
+                                isActive
+                                    ? 'bg-[#5B5CE5] text-white shadow-lg shadow-[#5B5CE5]/25 font-bold'
+                                    : 'text-[#8E92BC] hover:text-white hover:bg-[#181926]'
+                            }`}
+                        >
+                            <div className="flex items-center gap-3">
+                                <span className={isActive ? 'text-white' : 'text-[#8E92BC] group-hover:text-white'}>
+                                    {item.icon}
+                                </span>
+                                <span>{item.label}</span>
+                            </div>
 
-            {/* Navigation Menus */}
-            <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4 sidebar">
-                {navSections.map((section, sIdx) => (
-                    <div key={sIdx} className="space-y-1">
-                        <div className="px-3 text-[10px] font-black uppercase tracking-wider" style={{ color: '#94a3b8' }}>
-                            {section.title}
-                        </div>
-                        {section.items.map((item) => {
-                            const isSelected = activeTab === item.id || location.pathname === item.ref;
-                            return (
-                                <Link
-                                    key={item.id}
-                                    to={item.ref}
-                                    data-active={isSelected ? "true" : "false"}
-                                    onClick={() => setToggleSidebar && setToggleSidebar(false)}
-                                    className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-bold transition-all duration-150 ${
-                                        isSelected
-                                            ? "bg-[#2874f0] !text-white shadow-lg shadow-blue-500/30"
-                                            : "text-slate-200 hover:text-white hover:bg-slate-800/80 active:bg-slate-800"
+                            {item.badge && (
+                                <span
+                                    className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                                        isActive
+                                            ? 'bg-white/20 text-white'
+                                            : 'bg-[#5B5CE5]/15 text-[#8183F2] border border-[#5B5CE5]/30'
                                     }`}
-                                    style={{ color: isSelected ? '#ffffff' : '#f1f5f9' }}
                                 >
-                                    <div className="flex items-center gap-2.5">
-                                        <span className={isSelected ? "!text-white" : "text-blue-400"} style={{ color: isSelected ? '#ffffff' : '#60a5fa' }}>
-                                            {item.icon}
-                                        </span>
-                                        <span className={`nav-label ${isSelected ? "!text-white font-extrabold" : "text-slate-100 font-semibold"}`} style={{ color: isSelected ? '#ffffff' : '#f1f5f9' }}>
-                                            {item.label}
-                                        </span>
-                                    </div>
-                                    {item.badge && (
-                                        <span className={`text-[9px] px-1.5 py-0.5 rounded-md font-extrabold uppercase tracking-wider ${
-                                            isSelected ? "bg-white/25 !text-white" : "bg-amber-400/20 text-amber-300 border border-amber-400/40"
-                                        }`} style={{ color: isSelected ? '#ffffff' : '#fcd34d' }}>
-                                            {item.badge}
-                                        </span>
-                                    )}
-                                </Link>
-                            );
-                        })}
-                    </div>
-                ))}
+                                    {item.badge}
+                                </span>
+                            )}
+                        </Link>
+                    );
+                })}
 
-                {/* View Live Store Link */}
-                <div className="pt-2">
-                    <Link
-                        to="/"
-                        target="_blank"
-                        className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-100 hover:text-white hover:bg-slate-800/90 transition-all border border-slate-700 bg-slate-900/80"
-                        style={{ color: '#f1f5f9' }}
-                    >
-                        <StorefrontOutlinedIcon sx={{ fontSize: 18, color: '#38bdf8' }} />
-                        <span className="text-slate-100 font-semibold" style={{ color: '#f1f5f9' }}>View Live Store</span>
-                        <span className="ml-auto text-xs text-blue-400 font-black">↗</span>
-                    </Link>
-                </div>
-            </div>
+                {/* Direct Shortcut to Add Product */}
+                <Link
+                    to="/admin/new_product"
+                    onClick={() => setToggleSidebar && setToggleSidebar(false)}
+                    className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#8E92BC] hover:text-white hover:bg-[#181926] transition-all no-underline"
+                >
+                    <AddBoxOutlinedIcon sx={{ fontSize: 20 }} />
+                    <span>Add Product</span>
+                </Link>
+            </nav>
 
-            {/* Security Footer & Logout */}
-            <div className="p-3 border-t border-slate-800 bg-slate-950/80 space-y-2">
-                <div className="p-2 rounded-lg bg-slate-800/60 border border-slate-800 flex items-center gap-2 text-[11px]" style={{ color: '#94a3b8' }}>
-                    <ShieldOutlinedIcon sx={{ fontSize: 16, color: '#10b981' }} />
-                    <span className="truncate" style={{ color: '#94a3b8' }}>Protected by 256-Bit JWT</span>
-                </div>
+            {/* Bottom Pinned Controls: Settings & Logout */}
+            <div className="p-3 border-t border-[#1C1E2B]/80 space-y-1">
+                <Link
+                    to="/admin/upi-settings"
+                    className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#8E92BC] hover:text-white hover:bg-[#181926] transition-all no-underline"
+                >
+                    <SettingsOutlinedIcon sx={{ fontSize: 20 }} />
+                    <span>Settings</span>
+                </Link>
 
                 <button
                     onClick={handleLogout}
-                    className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-red-400 hover:text-white hover:bg-red-500/20 border border-red-500/20 transition-all cursor-pointer"
+                    className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#EF4444] hover:bg-[#EF4444]/10 transition-all cursor-pointer text-left"
                 >
-                    <LogoutIcon sx={{ fontSize: 16 }} />
-                    <span>Secure Logout</span>
+                    <LogoutRoundedIcon sx={{ fontSize: 20 }} />
+                    <span>Logout</span>
                 </button>
+
+                {/* View Live Store Direct Link */}
+                <Link
+                    to="/"
+                    target="_blank"
+                    className="mt-2 w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-[#181926] hover:bg-[#202234] text-slate-300 hover:text-white text-[11px] font-bold border border-[#26283D] transition-all no-underline"
+                >
+                    <StorefrontRoundedIcon sx={{ fontSize: 16, color: '#38BDF8' }} />
+                    <span>View Live Store ↗</span>
+                </Link>
             </div>
         </aside>
     );

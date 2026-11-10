@@ -54,11 +54,11 @@ const OrderTable = () => {
                     <>
                         {
                             params.row.status === "Delivered" ? (
-                                <span className="text-sm bg-green-100 p-1 px-2 font-medium rounded-full text-green-800">{params.row.status}</span>
+                                <span className="text-[10px] bg-[#10B981]/15 border border-[#10B981]/30 py-0.5 px-2.5 font-bold uppercase rounded-full text-[#34D399]">{params.row.status}</span>
                             ) : params.row.status === "Shipped" ? (
-                                <span className="text-sm bg-yellow-100 p-1 px-2 font-medium rounded-full text-yellow-800">{params.row.status}</span>
+                                <span className="text-[10px] bg-[#3B82F6]/15 border border-[#3B82F6]/30 py-0.5 px-2.5 font-bold uppercase rounded-full text-[#60A5FA]">{params.row.status}</span>
                             ) : (
-                                <span className="text-sm bg-purple-100 p-1 px-2 font-medium rounded-full text-purple-800">{params.row.status}</span>
+                                <span className="text-[10px] bg-[#F59E0B]/15 border border-[#F59E0B]/30 py-0.5 px-2.5 font-bold uppercase rounded-full text-[#FBBF24]">{params.row.status}</span>
                             )
                         }
                     </>
@@ -119,18 +119,19 @@ const OrderTable = () => {
     });
 
     return (
-        <>
-            <MetaData title="Admin Orders | Flipkart" />
+        <div className="space-y-4">
+            <MetaData title="Admin Orders | Nexmart" />
 
             {loading && <BackdropLoader />}
 
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-xl font-black text-white tracking-tight uppercase">Orders & Shipments</h1>
-                    <p className="text-xs text-slate-400 mt-0.5">Track live customer orders, courier dispatch & delivery status</p>
+                    <p className="text-xs text-[#8E92BC] mt-0.5">Track live customer orders, courier dispatch & delivery status</p>
                 </div>
             </div>
-            <div className="bg-[#131c31] rounded-2xl shadow-xl border border-slate-800 p-2 w-full overflow-hidden" style={{ height: 520 }}>
+
+            <div className="bg-[#171825] rounded-2xl shadow-xl border border-[#232538] p-2 w-full overflow-hidden" style={{ height: 560 }}>
 
                 <DataGrid
                     rows={rows}
@@ -142,31 +143,31 @@ const OrderTable = () => {
                         border: 0,
                         color: '#f1f5f9',
                         '& .MuiDataGrid-cell': {
-                            borderColor: '#1e293b',
+                            borderColor: '#232538',
                             color: '#f1f5f9',
                             fontSize: '12px'
                         },
                         '& .MuiDataGrid-columnHeaders': {
-                            backgroundColor: '#0f172a',
-                            borderColor: '#1e293b',
-                            color: '#cbd5e1',
+                            backgroundColor: '#1E2033',
+                            borderColor: '#232538',
+                            color: '#8E92BC',
                             fontWeight: 'bold',
                         },
                         '& .MuiDataGrid-footerContainer': {
-                            borderColor: '#1e293b',
-                            color: '#94a3b8',
-                            backgroundColor: '#0f172a',
+                            borderColor: '#232538',
+                            color: '#8E92BC',
+                            backgroundColor: '#1E2033',
                         },
                         '& .MuiTablePagination-root': {
-                            color: '#94a3b8',
+                            color: '#8E92BC',
                         },
                         '& .MuiIconButton-root': {
-                            color: '#94a3b8',
+                            color: '#8E92BC',
                         },
                     }}
                 />
             </div>
-        </>
+        </div>
     );
 };
 

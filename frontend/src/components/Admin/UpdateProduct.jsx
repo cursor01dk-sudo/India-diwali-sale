@@ -352,20 +352,20 @@ const UpdateProduct = () => {
     };
 
     return (
-        <div className="space-y-6 max-w-4xl mx-auto pb-12">
-            <MetaData title="Edit Product | Admin Console" />
+        <div className="space-y-5 max-w-4xl mx-auto pb-12">
+            <MetaData title="Edit Product | Nexmart" />
 
             {/* Header Banner */}
-            <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 rounded-2xl p-4 sm:p-6 text-white shadow-md">
+            <div className="bg-[#171825] border border-[#232538] rounded-2xl p-4 sm:p-6 text-white shadow-xl">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
-                        <div className="text-[11px] text-blue-200 font-bold uppercase tracking-wider">
+                        <div className="text-[11px] text-[#5B5CE5] font-bold uppercase tracking-wider">
                             Visual Catalog Studio
                         </div>
                         <h2 className="text-lg sm:text-xl font-black tracking-tight text-white">
                             Edit Product & Real-Time Sync
                         </h2>
-                        <p className="text-xs text-blue-100 mt-0.5">
+                        <p className="text-xs text-[#8E92BC] mt-0.5">
                             Update titles, custom selling prices, MRP, and Full HD photos with instant store sync.
                         </p>
                     </div>
@@ -373,7 +373,7 @@ const UpdateProduct = () => {
                     <div className="flex items-center gap-2 shrink-0">
                         <Link
                             to="/admin/products"
-                            className="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition-colors flex items-center gap-1 cursor-pointer"
+                            className="bg-[#202234] hover:bg-[#282B42] text-slate-200 text-xs font-semibold px-3 py-1.5 rounded-xl border border-[#2E314A] transition-colors flex items-center gap-1 cursor-pointer no-underline"
                         >
                             <ArrowBackIcon sx={{ fontSize: 14 }} />
                             <span>Catalog</span>
@@ -382,7 +382,7 @@ const UpdateProduct = () => {
                             <Link
                                 to={`/product/${productId}`}
                                 target="_blank"
-                                className="bg-amber-400 hover:bg-amber-500 text-gray-950 text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm transition-colors flex items-center gap-1 cursor-pointer"
+                                className="bg-[#5B5CE5] hover:bg-[#4E4FD9] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-md shadow-[#5B5CE5]/25 transition-colors flex items-center gap-1 cursor-pointer no-underline"
                             >
                                 <VisibilityOutlinedIcon sx={{ fontSize: 15 }} />
                                 <span>View on Store</span>

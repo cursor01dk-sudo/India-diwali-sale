@@ -77,11 +77,13 @@ const UpdateUser = () => {
             {updateLoading && <BackdropLoader />}
 
             {loading ? <Loading /> : (
-                <>
-                    <div className="flex flex-col bg-[#131c31] border border-slate-800 shadow-xl rounded-2xl mx-auto w-full max-w-xl text-slate-100 overflow-hidden">
-                        <div className="bg-[#0f172a] border-b border-slate-800 p-5 text-center">
+                <div className="space-y-4">
+                    <MetaData title="Update User Profile | Nexmart" />
+
+                    <div className="flex flex-col bg-[#171825] border border-[#232538] shadow-xl rounded-2xl mx-auto w-full max-w-xl text-slate-100 overflow-hidden">
+                        <div className="bg-[#10111A] border-b border-[#232538] p-5 text-center">
                             <h2 className="text-xl font-extrabold text-white">Update User Profile & Role</h2>
-                            <p className="text-xs text-slate-400 mt-1">Manage user account permissions and customer details</p>
+                            <p className="text-xs text-[#8E92BC] mt-1">Manage user account permissions and customer details</p>
                         </div>
 
                         <form
@@ -100,13 +102,13 @@ const UpdateUser = () => {
                                         onChange={(e) => setName(e.target.value)}
                                         required
                                         sx={{
-                                            '& .MuiInputLabel-root': { color: '#94a3b8' },
+                                            '& .MuiInputLabel-root': { color: '#8E92BC' },
                                             '& .MuiOutlinedInput-root': {
                                                 color: '#f8fafc',
-                                                backgroundColor: '#0f172a',
-                                                '& fieldset': { borderColor: '#334155' },
-                                                '&:hover fieldset': { borderColor: '#64748b' },
-                                                '&.Mui-focused fieldset': { borderColor: '#3b82f6' },
+                                                backgroundColor: '#10111A',
+                                                '& fieldset': { borderColor: '#26283D' },
+                                                '&:hover fieldset': { borderColor: '#5B5CE5' },
+                                                '&.Mui-focused fieldset': { borderColor: '#5B5CE5' },
                                             }
                                         }}
                                     />
@@ -119,13 +121,13 @@ const UpdateUser = () => {
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
                                         sx={{
-                                            '& .MuiInputLabel-root': { color: '#94a3b8' },
+                                            '& .MuiInputLabel-root': { color: '#8E92BC' },
                                             '& .MuiOutlinedInput-root': {
                                                 color: '#f8fafc',
-                                                backgroundColor: '#0f172a',
-                                                '& fieldset': { borderColor: '#334155' },
-                                                '&:hover fieldset': { borderColor: '#64748b' },
-                                                '&.Mui-focused fieldset': { borderColor: '#3b82f6' },
+                                                backgroundColor: '#10111A',
+                                                '& fieldset': { borderColor: '#26283D' },
+                                                '&:hover fieldset': { borderColor: '#5B5CE5' },
+                                                '&.Mui-focused fieldset': { borderColor: '#5B5CE5' },
                                             }
                                         }}
                                     />
@@ -192,10 +194,10 @@ const UpdateUser = () => {
                                 </div>
                                 
                                 <div className="flex items-center gap-3 w-full pt-2">
-                                    <Link className="hover:bg-slate-800 text-slate-300 text-center py-3 px-4 flex-1 border border-slate-700 rounded-xl font-bold text-xs transition-colors" to="/admin/users">
+                                    <Link className="hover:bg-[#202234] text-slate-300 text-center py-3 px-4 flex-1 border border-[#2E314A] rounded-xl font-bold text-xs transition-colors no-underline" to="/admin/users">
                                         Cancel
                                     </Link>
-                                    <button type="submit" className="text-white py-3 px-4 flex-1 bg-[#2874f0] hover:bg-blue-600 shadow-md rounded-xl font-bold text-xs transition-colors cursor-pointer">
+                                    <button type="submit" className="text-white py-3 px-4 flex-1 bg-[#5B5CE5] hover:bg-[#4E4FD9] shadow-md shadow-[#5B5CE5]/25 rounded-xl font-bold text-xs transition-colors cursor-pointer">
                                         Update User
                                     </button>
                                 </div>
@@ -204,7 +206,7 @@ const UpdateUser = () => {
                         </form>
 
                     </div>
-                </>
+                </div>
             )}
         </>
     );

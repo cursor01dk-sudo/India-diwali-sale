@@ -59,28 +59,28 @@ const UpdateOrder = () => {
                                 <span>Go Back to Orders</span>
                             </Link>
 
-                            <div className="flex flex-col sm:flex-row bg-[#131c31] border border-slate-800 shadow-lg rounded-2xl min-w-full text-slate-100">
-                                <div className="sm:w-1/2 border-b sm:border-b-0 sm:border-r border-slate-800">
+                            <div className="flex flex-col sm:flex-row bg-[#171825] border border-[#232538] shadow-lg rounded-2xl min-w-full text-slate-100">
+                                <div className="sm:w-1/2 border-b sm:border-b-0 sm:border-r border-[#232538]">
                                     <div className="flex flex-col gap-3 my-6 mx-8">
-                                        <h3 className="font-extrabold text-base text-white border-b border-slate-800 pb-2">Delivery Address</h3>
+                                        <h3 className="font-extrabold text-base text-white border-b border-[#232538] pb-2">Delivery Address</h3>
                                         <h4 className="font-bold text-white text-sm">{order.user ? order.user.name : (order.shippingInfo.name || "Guest Customer")}</h4>
                                         <p className="text-xs text-slate-300">{`${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state} - ${order.shippingInfo.pincode}`}</p>
                                         <div className="flex gap-2 text-xs">
-                                            <p className="font-bold text-slate-400">Customer Type:</p>
+                                            <p className="font-bold text-[#8E92BC]">Customer Type:</p>
                                             <p className="text-slate-200">{order.user ? order.user.email : "Guest Checkout"}</p>
                                         </div>
                                         <div className="flex gap-2 text-xs">
-                                            <p className="font-bold text-slate-400">Phone Number:</p>
+                                            <p className="font-bold text-[#8E92BC]">Phone Number:</p>
                                             <p className="text-slate-200">{order.shippingInfo.phoneNo}</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <form onSubmit={updateOrderSubmitHandler} className="flex flex-col gap-3 p-8 sm:w-1/2">
-                                    <h3 className="font-extrabold text-base text-white border-b border-slate-800 pb-2">Update Status</h3>
+                                    <h3 className="font-extrabold text-base text-white border-b border-[#232538] pb-2">Update Status</h3>
                                     <div className="flex gap-2 text-xs">
-                                        <p className="font-bold text-slate-400">Current Status:</p>
-                                        <p className="font-semibold text-blue-400">
+                                        <p className="font-bold text-[#8E92BC]">Current Status:</p>
+                                        <p className="font-semibold text-[#5B5CE5]">
                                             {order.orderStatus === "Shipped" && (`Shipped on ${formatDate(order.shippedAt)}`)}
                                             {order.orderStatus === "Processing" && (`Ordered on ${formatDate(order.createdAt)}`)}
                                             {order.orderStatus === "Delivered" && (`Delivered on ${formatDate(order.deliveredAt)}`)}
@@ -88,15 +88,15 @@ const UpdateOrder = () => {
                                     </div>
                                     <FormControl fullWidth sx={{
                                         marginTop: 1,
-                                        '& .MuiInputLabel-root': { color: '#94a3b8' },
+                                        '& .MuiInputLabel-root': { color: '#8E92BC' },
                                         '& .MuiOutlinedInput-root': {
                                             color: '#f8fafc',
-                                            backgroundColor: '#0f172a',
-                                            '& fieldset': { borderColor: '#334155' },
-                                            '&:hover fieldset': { borderColor: '#64748b' },
-                                            '&.Mui-focused fieldset': { borderColor: '#3b82f6' },
+                                            backgroundColor: '#10111A',
+                                            '& fieldset': { borderColor: '#26283D' },
+                                            '&:hover fieldset': { borderColor: '#5B5CE5' },
+                                            '&.Mui-focused fieldset': { borderColor: '#5B5CE5' },
                                         },
-                                        '& .MuiSvgIcon-root': { color: '#94a3b8' }
+                                        '& .MuiSvgIcon-root': { color: '#8E92BC' }
                                     }}>
                                         <InputLabel id="order-status-select-label">Status</InputLabel>
                                         <Select
@@ -111,7 +111,7 @@ const UpdateOrder = () => {
                                             {order.orderStatus === "Delivered" && (<MenuItem value={"Delivered"}>Delivered</MenuItem>)}
                                         </Select>
                                     </FormControl>
-                                    <button type="submit" className="bg-[#2874f0] hover:bg-blue-600 p-2.5 text-white font-bold rounded-xl shadow-md transition-colors mt-2 cursor-pointer">
+                                    <button type="submit" className="bg-[#5B5CE5] hover:bg-[#4E4FD9] p-2.5 text-white font-bold rounded-xl shadow-md transition-colors mt-2 cursor-pointer">
                                         Update Order Status
                                     </button>
                                 </form>

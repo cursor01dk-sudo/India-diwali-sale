@@ -183,27 +183,27 @@ const NewProduct = () => {
     };
 
     return (
-        <div className="space-y-6">
-            <MetaData title="Add New Product | Flipkart Admin" />
+        <div className="space-y-5">
+            <MetaData title="Add New Product | Nexmart" />
 
             {/* Header Banner */}
-            <div className="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-800 rounded-2xl p-4 sm:p-6 text-white shadow-md">
+            <div className="bg-[#171825] border border-[#232538] rounded-2xl p-4 sm:p-6 text-white shadow-xl">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
-                        <div className="text-[11px] text-blue-200 font-bold uppercase tracking-wider">
+                        <div className="text-[11px] text-[#5B5CE5] font-bold uppercase tracking-wider">
                             Catalog Management Studio
                         </div>
                         <h2 className="text-lg sm:text-xl font-black tracking-tight text-white">
                             Add New Product Manually
                         </h2>
-                        <p className="text-xs text-blue-100 mt-0.5">
+                        <p className="text-xs text-[#8E92BC] mt-0.5">
                             Create custom products with your own selling prices, MRP, HD images, and festival badges.
                         </p>
                     </div>
 
                     <Link
                         to="/admin/products"
-                        className="bg-white/15 hover:bg-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg border border-white/20 transition-colors shrink-0"
+                        className="bg-[#202234] hover:bg-[#282B42] text-slate-200 text-xs font-semibold px-3.5 py-2 rounded-xl border border-[#2E314A] transition-colors shrink-0 no-underline"
                     >
                         View Product Catalog ➔
                     </Link>
