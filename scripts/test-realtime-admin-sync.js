@@ -242,6 +242,7 @@ async function runTestSuite() {
         if (customerClient1) customerClient1.disconnect();
         if (customerClient2) customerClient2.disconnect();
         server.close();
+        process.exit(0);
     }
 }
 

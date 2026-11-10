@@ -15,3 +15,4 @@ router.route('/admin/coupon/new').post(isAuthenticatedUser, authorizeRoles('admi
 router.route('/admin/coupon/:id').delete(isAuthenticatedUser, authorizeRoles('admin', 'superadmin'), deleteCoupon);
 
 module.exports = router;
+

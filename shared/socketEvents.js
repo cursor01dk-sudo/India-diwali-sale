@@ -28,3 +28,4 @@ module.exports = {
     ACTIVITY_LOGGED: 'sync:activity_logged',
     NOTIFICATION: 'sync:notification'
 };
+

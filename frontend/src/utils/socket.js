@@ -40,3 +40,4 @@ socket.on('connect_error', (error) => {
 });
 
 export default socket;
+

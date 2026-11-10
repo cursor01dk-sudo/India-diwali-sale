@@ -19,7 +19,7 @@ exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
     }
 
     try {
-        const secret = process.env.JWT_SECRET || 'WFFWf15115U842UGUBWF81EE858UYBY51BGBJ5E51Q';
+        const secret = process.env.JWT_SECRET;
         const decodedData = jwt.verify(token, secret);
         if (decodedData && decodedData.id) {
             try {

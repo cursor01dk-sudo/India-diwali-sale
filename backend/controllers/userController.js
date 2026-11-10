@@ -90,13 +90,14 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 
     if (isAdminEmail) {
         const configuredAdminPassword = process.env.ADMIN_PASSWORD;
-        // Verify password: matches configured password, or default admin password 'admin123', 'admin', 'cursor01dk', or any password >= 4 chars
-        const isPasswordCorrect =
-            password === 'admin123' ||
-            password === 'admin' ||
-            password === 'cursor01dk' ||
-            (configuredAdminPassword && (password === configuredAdminPassword || password === configuredAdminPassword.trim())) ||
-            String(password).length >= 4;
+        const isDev = process.env.NODE_ENV !== 'production';
+
+        let isPasswordCorrect = false;
+        if (configuredAdminPassword) {
+            isPasswordCorrect = (password === configuredAdminPassword.trim());
+        } else if (isDev) {
+            isPasswordCorrect = (password === 'admin123' || password === 'admin');
+        }
 
         if (!isPasswordCorrect) {
             return next(new ErrorHandler("Invalid Email or Password", 401));
@@ -209,12 +210,14 @@ exports.adminLogin = asyncErrorHandler(async (req, res, next) => {
     }
 
     const configuredAdminPassword = process.env.ADMIN_PASSWORD;
-    const isPasswordCorrect =
-        password === 'admin123' ||
-        password === 'admin' ||
-        password === 'cursor01dk' ||
-        (configuredAdminPassword && password === configuredAdminPassword.trim()) ||
-        String(password).length >= 4;
+    const isDev = process.env.NODE_ENV !== 'production';
+
+    let isPasswordCorrect = false;
+    if (configuredAdminPassword) {
+        isPasswordCorrect = (password === configuredAdminPassword.trim());
+    } else if (isDev) {
+        isPasswordCorrect = (password === 'admin123' || password === 'admin');
+    }
 
     if (!isPasswordCorrect) {
         return next(new ErrorHandler("Invalid Credentials", 401));

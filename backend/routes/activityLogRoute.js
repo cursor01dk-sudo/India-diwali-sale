@@ -7,3 +7,4 @@ const router = express.Router();
 router.route('/admin/activity-logs').get(isAuthenticatedUser, authorizeRoles('admin', 'superadmin', 'staff'), getActivityLogs);
 
 module.exports = router;
+

@@ -8,3 +8,4 @@ router.route('/content').get(getWebsiteContent);
 router.route('/admin/content').put(isAuthenticatedUser, authorizeRoles('admin', 'superadmin'), updateWebsiteContent);
 
 module.exports = router;
+

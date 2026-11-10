@@ -46,3 +46,4 @@ const contentSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('WebsiteContent', contentSchema);
+

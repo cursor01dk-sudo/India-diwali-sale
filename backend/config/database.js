@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 let connectionPromise;
 
 const connectDatabase = async () => {
-    // If running on Vercel, or MONGO_URI is omitted, or not an Atlas remote connection, operate in zero-DB standalone mode
-    const isAtlas = process.env.MONGO_URI && process.env.MONGO_URI.startsWith('mongodb+srv://');
-    if (process.env.VERCEL || !process.env.MONGO_URI || !isAtlas) {
+    const isValidUri = process.env.MONGO_URI && (process.env.MONGO_URI.startsWith('mongodb+srv://') || process.env.MONGO_URI.startsWith('mongodb://'));
+    if (!process.env.MONGO_URI || !isValidUri) {
         mongoose.set('bufferCommands', false);
         return null;
     }
