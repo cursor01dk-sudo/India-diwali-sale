@@ -40,12 +40,15 @@ import UpdateUser from './components/Admin/UpdateUser';
 import ReviewsTable from './components/Admin/ReviewsTable';
 import Wishlist from './components/Wishlist/Wishlist';
 import NotFound from './components/NotFound';
+import useRealTimeSync from './hooks/useRealTimeSync';
 
 function App() {
 
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  // const [stripeApiKey, setStripeApiKey] = useState("");
+
+  // Activate real-time Socket.IO synchronization with 30s polling fallback
+  useRealTimeSync();
 
   // async function getStripeApiKey() {
   //   const { data } = await axios.get('/api/v1/stripeapikey');

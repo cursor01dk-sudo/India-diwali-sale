@@ -1,8 +1,10 @@
 const path = require('path');
+const http = require('http');
 const express = require('express');
 const cloudinary = require('cloudinary');
 const app = require('./backend/app');
 const connectDatabase = require('./backend/config/database');
+const { initSocketServer } = require('./backend/sockets/socketServer');
 const PORT = process.env.PORT || 4000;
 
 // UncaughtException Error
@@ -31,7 +33,10 @@ app.get('*', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
 });
 
-const server = app.listen(PORT, () => {
+const server = http.createServer(app);
+initSocketServer(server);
+
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
 });
 

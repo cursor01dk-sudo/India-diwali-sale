@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const Banner = require('../models/bannerModel');
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 const ErrorHandler = require('../utils/errorHandler');
+const { broadcastSync, EVENTS } = require('../sockets/socketServer');
+const { recordActivity } = require('../utils/activityLogger');
 
 // Default initial banners matching both uploaded screenshots
 const defaultBanners = [
@@ -128,6 +130,14 @@ exports.createBanner = asyncErrorHandler(async (req, res, next) => {
         }
     } catch (e) { }
 
+    broadcastSync(EVENTS.BANNER_UPDATED, { action: 'created', banner });
+    await recordActivity(req, {
+        action: 'CREATE_BANNER',
+        entityType: 'banner',
+        entityId: banner._id,
+        details: `Created new banner: "${banner.title}" (${banner.type})`,
+    });
+
     res.status(201).json({
         success: true,
         banner
@@ -166,6 +176,14 @@ exports.updateBanner = asyncErrorHandler(async (req, res, next) => {
         banner = { _id: req.params.id, ...req.body };
     }
 
+    broadcastSync(EVENTS.BANNER_UPDATED, { action: 'updated', banner });
+    await recordActivity(req, {
+        action: 'UPDATE_BANNER',
+        entityType: 'banner',
+        entityId: req.params.id,
+        details: `Updated banner "${banner.title || req.params.id}"`,
+    });
+
     res.status(200).json({
         success: true,
         banner
@@ -189,6 +207,14 @@ exports.deleteBanner = asyncErrorHandler(async (req, res, next) => {
             fs.writeFileSync(dataPath, JSON.stringify(list, null, 2));
         }
     } catch (e) { }
+
+    broadcastSync(EVENTS.BANNER_UPDATED, { action: 'deleted', id: req.params.id });
+    await recordActivity(req, {
+        action: 'DELETE_BANNER',
+        entityType: 'banner',
+        entityId: req.params.id,
+        details: `Deleted banner ID "${req.params.id}"`,
+    });
 
     res.status(200).json({
         success: true,

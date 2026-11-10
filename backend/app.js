@@ -57,6 +57,9 @@ const product = require('./routes/productRoute');
 const order = require('./routes/orderRoute');
 const payment = require('./routes/paymentRoute');
 const banner = require('./routes/bannerRoute');
+const content = require('./routes/contentRoute');
+const coupon = require('./routes/couponRoute');
+const activityLog = require('./routes/activityLogRoute');
 
 // Quad-mount routes to guarantee zero 404/500 errors across any Vercel rewrite configuration
 app.use('/api/v1', user);
@@ -83,6 +86,21 @@ app.use('/api/v1', banner);
 app.use('/v1', banner);
 app.use('/api', banner);
 app.use('/', banner);
+
+app.use('/api/v1', content);
+app.use('/v1', content);
+app.use('/api', content);
+app.use('/', content);
+
+app.use('/api/v1', coupon);
+app.use('/v1', coupon);
+app.use('/api', coupon);
+app.use('/', coupon);
+
+app.use('/api/v1', activityLog);
+app.use('/v1', activityLog);
+app.use('/api', activityLog);
+app.use('/', activityLog);
 
 // error middleware
 app.use(errorMiddleware);

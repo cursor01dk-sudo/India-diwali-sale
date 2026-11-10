@@ -4,6 +4,8 @@ const Order = require('../models/orderModel');
 const Product = require('../models/productModel');
 const ErrorHandler = require('../utils/errorHandler');
 const sendEmail = require('../utils/sendEmail');
+const { broadcastSync, notifyAdmin, EVENTS } = require('../sockets/socketServer');
+const { recordActivity } = require('../utils/activityLogger');
 
 // Create New Order
 exports.newOrder = asyncErrorHandler(async (req, res, next) => {
@@ -54,6 +56,9 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
             // Email sending failure shouldn't fail order
         }
     }
+
+    // Real-time notification to admin dashboard
+    notifyAdmin(EVENTS.ORDER_CREATED, order);
 
     res.status(201).json({
         success: true,
@@ -149,6 +154,15 @@ exports.updateOrder = asyncErrorHandler(async (req, res, next) => {
     }
 
     await order.save({ validateBeforeSave: false });
+
+    // Real-time synchronization event & audit log
+    broadcastSync(EVENTS.ORDER_STATUS_UPDATED, { id: order._id, status: order.orderStatus });
+    await recordActivity(req, {
+        action: 'UPDATE_ORDER_STATUS',
+        entityType: 'order',
+        entityId: order._id,
+        details: `Updated order status for ${order._id} to "${order.orderStatus}"`,
+    });
 
     res.status(200).json({
         success: true

@@ -86,7 +86,20 @@ const Payment = () => {
             } catch (err) {}
         };
         fetchUpiSettings();
-        return () => { isMounted = false; };
+
+        const handleRealTimeUpiUpdate = (e) => {
+            if (e.detail && e.detail.upiId) {
+                setMerchantUpiId(e.detail.upiId);
+                if (e.detail.payeeName) setMerchantPayeeName(e.detail.payeeName);
+                if (e.detail.qrNote) setQrNotePrefix(e.detail.qrNote);
+            }
+        };
+        window.addEventListener('sync:upi_settings_updated', handleRealTimeUpiUpdate);
+
+        return () => {
+            isMounted = false;
+            window.removeEventListener('sync:upi_settings_updated', handleRealTimeUpiUpdate);
+        };
     }, []);
 
     // YouPI Payment Gateway Integration State

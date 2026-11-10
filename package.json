@@ -5,13 +5,18 @@
   "main": "server.js",
   "scripts": {
     "build": "npm install --prefix frontend --legacy-peer-deps && npm run build --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:admin": "npm run build --prefix admin",
+    "build:all": "npm run build:frontend && npm run build:admin",
     "start": "node server.js",
     "server": "node server.js",
     "frontend": "npm start --prefix frontend",
+    "admin": "npm start --prefix admin",
     "gateway": "npm run dev --prefix \"Payment gateway/YouPI-PG-main\"",
     "gateway:setup": "node \"Payment gateway/YouPI-PG-main/scripts/init-db.cjs\"",
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
-    "dev:all": "concurrently \"npm run server\" \"npm run frontend\" \"npm run gateway\"",
+    "dev:admin": "concurrently \"npm run server\" \"npm run admin\"",
+    "dev:all": "concurrently \"npm run server\" \"npm run frontend\" \"npm run admin\" \"npm run gateway\"",
     "set-admin": "node backend/utils/setAdminCredentials.js",
     "set-upi": "node scripts/set-merchant-upi.js",
     "render-postbuild": "NPM_CONFIG_PRODUCTION=false && npm install --prefix frontend && npm run build --prefix frontend"
@@ -32,6 +37,7 @@
     "mongoose": "^6.1.7",
     "nodemailer": "^6.7.2",
     "paytmchecksum": "^1.5.0",
+    "socket.io": "^4.8.4",
     "stripe": "^8.200.0",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"

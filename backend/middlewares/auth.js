@@ -88,7 +88,9 @@ exports.optionalAuth = asyncErrorHandler(async (req, res, next) => {
 
 exports.authorizeRoles = (...roles) => {
     return (req, res, next) => {
-        if (!req.user || !roles.includes(req.user.role)) {
+        const userRole = req.user?.role;
+        const isAuthorized = roles.includes(userRole) || userRole === 'superadmin';
+        if (!req.user || !isAuthorized) {
             return next(new ErrorHandler(`Access Denied: Role (${req.user?.role || 'Guest'}) is not authorized to access this resource`, 403));
         }
         next();

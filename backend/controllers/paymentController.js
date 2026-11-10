@@ -7,6 +7,8 @@ const https = require('https');
 const Payment = require('../models/paymentModel');
 const ErrorHandler = require('../utils/errorHandler');
 const { v4: uuidv4 } = require('uuid');
+const { broadcastSync, EVENTS } = require('../sockets/socketServer');
+const { recordActivity } = require('../utils/activityLogger');
 
 const paymentConfigFile = path.join(__dirname, '../data/paymentConfig.json');
 
@@ -402,6 +404,20 @@ exports.updateUpiSettings = asyncErrorHandler(async (req, res, next) => {
             db.close();
         }
     } catch (e) {}
+
+    // Broadcast real-time update and record activity
+    broadcastSync(EVENTS.UPI_SETTINGS_UPDATED, {
+        upiId: cleanUpiId,
+        payeeName: cleanPayeeName,
+        qrNote: cleanQrNote,
+        updatedAt: inMemoryPaymentConfig.updatedAt
+    });
+    await recordActivity(req, {
+        action: 'UPDATE_UPI_GATEWAY',
+        entityType: 'upi',
+        entityId: cleanUpiId,
+        details: `Updated Store Receiver UPI ID to "${cleanUpiId}" (${cleanPayeeName})`,
+    });
 
     res.status(200).json({
         success: true,

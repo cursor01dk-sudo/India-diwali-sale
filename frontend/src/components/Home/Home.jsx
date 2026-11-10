@@ -87,6 +87,14 @@ const Home = () => {
             }
         };
         fetchBanners();
+
+        const onBannerSync = () => {
+            fetchBanners();
+        };
+        window.addEventListener('sync:banner_updated', onBannerSync);
+        return () => {
+            window.removeEventListener('sync:banner_updated', onBannerSync);
+        };
     }, [dispatch]);
 
     // Filter banners by type with instant embedded fallbacks matching local environment

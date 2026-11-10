@@ -22,8 +22,15 @@ router.route('/callback').post(paytmResponse);
 router.route('/payment/status/:id').get(isAuthenticatedUser, getPaymentStatus);
 
 // Dynamic UPI Payment Settings
-router.route('/payment/upi-settings').get(getUpiSettings);
-router.route('/admin/payment/upi-settings').post(isAuthenticatedUser, authorizeRoles("admin"), updateUpiSettings);
+router.route('/payment/upi-settings')
+    .get(getUpiSettings)
+    .post(isAuthenticatedUser, authorizeRoles("admin", "superadmin"), updateUpiSettings)
+    .put(isAuthenticatedUser, authorizeRoles("admin", "superadmin"), updateUpiSettings);
+
+router.route('/admin/payment/upi-settings')
+    .get(getUpiSettings)
+    .post(isAuthenticatedUser, authorizeRoles("admin", "superadmin"), updateUpiSettings)
+    .put(isAuthenticatedUser, authorizeRoles("admin", "superadmin"), updateUpiSettings);
 
 // YouPI PG Routes
 router.route('/payment/youpi/create').post(createYoupiSession);

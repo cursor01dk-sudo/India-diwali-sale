@@ -1,5 +1,1159 @@
 [
   {
+    "_id": "prod_1794301096061",
+    "name": "Apple iPhone 16 Pro Max 256GB Desert Titanium",
+    "description": "A18 Pro chip, 48MP Fusion camera system, Grade 5 Titanium design",
+    "price": 129900,
+    "cuttedPrice": 144900,
+    "category": "Mobiles",
+    "stock": 12,
+    "images": [
+      {
+        "public_id": "prod_img_1794301096060_0",
+        "url": "/assets/products/iphone16.jpg"
+      }
+    ],
+    "brand": {
+      "name": "Flipkart Assured",
+      "logo": {
+        "public_id": "brand_logo_1794301096060",
+        "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
+      }
+    },
+    "user": "6aed72e68942b29e450d6a48",
+    "specifications": [],
+    "highlights": [
+      "100% Genuine Certified Product",
+      "Flipkart Assured Quality",
+      "7 Days Replacement Guarantee"
+    ],
+    "reviews": [
+      {
+        "name": "Pallavi Hegde",
+        "rating": 4,
+        "title": "Very good product",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Happy with the product quality.",
+        "dateStr": "9 months ago",
+        "likes": 116,
+        "dislikes": 3,
+        "createdAt": "2026-08-10T08:58:16.060Z"
+      },
+      {
+        "name": "Hemant Solanki",
+        "rating": 3,
+        "title": "Perfect purchase",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Happy with the product quality.",
+        "dateStr": "4 days ago",
+        "likes": 138,
+        "dislikes": 1,
+        "createdAt": "2025-12-07T08:58:16.060Z"
+      },
+      {
+        "name": "Priya Patel",
+        "rating": 5,
+        "title": "Fabulous!",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Highly satisfied with Flipkart Assured.",
+        "dateStr": "10 months ago",
+        "likes": 152,
+        "dislikes": 0,
+        "createdAt": "2026-08-18T08:58:16.060Z"
+      },
+      {
+        "name": "Lalit Bohra",
+        "rating": 5,
+        "title": "Must buy!",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Highly satisfied with Flipkart Assured.",
+        "dateStr": "4 months ago",
+        "likes": 35,
+        "dislikes": 0,
+        "createdAt": "2026-05-21T08:58:16.060Z"
+      },
+      {
+        "name": "Alok Sengupta",
+        "rating": 5,
+        "title": "Brilliant product",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast.",
+        "dateStr": "2 months ago",
+        "likes": 52,
+        "dislikes": 2,
+        "createdAt": "2025-12-31T08:58:16.060Z"
+      },
+      {
+        "name": "Bhupendra Bisht",
+        "rating": 5,
+        "title": "Delivered on time",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Ekart delivery was super fast.",
+        "dateStr": "6 days ago",
+        "likes": 61,
+        "dislikes": 2,
+        "createdAt": "2026-02-05T08:58:16.060Z"
+      },
+      {
+        "name": "Suresh Menon",
+        "rating": 5,
+        "title": "Top notch quality",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Ekart delivery was super fast.",
+        "dateStr": "Yesterday",
+        "likes": 88,
+        "dislikes": 1,
+        "createdAt": "2026-08-16T08:58:16.060Z"
+      },
+      {
+        "name": "Vandana Maurya",
+        "rating": 5,
+        "title": "Highly durable",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Recommended to all my friends.",
+        "dateStr": "9 months ago",
+        "likes": 128,
+        "dislikes": 2,
+        "createdAt": "2026-08-25T08:58:16.060Z"
+      },
+      {
+        "name": "Vinay Khatri",
+        "rating": 4,
+        "title": "Nice finish and design",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Packing was very neat and safe.",
+        "dateStr": "Yesterday",
+        "likes": 136,
+        "dislikes": 3,
+        "createdAt": "2026-02-04T08:58:16.060Z"
+      },
+      {
+        "name": "Bhavna Chawla",
+        "rating": 3,
+        "title": "Nice finish and design",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid.",
+        "dateStr": "10 months ago",
+        "likes": 81,
+        "dislikes": 2,
+        "createdAt": "2026-03-03T08:58:16.060Z"
+      },
+      {
+        "name": "Ganesh Murthy",
+        "rating": 4,
+        "title": "Awesome experience",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Happy with the product quality.",
+        "dateStr": "10 months ago",
+        "likes": 84,
+        "dislikes": 2,
+        "createdAt": "2026-01-19T08:58:16.060Z"
+      },
+      {
+        "name": "Farhan Akhtar",
+        "rating": 5,
+        "title": "Smooth performance",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Ekart delivery was super fast.",
+        "dateStr": "2 months ago",
+        "likes": 145,
+        "dislikes": 0,
+        "createdAt": "2026-08-21T08:58:16.060Z"
+      },
+      {
+        "name": "Rahul Sharma",
+        "rating": 5,
+        "title": "Highly durable",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Value for money purchase.",
+        "dateStr": "1 month ago",
+        "likes": 35,
+        "dislikes": 0,
+        "createdAt": "2026-06-09T08:58:16.060Z"
+      },
+      {
+        "name": "Vishal Pandey",
+        "rating": 4,
+        "title": "Mind-blowing purchase",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Value for money purchase.",
+        "dateStr": "4 days ago",
+        "likes": 86,
+        "dislikes": 1,
+        "createdAt": "2026-01-03T08:58:16.060Z"
+      },
+      {
+        "name": "Rupali Salunkhe",
+        "rating": 5,
+        "title": "Does the job well",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Highly satisfied with Flipkart Assured.",
+        "dateStr": "6 months ago",
+        "likes": 50,
+        "dislikes": 3,
+        "createdAt": "2026-10-06T08:58:16.060Z"
+      },
+      {
+        "name": "Pooja Nair",
+        "rating": 5,
+        "title": "Best in the segment",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Value for money purchase.",
+        "dateStr": "11 months ago",
+        "likes": 116,
+        "dislikes": 0,
+        "createdAt": "2026-02-02T08:58:16.060Z"
+      },
+      {
+        "name": "Lavanya Krishnan",
+        "rating": 5,
+        "title": "Top notch quality",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Packing was very neat and safe.",
+        "dateStr": "4 weeks ago",
+        "likes": 65,
+        "dislikes": 2,
+        "createdAt": "2026-10-27T08:58:16.060Z"
+      },
+      {
+        "name": "Pooja Sundaram",
+        "rating": 5,
+        "title": "Best purchase of the year",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Must buy at this price point.",
+        "dateStr": "1 month ago",
+        "likes": 119,
+        "dislikes": 1,
+        "createdAt": "2026-07-08T08:58:16.060Z"
+      },
+      {
+        "name": "Smita Patil",
+        "rating": 5,
+        "title": "Value-for-money",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast.",
+        "dateStr": "6 days ago",
+        "likes": 92,
+        "dislikes": 2,
+        "createdAt": "2026-11-07T08:58:16.060Z"
+      },
+      {
+        "name": "Nandini Ghosh",
+        "rating": 5,
+        "title": "Impressive build",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Must buy at this price point.",
+        "dateStr": "10 months ago",
+        "likes": 36,
+        "dislikes": 3,
+        "createdAt": "2026-07-23T08:58:16.060Z"
+      },
+      {
+        "name": "Gautam Mathur",
+        "rating": 5,
+        "title": "Great choice",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Packing was very neat and safe.",
+        "dateStr": "4 days ago",
+        "likes": 22,
+        "dislikes": 3,
+        "createdAt": "2026-02-23T08:58:16.060Z"
+      },
+      {
+        "name": "Tushar Barot",
+        "rating": 5,
+        "title": "Does the job well",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Value for money purchase.",
+        "dateStr": "10 months ago",
+        "likes": 146,
+        "dislikes": 1,
+        "createdAt": "2026-01-12T08:58:16.060Z"
+      },
+      {
+        "name": "Shalini Nair",
+        "rating": 5,
+        "title": "Very good product",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Recommended to all my friends.",
+        "dateStr": "8 months ago",
+        "likes": 35,
+        "dislikes": 1,
+        "createdAt": "2026-10-07T08:58:16.060Z"
+      },
+      {
+        "name": "Arun Varma",
+        "rating": 5,
+        "title": "Exceeded expectations",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Must buy at this price point.",
+        "dateStr": "3 weeks ago",
+        "likes": 103,
+        "dislikes": 2,
+        "createdAt": "2026-06-25T08:58:16.060Z"
+      },
+      {
+        "name": "Pranav Deshmukh",
+        "rating": 5,
+        "title": "Compact and powerful",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "6 months ago",
+        "likes": 55,
+        "dislikes": 2,
+        "createdAt": "2026-08-08T08:58:16.060Z"
+      },
+      {
+        "name": "Vikram Rathore",
+        "rating": 5,
+        "title": "Value-for-money",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Highly satisfied with Flipkart Assured.",
+        "dateStr": "4 days ago",
+        "likes": 104,
+        "dislikes": 0,
+        "createdAt": "2026-04-11T08:58:16.060Z"
+      },
+      {
+        "name": "Ishita Banerjee",
+        "rating": 5,
+        "title": "Must buy!",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Recommended to all my friends.",
+        "dateStr": "11 months ago",
+        "likes": 41,
+        "dislikes": 0,
+        "createdAt": "2026-04-24T08:58:16.060Z"
+      },
+      {
+        "name": "Mohit Singhania",
+        "rating": 5,
+        "title": "Simply awesome",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Value for money purchase.",
+        "dateStr": "8 months ago",
+        "likes": 48,
+        "dislikes": 1,
+        "createdAt": "2026-06-11T08:58:16.060Z"
+      },
+      {
+        "name": "Kunal Shinde",
+        "rating": 4,
+        "title": "Love this product",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Highly satisfied with Flipkart Assured.",
+        "dateStr": "2 weeks ago",
+        "likes": 45,
+        "dislikes": 0,
+        "createdAt": "2025-12-31T08:58:16.060Z"
+      },
+      {
+        "name": "Naveen Jindal",
+        "rating": 5,
+        "title": "Good product",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Must buy at this price point.",
+        "dateStr": "3 weeks ago",
+        "likes": 62,
+        "dislikes": 1,
+        "createdAt": "2026-03-01T08:58:16.060Z"
+      },
+      {
+        "name": "Uday Kiran",
+        "rating": 5,
+        "title": "Top notch quality",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Must buy at this price point.",
+        "dateStr": "4 months ago",
+        "likes": 72,
+        "dislikes": 3,
+        "createdAt": "2026-01-20T08:58:16.060Z"
+      },
+      {
+        "name": "Sameer Qureshi",
+        "rating": 4,
+        "title": "Exceptional quality",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Packing was very neat and safe.",
+        "dateStr": "1 year ago",
+        "likes": 144,
+        "dislikes": 1,
+        "createdAt": "2025-12-28T08:58:16.060Z"
+      },
+      {
+        "name": "Akash Gupta",
+        "rating": 4,
+        "title": "Delivered on time",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Highly satisfied with Flipkart Assured.",
+        "dateStr": "7 months ago",
+        "likes": 49,
+        "dislikes": 1,
+        "createdAt": "2026-10-23T08:58:16.060Z"
+      },
+      {
+        "name": "Amit Kulkarni",
+        "rating": 5,
+        "title": "Nice finish and design",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Recommended to all my friends.",
+        "dateStr": "3 weeks ago",
+        "likes": 44,
+        "dislikes": 0,
+        "createdAt": "2025-12-31T08:58:16.060Z"
+      },
+      {
+        "name": "Mayank Grover",
+        "rating": 5,
+        "title": "Fabulous!",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Highly satisfied with Flipkart Assured.",
+        "dateStr": "2 days ago",
+        "likes": 127,
+        "dislikes": 1,
+        "createdAt": "2026-10-22T08:58:16.060Z"
+      },
+      {
+        "name": "Aparna Namboodiri",
+        "rating": 5,
+        "title": "Good deal at this price",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Value for money purchase.",
+        "dateStr": "6 months ago",
+        "likes": 152,
+        "dislikes": 0,
+        "createdAt": "2026-04-05T08:58:16.060Z"
+      },
+      {
+        "name": "Komal Agnihotri",
+        "rating": 5,
+        "title": "Terrific purchase",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Ekart delivery was super fast.",
+        "dateStr": "2 months ago",
+        "likes": 26,
+        "dislikes": 0,
+        "createdAt": "2026-10-17T08:58:16.060Z"
+      },
+      {
+        "name": "Rashmi Tripathy",
+        "rating": 4,
+        "title": "Fabulous!",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Recommended to all my friends.",
+        "dateStr": "2 months ago",
+        "likes": 59,
+        "dislikes": 0,
+        "createdAt": "2026-05-29T08:58:16.060Z"
+      },
+      {
+        "name": "Abhishek Dubey",
+        "rating": 5,
+        "title": "Great Flipkart offer",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Happy with the product quality.",
+        "dateStr": "4 days ago",
+        "likes": 130,
+        "dislikes": 2,
+        "createdAt": "2026-10-20T08:58:16.060Z"
+      },
+      {
+        "name": "Tanvi Joshi",
+        "rating": 5,
+        "title": "Brilliant product",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "9 months ago",
+        "likes": 71,
+        "dislikes": 0,
+        "createdAt": "2026-08-15T08:58:16.060Z"
+      },
+      {
+        "name": "Shweta Rathi",
+        "rating": 5,
+        "title": "Perfect purchase",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive.",
+        "dateStr": "3 months ago",
+        "likes": 106,
+        "dislikes": 1,
+        "createdAt": "2026-09-15T08:58:16.060Z"
+      },
+      {
+        "name": "Megha Kapoor",
+        "rating": 5,
+        "title": "Good product",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Happy with the product quality.",
+        "dateStr": "6 months ago",
+        "likes": 35,
+        "dislikes": 1,
+        "createdAt": "2026-01-10T08:58:16.060Z"
+      },
+      {
+        "name": "Rohan Malhotra",
+        "rating": 5,
+        "title": "Best purchase of the year",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Recommended to all my friends.",
+        "dateStr": "10 months ago",
+        "likes": 141,
+        "dislikes": 1,
+        "createdAt": "2026-07-24T08:58:16.060Z"
+      },
+      {
+        "name": "Payal Dhingra",
+        "rating": 5,
+        "title": "Excellent daily driver",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. 10/10 purchase experience.",
+        "dateStr": "2 weeks ago",
+        "likes": 143,
+        "dislikes": 0,
+        "createdAt": "2026-07-29T08:58:16.060Z"
+      },
+      {
+        "name": "Malini Iyer",
+        "rating": 5,
+        "title": "Simply awesome",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. 10/10 purchase experience.",
+        "dateStr": "3 weeks ago",
+        "likes": 109,
+        "dislikes": 0,
+        "createdAt": "2026-08-22T08:58:16.060Z"
+      },
+      {
+        "name": "Sanjay Choudhary",
+        "rating": 5,
+        "title": "Smooth performance",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Recommended to all my friends.",
+        "dateStr": "4 days ago",
+        "likes": 74,
+        "dislikes": 3,
+        "createdAt": "2025-12-28T08:58:16.060Z"
+      },
+      {
+        "name": "Kartik Mishra",
+        "rating": 5,
+        "title": "Good product",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Packing was very neat and safe.",
+        "dateStr": "Yesterday",
+        "likes": 17,
+        "dislikes": 3,
+        "createdAt": "2025-11-18T08:58:16.060Z"
+      },
+      {
+        "name": "Leena Vaidya",
+        "rating": 5,
+        "title": "Simply awesome",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Recommended to all my friends.",
+        "dateStr": "2 months ago",
+        "likes": 55,
+        "dislikes": 3,
+        "createdAt": "2026-04-08T08:58:16.060Z"
+      },
+      {
+        "name": "Sumit Rawat",
+        "rating": 5,
+        "title": "Worth every penny",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Value for money purchase.",
+        "dateStr": "1 month ago",
+        "likes": 155,
+        "dislikes": 3,
+        "createdAt": "2026-03-30T08:58:16.060Z"
+      },
+      {
+        "name": "Aniruddh Sen",
+        "rating": 5,
+        "title": "Fabulous!",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Value for money purchase.",
+        "dateStr": "4 weeks ago",
+        "likes": 19,
+        "dislikes": 1,
+        "createdAt": "2026-09-08T08:58:16.060Z"
+      },
+      {
+        "name": "Archana Natarajan",
+        "rating": 5,
+        "title": "Compact and powerful",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Highly satisfied with Flipkart Assured.",
+        "dateStr": "5 months ago",
+        "likes": 97,
+        "dislikes": 3,
+        "createdAt": "2026-09-03T08:58:16.060Z"
+      },
+      {
+        "name": "Venkatesh Rao",
+        "rating": 5,
+        "title": "Satisfied with purchase",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. 10/10 purchase experience.",
+        "dateStr": "1 month ago",
+        "likes": 128,
+        "dislikes": 1,
+        "createdAt": "2026-01-01T08:58:16.060Z"
+      },
+      {
+        "name": "Tanya Singhal",
+        "rating": 4,
+        "title": "Value-for-money",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Highly satisfied with Flipkart Assured.",
+        "dateStr": "4 weeks ago",
+        "likes": 37,
+        "dislikes": 0,
+        "createdAt": "2026-09-07T08:58:16.060Z"
+      },
+      {
+        "name": "Ananya Sengupta",
+        "rating": 5,
+        "title": "Ekart delivery was super fast",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. 10/10 purchase experience.",
+        "dateStr": "4 months ago",
+        "likes": 32,
+        "dislikes": 3,
+        "createdAt": "2026-04-15T08:58:16.060Z"
+      },
+      {
+        "name": "Anjali Yadav",
+        "rating": 5,
+        "title": "Awesome experience",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp.",
+        "dateStr": "10 months ago",
+        "likes": 144,
+        "dislikes": 1,
+        "createdAt": "2026-10-01T08:58:16.060Z"
+      },
+      {
+        "name": "Neha Verma",
+        "rating": 5,
+        "title": "Great Flipkart offer",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Recommended to all my friends.",
+        "dateStr": "4 days ago",
+        "likes": 81,
+        "dislikes": 3,
+        "createdAt": "2026-07-07T08:58:16.060Z"
+      },
+      {
+        "name": "Simran Kaur",
+        "rating": 5,
+        "title": "Exceeded expectations",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Recommended to all my friends.",
+        "dateStr": "4 days ago",
+        "likes": 60,
+        "dislikes": 1,
+        "createdAt": "2026-02-15T08:58:16.060Z"
+      }
+    ],
+    "numOfReviews": 57,
+    "ratings": 4.8,
+    "featureRatings": [
+      {
+        "name": "Product Quality",
+        "rating": 4.7
+      },
+      {
+        "name": "Build & Finish",
+        "rating": 4.8
+      },
+      {
+        "name": "Performance",
+        "rating": 4.7
+      },
+      {
+        "name": "Value for Money",
+        "rating": 4.6
+      }
+    ],
+    "createdAt": "2026-11-10T08:58:16.061Z"
+  },
+  {
+    "_id": "prod_1794300892211",
+    "name": "Apple iPhone 16 Pro Max 256GB Desert Titanium",
+    "description": "A18 Pro chip, 48MP Fusion camera system, Grade 5 Titanium design",
+    "price": 129900,
+    "cuttedPrice": 144900,
+    "category": "Mobiles",
+    "stock": 12,
+    "images": [
+      {
+        "public_id": "prod_img_1794300892211_0",
+        "url": "/assets/products/iphone16.jpg"
+      }
+    ],
+    "brand": {
+      "name": "Flipkart Assured",
+      "logo": {
+        "public_id": "brand_logo_1794300892211",
+        "url": "https://rukminim1.flixcart.com/www/100/100/promos/01/07/2019/335606d2-6421-4d37-8339-ff741b65df02.png"
+      }
+    },
+    "user": "6aed72e68942b29e450d6a48",
+    "specifications": [],
+    "highlights": [
+      "100% Genuine Certified Product",
+      "Flipkart Assured Quality",
+      "7 Days Replacement Guarantee"
+    ],
+    "reviews": [
+      {
+        "name": "Swati Mukherjee",
+        "rating": 3,
+        "title": "Great choice",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "4 weeks ago",
+        "likes": 27,
+        "dislikes": 3,
+        "createdAt": "2026-02-11T08:54:52.211Z"
+      },
+      {
+        "name": "Shikha Srivastava",
+        "rating": 5,
+        "title": "Mind-blowing purchase",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "5 months ago",
+        "likes": 130,
+        "dislikes": 1,
+        "createdAt": "2025-12-19T08:54:52.211Z"
+      },
+      {
+        "name": "Tanya Singhal",
+        "rating": 5,
+        "title": "Perfect purchase",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Packing was very neat and safe.",
+        "dateStr": "5 months ago",
+        "likes": 113,
+        "dislikes": 3,
+        "createdAt": "2026-09-08T08:54:52.211Z"
+      },
+      {
+        "name": "Rahul Sharma",
+        "rating": 3,
+        "title": "Top notch quality",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Must buy at this price point.",
+        "dateStr": "6 days ago",
+        "likes": 82,
+        "dislikes": 0,
+        "createdAt": "2026-03-28T08:54:52.211Z"
+      },
+      {
+        "name": "Priya Patel",
+        "rating": 5,
+        "title": "Excellent daily driver",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Value for money purchase.",
+        "dateStr": "8 months ago",
+        "likes": 142,
+        "dislikes": 1,
+        "createdAt": "2026-09-14T08:54:52.211Z"
+      },
+      {
+        "name": "Tanvi Joshi",
+        "rating": 5,
+        "title": "Ekart delivery was super fast",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Recommended to all my friends.",
+        "dateStr": "4 weeks ago",
+        "likes": 108,
+        "dislikes": 0,
+        "createdAt": "2026-09-20T08:54:52.211Z"
+      },
+      {
+        "name": "Bhavik Shah",
+        "rating": 5,
+        "title": "Best in the segment",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Value for money purchase.",
+        "dateStr": "11 months ago",
+        "likes": 43,
+        "dislikes": 2,
+        "createdAt": "2025-12-31T08:54:52.211Z"
+      },
+      {
+        "name": "Harshavardhan Rao",
+        "rating": 5,
+        "title": "Fabulous!",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Happy with the product quality.",
+        "dateStr": "10 months ago",
+        "likes": 19,
+        "dislikes": 1,
+        "createdAt": "2026-09-15T08:54:52.211Z"
+      },
+      {
+        "name": "Rekha Balakrishnan",
+        "rating": 5,
+        "title": "Exceeded expectations",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Must buy at this price point.",
+        "dateStr": "11 months ago",
+        "likes": 73,
+        "dislikes": 2,
+        "createdAt": "2026-11-07T08:54:52.211Z"
+      },
+      {
+        "name": "Mayank Grover",
+        "rating": 5,
+        "title": "Good deal at this price",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Packing was very neat and safe.",
+        "dateStr": "4 weeks ago",
+        "likes": 106,
+        "dislikes": 3,
+        "createdAt": "2025-12-09T08:54:52.211Z"
+      },
+      {
+        "name": "Vandana Maurya",
+        "rating": 5,
+        "title": "Value-for-money",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box.",
+        "dateStr": "2 months ago",
+        "likes": 149,
+        "dislikes": 2,
+        "createdAt": "2026-08-22T08:54:52.211Z"
+      },
+      {
+        "name": "Pranav Deshmukh",
+        "rating": 5,
+        "title": "Delivered on time",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Ekart delivery was super fast.",
+        "dateStr": "10 months ago",
+        "likes": 46,
+        "dislikes": 2,
+        "createdAt": "2026-04-23T08:54:52.211Z"
+      },
+      {
+        "name": "Rupali Salunkhe",
+        "rating": 5,
+        "title": "Ekart delivery was super fast",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Ekart delivery was super fast.",
+        "dateStr": "3 months ago",
+        "likes": 80,
+        "dislikes": 3,
+        "createdAt": "2026-03-06T08:54:52.211Z"
+      },
+      {
+        "name": "Farhan Akhtar",
+        "rating": 5,
+        "title": "Worth every penny",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Ekart delivery was super fast.",
+        "dateStr": "5 months ago",
+        "likes": 38,
+        "dislikes": 1,
+        "createdAt": "2026-02-07T08:54:52.211Z"
+      },
+      {
+        "name": "Kavita Mehra",
+        "rating": 5,
+        "title": "Ekart delivery was super fast",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Highly satisfied with Flipkart Assured.",
+        "dateStr": "2 months ago",
+        "likes": 37,
+        "dislikes": 0,
+        "createdAt": "2026-07-07T08:54:52.211Z"
+      },
+      {
+        "name": "Ritu Chauhan",
+        "rating": 5,
+        "title": "Delivered on time",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "10 months ago",
+        "likes": 58,
+        "dislikes": 2,
+        "createdAt": "2026-06-29T08:54:52.211Z"
+      },
+      {
+        "name": "Pradeep Naidu",
+        "rating": 4,
+        "title": "Terrific purchase",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Recommended to all my friends.",
+        "dateStr": "4 days ago",
+        "likes": 55,
+        "dislikes": 2,
+        "createdAt": "2026-04-07T08:54:52.211Z"
+      },
+      {
+        "name": "Abhishek Dubey",
+        "rating": 5,
+        "title": "Mind-blowing purchase",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Packing was very neat and safe.",
+        "dateStr": "2 weeks ago",
+        "likes": 38,
+        "dislikes": 1,
+        "createdAt": "2026-04-12T08:54:52.211Z"
+      },
+      {
+        "name": "Pankaj Jain",
+        "rating": 3,
+        "title": "Fabulous!",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp.",
+        "dateStr": "4 weeks ago",
+        "likes": 59,
+        "dislikes": 1,
+        "createdAt": "2026-08-03T08:54:52.211Z"
+      },
+      {
+        "name": "Nandini Ghosh",
+        "rating": 5,
+        "title": "Satisfied with purchase",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. 10/10 purchase experience.",
+        "dateStr": "8 months ago",
+        "likes": 40,
+        "dislikes": 1,
+        "createdAt": "2026-06-28T08:54:52.211Z"
+      },
+      {
+        "name": "Payal Dhingra",
+        "rating": 5,
+        "title": "Nice finish and design",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. 10/10 purchase experience.",
+        "dateStr": "2 months ago",
+        "likes": 47,
+        "dislikes": 2,
+        "createdAt": "2025-12-30T08:54:52.211Z"
+      },
+      {
+        "name": "Pallavi Hegde",
+        "rating": 4,
+        "title": "Good deal at this price",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. 10/10 purchase experience.",
+        "dateStr": "1 year ago",
+        "likes": 15,
+        "dislikes": 1,
+        "createdAt": "2026-06-11T08:54:52.211Z"
+      },
+      {
+        "name": "Chirag Sethi",
+        "rating": 5,
+        "title": "Simply awesome",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Value for money purchase.",
+        "dateStr": "6 months ago",
+        "likes": 46,
+        "dislikes": 0,
+        "createdAt": "2026-02-27T08:54:52.211Z"
+      },
+      {
+        "name": "Kunal Shinde",
+        "rating": 5,
+        "title": "Smooth performance",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Recommended to all my friends.",
+        "dateStr": "3 weeks ago",
+        "likes": 110,
+        "dislikes": 3,
+        "createdAt": "2026-05-26T08:54:52.211Z"
+      },
+      {
+        "name": "Brijesh Yadav",
+        "rating": 5,
+        "title": "Worth every penny",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Highly satisfied with Flipkart Assured.",
+        "dateStr": "4 months ago",
+        "likes": 136,
+        "dislikes": 1,
+        "createdAt": "2026-03-03T08:54:52.211Z"
+      },
+      {
+        "name": "Ganesh Murthy",
+        "rating": 5,
+        "title": "Impressive build",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Happy with the product quality.",
+        "dateStr": "2 days ago",
+        "likes": 36,
+        "dislikes": 2,
+        "createdAt": "2026-09-24T08:54:52.211Z"
+      },
+      {
+        "name": "Sarita Tomar",
+        "rating": 5,
+        "title": "Super quality",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Must buy at this price point.",
+        "dateStr": "1 week ago",
+        "likes": 17,
+        "dislikes": 1,
+        "createdAt": "2026-02-06T08:54:52.211Z"
+      },
+      {
+        "name": "Arun Varma",
+        "rating": 5,
+        "title": "Perfect purchase",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Highly satisfied with Flipkart Assured.",
+        "dateStr": "7 months ago",
+        "likes": 15,
+        "dislikes": 2,
+        "createdAt": "2026-09-27T08:54:52.211Z"
+      },
+      {
+        "name": "Ashish Saxena",
+        "rating": 5,
+        "title": "Perfect purchase",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Highly satisfied with Flipkart Assured.",
+        "dateStr": "2 weeks ago",
+        "likes": 75,
+        "dislikes": 3,
+        "createdAt": "2026-04-24T08:54:52.211Z"
+      },
+      {
+        "name": "Shreya Goswami",
+        "rating": 4,
+        "title": "Great Flipkart offer",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Packing was very neat and safe.",
+        "dateStr": "5 months ago",
+        "likes": 89,
+        "dislikes": 2,
+        "createdAt": "2026-01-15T08:54:52.211Z"
+      },
+      {
+        "name": "Uday Kiran",
+        "rating": 4,
+        "title": "Good deal at this price",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Ekart delivery was super fast.",
+        "dateStr": "11 months ago",
+        "likes": 145,
+        "dislikes": 0,
+        "createdAt": "2026-10-10T08:54:52.211Z"
+      },
+      {
+        "name": "Devendra Lodha",
+        "rating": 4,
+        "title": "Exceptional quality",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Packing was very neat and safe.",
+        "dateStr": "2 months ago",
+        "likes": 15,
+        "dislikes": 0,
+        "createdAt": "2026-03-10T08:54:52.211Z"
+      },
+      {
+        "name": "Naveen Jindal",
+        "rating": 5,
+        "title": "Good deal at this price",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. 10/10 purchase experience.",
+        "dateStr": "1 year ago",
+        "likes": 16,
+        "dislikes": 0,
+        "createdAt": "2025-12-18T08:54:52.211Z"
+      },
+      {
+        "name": "Alok Sengupta",
+        "rating": 5,
+        "title": "Exceeded expectations",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Recommended to all my friends.",
+        "dateStr": "1 week ago",
+        "likes": 27,
+        "dislikes": 0,
+        "createdAt": "2026-04-06T08:54:52.211Z"
+      },
+      {
+        "name": "Akash Gupta",
+        "rating": 4,
+        "title": "Classy product",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Highly satisfied with Flipkart Assured.",
+        "dateStr": "4 days ago",
+        "likes": 103,
+        "dislikes": 1,
+        "createdAt": "2026-10-27T08:54:52.211Z"
+      },
+      {
+        "name": "Shweta Rathi",
+        "rating": 5,
+        "title": "Best in the segment",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Highly satisfied with Flipkart Assured.",
+        "dateStr": "6 months ago",
+        "likes": 99,
+        "dislikes": 2,
+        "createdAt": "2026-04-27T08:54:52.211Z"
+      },
+      {
+        "name": "Neha Verma",
+        "rating": 3,
+        "title": "Very comfortable",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "3 months ago",
+        "likes": 109,
+        "dislikes": 0,
+        "createdAt": "2026-06-25T08:54:52.211Z"
+      },
+      {
+        "name": "Archana Natarajan",
+        "rating": 5,
+        "title": "Nice finish and design",
+        "comment": "Received within 24 hours via Flipkart Assured delivery. 100% genuine sealed box. Recommended to all my friends.",
+        "dateStr": "1 year ago",
+        "likes": 86,
+        "dislikes": 2,
+        "createdAt": "2025-11-20T08:54:52.211Z"
+      },
+      {
+        "name": "Geeta Sundar",
+        "rating": 5,
+        "title": "Delivered on time",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Highly satisfied with Flipkart Assured.",
+        "dateStr": "9 months ago",
+        "likes": 72,
+        "dislikes": 2,
+        "createdAt": "2026-01-04T08:54:52.211Z"
+      },
+      {
+        "name": "Manish Tiwari",
+        "rating": 5,
+        "title": "Value-for-money",
+        "comment": "Battery backup easily lasts 1.5 days on normal to heavy usage. 5G speeds are blazing fast. Must buy at this price point.",
+        "dateStr": "5 months ago",
+        "likes": 73,
+        "dislikes": 2,
+        "createdAt": "2026-01-26T08:54:52.211Z"
+      },
+      {
+        "name": "Siddharth Das",
+        "rating": 5,
+        "title": "Genuine quality product",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. 10/10 purchase experience.",
+        "dateStr": "4 months ago",
+        "likes": 94,
+        "dislikes": 0,
+        "createdAt": "2026-09-26T08:54:52.211Z"
+      },
+      {
+        "name": "Aniruddh Sen",
+        "rating": 5,
+        "title": "Super quality",
+        "comment": "Display is vibrant and crisp even under direct sunlight. Scrolling and animations are super fluid. Must buy at this price point.",
+        "dateStr": "3 months ago",
+        "likes": 43,
+        "dislikes": 1,
+        "createdAt": "2026-02-28T08:54:52.211Z"
+      },
+      {
+        "name": "Asha Narayanan",
+        "rating": 4,
+        "title": "Classy product",
+        "comment": "Camera captures natural skin tones and rich colors in daylight. Night mode photos are also sharp. Highly satisfied with Flipkart Assured.",
+        "dateStr": "2 months ago",
+        "likes": 57,
+        "dislikes": 2,
+        "createdAt": "2026-04-23T08:54:52.211Z"
+      },
+      {
+        "name": "Omkar Bhave",
+        "rating": 5,
+        "title": "Ekart delivery was super fast",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Recommended to all my friends.",
+        "dateStr": "3 months ago",
+        "likes": 57,
+        "dislikes": 0,
+        "createdAt": "2026-08-13T08:54:52.211Z"
+      },
+      {
+        "name": "Suresh Menon",
+        "rating": 3,
+        "title": "Simply awesome",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Ekart delivery was super fast.",
+        "dateStr": "6 months ago",
+        "likes": 150,
+        "dislikes": 2,
+        "createdAt": "2026-06-20T08:54:52.211Z"
+      },
+      {
+        "name": "Dinesh Prabhu",
+        "rating": 5,
+        "title": "Impressive build",
+        "comment": "Fast charger in box charges phone from 10% to 80% in about 35 minutes. Truly impressive. Must buy at this price point.",
+        "dateStr": "2 months ago",
+        "likes": 126,
+        "dislikes": 0,
+        "createdAt": "2026-07-07T08:54:52.211Z"
+      },
+      {
+        "name": "Aditya Verma",
+        "rating": 5,
+        "title": "Excellent daily driver",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Value for money purchase.",
+        "dateStr": "9 months ago",
+        "likes": 113,
+        "dislikes": 2,
+        "createdAt": "2026-09-04T08:54:52.211Z"
+      },
+      {
+        "name": "Nikhil Pillai",
+        "rating": 5,
+        "title": "Good deal at this price",
+        "comment": "Phone feels very slim and lightweight in hands. Premium finish on the back panel. Value for money purchase.",
+        "dateStr": "3 weeks ago",
+        "likes": 112,
+        "dislikes": 1,
+        "createdAt": "2026-05-15T08:54:52.211Z"
+      }
+    ],
+    "numOfReviews": 48,
+    "ratings": 4.6,
+    "featureRatings": [
+      {
+        "name": "Product Quality",
+        "rating": 4.6
+      },
+      {
+        "name": "Build & Finish",
+        "rating": 4.7
+      },
+      {
+        "name": "Performance",
+        "rating": 4.9
+      },
+      {
+        "name": "Value for Money",
+        "rating": 4.9
+      }
+    ],
+    "createdAt": "2026-11-10T08:54:52.211Z"
+  },
+  {
     "brand": {
       "logo": {
         "public_id": "brand_one_amore",

@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f1f3f6;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Hide scrollbars across Chrome, Safari, Edge, Firefox */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar,
+*::-webkit-scrollbar.no-scrollbar,
+*::-webkit-scrollbar.scrollbar-none {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  /* IE and Edge */
+  scrollbar-width: none !important;
+  /* Firefox */
+}
+
+/* Infinite Smooth Banner Loop Moving Right in Slow Phase */
+@keyframes bannerLoopRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.interactive-banner-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+
+/* Universal 2-Line Product Title Clamp with Ellipsis & Zero Overlay */
+.product-title-clamp,
+.line-clamp-2 {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 17px !important;
+  max-height: 34px !important;
+  word-break: break-word !important;
+}
+
+/* hover navbar dropdown arrow */
+.arrow_down {
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 11px solid #fff;
+}
+
+/* login signup sidebar bg image */
+.loginSidebar {
+  background-image: url("https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png");
+  background-position: center 85%;
+  background-repeat: no-repeat;
+}
