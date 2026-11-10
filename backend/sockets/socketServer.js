@@ -26,7 +26,7 @@ function initSocketServer(server) {
                 origin: (origin, callback) => {
                     // Allow requests with no origin (mobile apps, curl) or any allowed domain
                     if (!origin) return callback(null, true);
-                    if (allowedOrigins.includes(origin) || origin.includes('localhost') || origin.includes('vercel.app')) {
+                    if (allowedOrigins.includes(origin) || origin.includes('rangastore.shop') || origin.includes('localhost') || origin.includes('vercel.app')) {
                         return callback(null, true);
                     }
                     return callback(null, true); // Permissive in dev/production with credentials

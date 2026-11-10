@@ -131,11 +131,11 @@ async function runLiveDeploymentReadinessCheck() {
         console.log('\n[CHECK 5]: Verifying Cross-Domain Socket.IO Handshake...');
         customerSocket = ClientIO(BASE_URL, {
             transports: ['websocket'],
-            extraHeaders: { origin: 'https://yourdomain.com' }
+            extraHeaders: { origin: 'https://rangastore.shop' }
         });
         adminSocket = ClientIO(BASE_URL, {
             transports: ['websocket'],
-            extraHeaders: { origin: 'https://admin.yourdomain.com' }
+            extraHeaders: { origin: 'https://admin.rangastore.shop' }
         });
 
         await Promise.all([

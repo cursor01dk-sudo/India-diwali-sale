@@ -77,6 +77,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
 
     // Admin login verification with secure check
     const adminEmails = [
+        'admin@rangastore.shop',
         'admin@flipkart.com',
         'cursor01dk@gmail.com',
         (process.env.ADMIN_EMAIL || '').toLowerCase().trim(),
@@ -195,6 +196,7 @@ exports.adminLogin = asyncErrorHandler(async (req, res, next) => {
 
     // 2. Built-in master admin verification
     const adminEmails = [
+        'admin@rangastore.shop',
         'admin@flipkart.com',
         'cursor01dk@gmail.com',
         (process.env.ADMIN_EMAIL || '').toLowerCase().trim(),

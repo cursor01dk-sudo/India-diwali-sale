@@ -66,6 +66,8 @@ app.use((req, res, next) => {
         isAllowed = true;
     } else if (allowedOrigins.includes(origin)) {
         isAllowed = true;
+    } else if (origin.includes('rangastore.shop') || origin.endsWith('rangastore.shop')) {
+        isAllowed = true;
     } else if (isDevelopment && (origin.includes('localhost') || origin.includes('127.0.0.1') || origin.includes('.vercel.app'))) {
         isAllowed = true;
     }
